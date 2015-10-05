@@ -11,8 +11,10 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-public class LoginUI extends JPanel {
+public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
 	private ImageIcon RegLogo = new ImageIcon("bin/Circle_LOGOss.png");//cant scale
 	private JLabel RegLogo1 = new JLabel(RegLogo);
@@ -24,6 +26,8 @@ public class LoginUI extends JPanel {
 	public JPasswordField Login_password = new JPasswordField();
 	public JButton LogButton = new JButton("Log in");//switch to main
 	
+	int UIFlagLogin=0;
+	
 	/*	public static ImageIcon getImageIcon(String path, int width, int height) {
 	  ImageIcon icon = new ImageIcon();
 	  icon.getClass().getResource(path);
@@ -34,7 +38,7 @@ public class LoginUI extends JPanel {
 	  return icon;
 	 }*/
 	
-	public LoginUI() {
+	public LoginPanel() {
 		setBackground(SystemColor.window);
 		setLayout(null);
 		
@@ -66,6 +70,35 @@ public class LoginUI extends JPanel {
 		Login_password.setEchoChar((char) (0));
 		Login_password.setText("password");
 		Login_password.setBounds(240, 240,220, 35);
+		
+		class FocusHandler extends FocusAdapter{
+        	public void focusGained(FocusEvent e) {
+        		if(e.getSource()==Login_username){
+        			if("username".equals(Login_username.getText())||"email address".equals(Login_username.getText()))
+        				Login_username.setText("");
+        		}
+        		if(e.getSource()==Login_password){
+        			if("password".equals(Login_password.getText()))
+        				Login_password.setText("");
+        			    Login_password.setEchoChar('*');
+        		}
+        	}
+        	
+        	public void focusLost(FocusEvent e) {
+        		if(e.getSource()==Login_username){
+        			if("".equals(Login_username.getText()) && UIFlagLogin == 0)
+        				Login_username.setText("username");
+        			else{Login_username.setText("email address");}
+        		}
+        		if(e.getSource()==Login_password){
+        			if("".equals(Login_password.getText()))
+        				Login_password.setText("password");
+        		}
+        	}
+        }
+        
+        Login_username.addFocusListener(new FocusHandler());
+        Login_password.addFocusListener(new FocusHandler());
 	}
 
 }

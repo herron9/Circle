@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -19,9 +17,9 @@ public class CLayout {
 	public JFrame Circle = new JFrame("Circle");
 
 	JPanel panelCont = new JPanel();
-	LoginUI panelLog = new LoginUI();
-	RegisterUI panelReg = new RegisterUI();
-	MainmenuUI panelMain = new MainmenuUI();
+	LoginPanel panelLog = new LoginPanel();
+	RegisterPanel panelReg = new RegisterPanel();
+	MainLayout panelMain = new MainLayout();
 	
 	
 	CardLayout cl= new CardLayout();
@@ -49,33 +47,7 @@ public class CLayout {
          });
  
 
-        class FocusHandler extends FocusAdapter{
-        	public void focusGained(FocusEvent e) {
-        		if(e.getSource()==panelLog.Login_username){
-        			if("username".equals(panelLog.Login_username.getText()))
-        				panelLog.Login_username.setText("");
-        		}
-        		if(e.getSource()==panelLog.Login_password){
-        			if("password".equals(panelLog.Login_password.getText()))
-        				panelLog.Login_password.setText("");
-        			    panelLog.Login_password.setEchoChar('*');
-        		}
-        	}
-        	
-        	public void focusLost(FocusEvent e) {
-        		if(e.getSource()==panelLog.Login_username){
-        			if("".equals(panelLog.Login_username.getText()))
-        				panelLog.Login_username.setText("username");
-        		}
-        		if(e.getSource()==panelLog.Login_password){
-        			if("".equals(panelLog.Login_password.getText()))
-        				panelLog.Login_password.setText("password");
-        		}
-        	}
-        }
         
-        panelLog.Login_username.addFocusListener(new FocusHandler());
-        panelLog.Login_password.addFocusListener(new FocusHandler());
 	
 		cl.show(panelCont, "Log");
 		
