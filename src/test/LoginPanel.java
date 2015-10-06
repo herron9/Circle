@@ -13,6 +13,11 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 
 public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
@@ -21,12 +26,10 @@ public class LoginPanel extends JPanel {
 	public ImageIcon User = new ImageIcon("bin/avatar.png");//cant scale!
 	public JLabel UserIcon = new JLabel(User);
 	
-	public JTextField Login_username = new JTextField();
+	public static JTextField Login_username = new JTextField();
+	public static JPasswordField Login_password = new JPasswordField();
 	public JLabel lblRegister = new JLabel("Register");
-	public JPasswordField Login_password = new JPasswordField();
 	public JButton LogButton = new JButton("Log in");//switch to main
-	
-	int UIFlagLogin=0;
 	
 	/*	public static ImageIcon getImageIcon(String path, int width, int height) {
 	  ImageIcon icon = new ImageIcon();
@@ -74,7 +77,7 @@ public class LoginPanel extends JPanel {
 		class FocusHandler extends FocusAdapter{
         	public void focusGained(FocusEvent e) {
         		if(e.getSource()==Login_username){
-        			if("username".equals(Login_username.getText())||"email address".equals(Login_username.getText()))
+        			if("username".equals(Login_username.getText()))
         				Login_username.setText("");
         		}
         		if(e.getSource()==Login_password){
@@ -86,9 +89,8 @@ public class LoginPanel extends JPanel {
         	
         	public void focusLost(FocusEvent e) {
         		if(e.getSource()==Login_username){
-        			if("".equals(Login_username.getText()) && UIFlagLogin == 0)
+        			if("".equals(Login_username.getText()))
         				Login_username.setText("username");
-        			else{Login_username.setText("email address");}
         		}
         		if(e.getSource()==Login_password){
         			if("".equals(Login_password.getText()))
@@ -99,6 +101,28 @@ public class LoginPanel extends JPanel {
         
         Login_username.addFocusListener(new FocusHandler());
         Login_password.addFocusListener(new FocusHandler());
+        
+        lblRegister.addMouseListener(new MouseListener(){
+            public void  mouseClicked(MouseEvent e) {
+            	CLayout.cl.show(CLayout.panelCont, "Reg");
+             }
+             public void  mouseExited(MouseEvent e) {
+         		lblRegister.setForeground(Color.BLUE);
+             }
+             public void  mouseEntered(MouseEvent e) {
+            	lblRegister.setForeground(Color.MAGENTA);
+            	
+             }
+             public void  mouseReleased(MouseEvent e) { }
+             public void  mousePressed(MouseEvent e) { 
+             }
+         });
+        
+        LogButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				CLayout.cl.show(CLayout.panelCont, "Main");
+			}
+		});
 	}
 
 }

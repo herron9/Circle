@@ -10,8 +10,12 @@ import org.omg.CORBA.portable.InputStream;
 
 public class TestURL {
 	public static void main(String args[]) {
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/create-new-account?username=wenchaozhang@ufl.edu&password=123", "");
-		System.out.println(response);
+		
+		//String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"?username="+LoginPanel.Login_username+"&password="+LoginPanel.Login_password, "");
+		//System.out.println(response);
+		
+		
+		
 	}
 
 	public static String excutePost(String targetURL, String urlParameters) {
