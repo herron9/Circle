@@ -43,7 +43,8 @@ public class LoginPanel extends JPanel {
 	  icon.setImage().getImage().getScaledInstance(width, height,
 	    Image.SCALE_DEFAULT);
 	  return icon;
-	 }*/
+	 }
+	 */
 	
 	public LoginPanel() {
 		setBackground(SystemColor.window);
