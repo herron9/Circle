@@ -142,7 +142,7 @@ public class LoginPanel extends JPanel {
 				
 				operation="sign-in?";
             	LoginFunction.Login(operation,Login_username.getText(),Login_password.getText());
-            	
+            	JOptionPane.showMessageDialog(null,"The accessToken is:"+circleAccessToken);
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));

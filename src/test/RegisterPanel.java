@@ -46,8 +46,10 @@ public class RegisterPanel extends JPanel {
 		Regtitle.setBounds(230, 75, 280, 50);
 		RegLogo1.setBounds(140, 60, 80, 80);
 		UserIcon.setBounds(130, 176, 100, 100);// need PS
+		Register_username.setToolTipText("email address");
 		Register_username.setBounds(240, 180, 220, 35);
 		Register_username.setColumns(10);
+		Register_password.setToolTipText("password");
 		Register_password.setEchoChar((char) (0));
 		Register_password.setBounds(240, 240,220, 35);
 		Tip.setBounds(245, 252, 160, 20);
