@@ -17,6 +17,7 @@ public class CLayout {
 	public static JPanel panelCont = new JPanel();
 	public static LoginPanel panelLog = new LoginPanel();
 	public static RegisterPanel panelReg = new RegisterPanel();
+
 	
 	MainLayout panelMain = new MainLayout();
 

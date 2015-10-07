@@ -5,6 +5,7 @@ import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -60,6 +61,11 @@ public class RegisterPanel extends JPanel {
         				Register_password.setText("");
         			    Register_password.setEchoChar('*');
         		}
+        		if(("".equals(Register_password.getText()))|("password".equals(Register_password.getText()))){
+            	}
+            	else{
+            		Register_password.setEchoChar('*');
+            	}
         	}
         	
         	public void focusLost(FocusEvent e) {
@@ -71,6 +77,11 @@ public class RegisterPanel extends JPanel {
         			if("".equals(Register_password.getText()))
         				Register_password.setText("password");
         		}
+        		if(("".equals(Register_password.getText()))|("password".equals(Register_password.getText()))){
+            	}
+            	else{
+            		Register_password.setEchoChar('*');
+            	}
         	}
         }
         
@@ -78,15 +89,27 @@ public class RegisterPanel extends JPanel {
         Register_password.addFocusListener(new FocusHandler());
 		
 		RegButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){		
-				CLayout.cl.show(CLayout.panelCont, "Log");
-			}
+			public void actionPerformed(ActionEvent arg0){
+            	LoginPanel.operation="create-new-account?";
+            	LoginPanel.truefalse=LoginFunction.Test(LoginPanel.operation,Register_username.getText(),Register_password.getText());
+            	if(LoginPanel.truefalse==true){
+            		JOptionPane.showMessageDialog(null,"registration successful");
+            		CLayout.cl.show(CLayout.panelCont, "Log");
+            	}
+            	else{
+            		JOptionPane.showMessageDialog(null,"registration failed");
+            	}
+            	
+            	Register_username.setText("email address");
+            	Register_password.setText("password");
+            	Register_password.setEchoChar((char) (0));
+			}				
 		});
 		
-		
-		
-		
-
 	}
+	//may use later in chatting get userID
+	//LoginPanel.Login_username.setText("xxx");
+	//= Register_username;
+	
 
 }

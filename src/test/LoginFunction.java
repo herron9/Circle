@@ -8,15 +8,37 @@ import java.net.URL;
 
 import org.omg.CORBA.portable.InputStream;
 
-public class TestURL {
+public class LoginFunction {
 	public static void main(String args[]) {
 		
-		//String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"?username="+LoginPanel.Login_username+"&password="+LoginPanel.Login_password, "");
-		//System.out.println(response);
-		
-		
-		
 	}
+	
+	public static boolean Login(String operation,String username,String password) {
+		boolean login;
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
+		System.out.println(response);
+		  if(response.indexOf("true")!=-1){
+			  login=true;
+		  }
+		  else{
+			  login=false;
+		  }
+		return login;
+	}
+	
+	public static boolean Test(String operation,String username,String password) {
+		boolean register;
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
+		System.out.println(response);
+		  if(response.indexOf("true")!=-1){
+			  register=true;
+		  }
+		  else{
+			  register=false;
+		  }
+		return register;
+	}
+	
 
 	public static String excutePost(String targetURL, String urlParameters) {
 		HttpURLConnection connection = null;

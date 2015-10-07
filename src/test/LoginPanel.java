@@ -3,6 +3,7 @@ package test;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -30,6 +31,10 @@ public class LoginPanel extends JPanel {
 	public static JPasswordField Login_password = new JPasswordField();
 	public JLabel lblRegister = new JLabel("Register");
 	public JButton LogButton = new JButton("Log in");//switch to main
+	
+	public static String operation;
+	public static String circleAccessToken;
+	static boolean truefalse;
 	
 	/*	public static ImageIcon getImageIcon(String path, int width, int height) {
 	  ImageIcon icon = new ImageIcon();
@@ -73,6 +78,8 @@ public class LoginPanel extends JPanel {
 		Login_password.setEchoChar((char) (0));
 		Login_password.setText("password");
 		Login_password.setBounds(240, 240,220, 35);
+		
+		
 		
 		class FocusHandler extends FocusAdapter{
         	public void focusGained(FocusEvent e) {
@@ -120,9 +127,25 @@ public class LoginPanel extends JPanel {
         
         LogButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
-				CLayout.cl.show(CLayout.panelCont, "Main");
+				
+				operation="sign-in?";
+            	truefalse=LoginFunction.Login(operation,Login_username.getText(),Login_password.getText());
+            	if(truefalse==true){
+            		JOptionPane.showMessageDialog(null,"login successful");
+            		CLayout.cl.show(CLayout.panelCont, "Main");
+            	}
+            	else{
+            		JOptionPane.showMessageDialog(null,"login failed");
+            	}
+            	
+				Login_username.setText("username");
+            	Login_password.setText("password");
+            	Login_password.setEchoChar((char) (0));
 			}
 		});
 	}
 
+	
+	
+	
 }
