@@ -6,22 +6,40 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.swing.JOptionPane;
+
 import org.omg.CORBA.portable.InputStream;
 
-
-public class TestURL {	
-	public static boolean Test(String operation,String username,String password) {
-		boolean register;
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/create-new-account?username=wenchaozhang@ufl.edu&password=123","");
+public class LoginFunction {
+	public static void main(String args[]) {
+		
+	}
+	
+	public static void Login(String operation,String username,String password) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println(response);
-		  if(response.indexOf("True")!=-1){
-			  register=true;
+		  if(response.indexOf("true")!=-1){
+      		  JOptionPane.showMessageDialog(null,"login successful");
+          	  CLayout.cl.show(CLayout.panelCont, "Main");
 		  }
 		  else{
-			  register=false;
+      		  JOptionPane.showMessageDialog(null,"login failed");
 		  }
-		return register;
 	}
+	
+	public static void Test(String operation,String username,String password) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
+		System.out.println(response);
+		  if(response.indexOf("true")!=-1){
+      		  JOptionPane.showMessageDialog(null,"registration successful");
+          	  CLayout.cl.show(CLayout.panelCont, "Log");
+		  }
+		  else{
+      		  JOptionPane.showMessageDialog(null,"registration failed");
+
+		  }
+	}
+	
 
 	public static String excutePost(String targetURL, String urlParameters) {
 		HttpURLConnection connection = null;
