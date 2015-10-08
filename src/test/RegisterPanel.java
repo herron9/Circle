@@ -14,8 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+<<<<<<< HEAD
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+=======
+>>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
 
 public class RegisterPanel extends JPanel {
 
@@ -24,12 +27,20 @@ public class RegisterPanel extends JPanel {
 	public ImageIcon User = new ImageIcon("bin/avatar.png");//cant scale!
 	public JLabel UserIcon = new JLabel(User);
 	private JTextField Register_username = new JTextField("email address");
+<<<<<<< HEAD
 	private JPasswordField Register_password = new JPasswordField("password");
 	public JButton RegButton = new JButton("Register");//switch to main
 	JLabel Regtitle = new JLabel("Circle Register");
 	JLabel Tip = new JLabel("(more than 6 characters)");
 	boolean validate;
 	
+=======
+	private JPasswordField Register_password = new JPasswordField("password");;
+	public JButton RegButton = new JButton("Register");//switch to main
+	JLabel Regtitle = new JLabel("Circle Register");
+	JLabel Tip = new JLabel("(more than 6 characters)");
+
+>>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
 	public RegisterPanel() {
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -46,10 +57,15 @@ public class RegisterPanel extends JPanel {
 		Regtitle.setBounds(230, 75, 280, 50);
 		RegLogo1.setBounds(140, 60, 80, 80);
 		UserIcon.setBounds(130, 176, 100, 100);// need PS
+<<<<<<< HEAD
 		Register_username.setToolTipText("email address");
 		Register_username.setBounds(240, 180, 220, 35);
 		Register_username.setColumns(10);
 		Register_password.setToolTipText("password");
+=======
+		Register_username.setBounds(240, 180, 220, 35);
+		Register_username.setColumns(10);
+>>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
 		Register_password.setEchoChar((char) (0));
 		Register_password.setBounds(240, 240,220, 35);
 		Tip.setBounds(245, 252, 160, 20);
@@ -81,7 +97,10 @@ public class RegisterPanel extends JPanel {
         		if(e.getSource()==Register_password){
         			if("".equals(Register_password.getText()))
         				Register_password.setText("password");
+<<<<<<< HEAD
         				Register_password.setEchoChar((char) (0));
+=======
+>>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
         		}
         		if(("".equals(Register_password.getText()))|("password".equals(Register_password.getText()))){
             	}
@@ -96,6 +115,7 @@ public class RegisterPanel extends JPanel {
 		
 		RegButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
+<<<<<<< HEAD
 				validate=Email(Register_username.getText());
 				if(validate==true){
 					LoginPanel.operation="create-new-account?";
@@ -105,12 +125,26 @@ public class RegisterPanel extends JPanel {
             		JOptionPane.showMessageDialog(null,"Not a valid email address");
 				}
 				Register_username.setText("email address");
+=======
+            	LoginPanel.operation="create-new-account?";
+            	LoginPanel.truefalse=LoginFunction.Test(LoginPanel.operation,Register_username.getText(),Register_password.getText());
+            	if(LoginPanel.truefalse==true){
+            		JOptionPane.showMessageDialog(null,"registration successful");
+            		CLayout.cl.show(CLayout.panelCont, "Log");
+            	}
+            	else{
+            		JOptionPane.showMessageDialog(null,"registration failed");
+            	}
+            	
+            	Register_username.setText("email address");
+>>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
             	Register_password.setText("password");
             	Register_password.setEchoChar((char) (0));
 			}				
 		});
 		
 	}
+<<<<<<< HEAD
 	public static boolean Email(String email) {
 
 	    boolean validate;
@@ -129,3 +163,11 @@ public class RegisterPanel extends JPanel {
 	//LoginPanel.Login_username.setText("xxx");
 	//= Register_username;
 
+=======
+	//may use later in chatting get userID
+	//LoginPanel.Login_username.setText("xxx");
+	//= Register_username;
+	
+
+}
+>>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
