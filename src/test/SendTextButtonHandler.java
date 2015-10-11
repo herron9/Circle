@@ -1,6 +1,7 @@
 package test;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,6 +9,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 =======
+=======
+>>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,11 +26,15 @@ import javax.swing.JTextField;
 import client.CircleClient;
 import communication.Message;
 
+<<<<<<< HEAD
+>>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
+=======
 >>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
 public class SendTextButtonHandler implements ActionListener{
 
 	JTextField MsgField;
 	JTextArea ChatArea;
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	public SendTextButtonHandler(JTextField MsgField, JTextArea ChatArea) {
@@ -35,6 +42,8 @@ public class SendTextButtonHandler implements ActionListener{
 		this.MsgField = MsgField;
 		this.ChatArea = ChatArea;
 =======
+=======
+>>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
 	CircleClient client;
 	
 	public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
@@ -42,12 +51,16 @@ public class SendTextButtonHandler implements ActionListener{
 		this.MsgField = MsgField;
 		this.ChatArea = ChatArea;
 		this.client = client;
+<<<<<<< HEAD
+>>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
+=======
 >>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ae)
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
    	 if(MsgField.getText().equals("")){}
    	 else{
@@ -60,6 +73,8 @@ public class SendTextButtonHandler implements ActionListener{
 
 }
 =======
+=======
+>>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
 
 		ArrayList<String> des = new ArrayList<>();
 	    des.add("duras.yhr@gmail.com");
@@ -93,4 +108,7 @@ public class SendTextButtonHandler implements ActionListener{
 
 }
 
+<<<<<<< HEAD
+>>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
+=======
 >>>>>>> 5c557e8270e871b1166aedc595ef8ee8057f627d
