@@ -25,7 +25,6 @@ public class MainLayout extends JPanel {
 		MainUppage.setBounds(0, 0, 600, 400);
 		MainUppage.setLayout(MainpageCl);
 		MainUppage.add(MCPanel,"MCPanel");
-		MainUppage.add(Chatting,"Chatting");
 		MainUppage.add(FriendList,"FriendList");
 
 		Mainmenu.setBounds(0, 400, 600, 50);
