@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
 
 
 public class LoginPanel extends JPanel {
@@ -34,26 +35,7 @@ public class LoginPanel extends JPanel {
 	
 	public static String operation;
 	public static String circleAccessToken;
-<<<<<<< HEAD
-=======
-	static boolean truefalse;
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
-	
-	/*	public static ImageIcon getImageIcon(String path, int width, int height) {
-	  ImageIcon icon = new ImageIcon();
-	  icon.getClass().getResource(path);
-	  icon = new ImageIcon(icon.getImage()  
-            .getScaledInstance(width, height, Image.SCALE_DEFAULT));  
-	  icon.setImage().getImage().getScaledInstance(width, height,
-	    Image.SCALE_DEFAULT);
-	  return icon;
-<<<<<<< HEAD
-	 }
-	 */
-=======
-	 }*/
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
-	
+		
 	public LoginPanel() {
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -100,14 +82,12 @@ public class LoginPanel extends JPanel {
         				Login_password.setText("");
         			    Login_password.setEchoChar('*');
         		}
-<<<<<<< HEAD
-        		if(("".equals(Login_password.getText()))|("password".equals(Login_password.getText()))){
+        		if(("".equals(Login_password.getPassword()))|("password".equals(Login_password.getText()))){
             	}
             	else{
             		Login_password.setEchoChar('*');
             	}
-=======
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
+
         	}
         	
         	public void focusLost(FocusEvent e) {
@@ -116,20 +96,17 @@ public class LoginPanel extends JPanel {
         				Login_username.setText("username");
         		}
         		if(e.getSource()==Login_password){
-        			if("".equals(Login_password.getText()))
+        			if("".equals(Login_password.getPassword()))
         				Login_password.setText("password");
-<<<<<<< HEAD
         				Login_password.setEchoChar((char) (0));
 
         		}
-        		if(("".equals(Login_password.getText()))|("password".equals(Login_password.getText()))){
+        		if(("".equals(Login_password.getPassword()))|("password".equals(Login_password.getText()))){
             	}
             	else{
             		Login_password.setEchoChar('*');
             	}
-=======
-        		}
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
+
         	}
         }
         
@@ -156,32 +133,15 @@ public class LoginPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0){
 				
 				operation="sign-in?";
-<<<<<<< HEAD
-            	LoginFunction.Login(operation,Login_username.getText(),Login_password.getText());
+				char[] pass = LoginPanel.Login_password.getPassword();
+				String password = new String(pass);
+            	LoginFunction.Login(operation,Login_username.getText(),password);
             	JOptionPane.showMessageDialog(null,"The accessToken is:"+circleAccessToken);
-=======
-            	truefalse=LoginFunction.Login(operation,Login_username.getText(),Login_password.getText());
-            	if(truefalse==true){
-            		JOptionPane.showMessageDialog(null,"login successful");
-            		CLayout.cl.show(CLayout.panelCont, "Main");
-            	}
-            	else{
-            		JOptionPane.showMessageDialog(null,"login failed");
-            	}
-            	
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));
 			}
 		});
-<<<<<<< HEAD
 	}	
-=======
-	}
 
-	
-	
-	
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
 }

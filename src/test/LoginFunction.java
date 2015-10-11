@@ -6,10 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-<<<<<<< HEAD
 import javax.swing.JOptionPane;
 
-import org.omg.CORBA.portable.InputStream;
 
 public class LoginFunction {
 //	public static void main(String args[]) {
@@ -81,39 +79,6 @@ public class LoginFunction {
       		  JOptionPane.showMessageDialog(null,"registration failed");
 
 		  }
-=======
-import org.omg.CORBA.portable.InputStream;
-
-public class LoginFunction {
-	public static void main(String args[]) {
-		
-	}
-	
-	public static boolean Login(String operation,String username,String password) {
-		boolean login;
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
-		System.out.println(response);
-		  if(response.indexOf("true")!=-1){
-			  login=true;
-		  }
-		  else{
-			  login=false;
-		  }
-		return login;
-	}
-	
-	public static boolean Test(String operation,String username,String password) {
-		boolean register;
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
-		System.out.println(response);
-		  if(response.indexOf("true")!=-1){
-			  register=true;
-		  }
-		  else{
-			  register=false;
-		  }
-		return register;
->>>>>>> d6633bfa74068324bfe0e7372cd67af3a2444c1f
 	}
 	
 

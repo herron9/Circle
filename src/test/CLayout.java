@@ -1,14 +1,9 @@
 package test;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 
 public class CLayout {
 
@@ -27,10 +22,10 @@ public class CLayout {
 		panelCont.add("Reg",panelReg);
 		panelCont.add("Main",panelMain);
 
-		cl.show(panelCont, "Log");
+		cl.show(panelCont, "Main");
 		
 		Circle.getContentPane().add(panelCont);
-		Circle.setBounds(100, 100, 600, 450);
+		Circle.setBounds(100, 100, 600, 470);
 		Circle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		Circle.setResizable(false);
 	}
