@@ -65,7 +65,7 @@ public class RegisterPanel extends JPanel {
 		
 		lblBack.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	CLayout.cl.show(CLayout.panelCont, "Log");
+            	MainFrame.cl.show(MainFrame.panelCont, "Log");
              }
              public void  mouseExited(MouseEvent e) {
             	 lblBack.setForeground(Color.BLUE);
