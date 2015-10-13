@@ -3,6 +3,7 @@ package test;
 import javax.swing.BorderFactory;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -69,7 +70,7 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabFriend.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabFriend.setBackground(null);

@@ -2,38 +2,34 @@ package test;
 
 
 import javax.swing.JPanel;
+
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.BoxLayout;
 
 
 
 public class MainLayout extends JPanel {
 	
-	public static JPanel MainUppage = new JPanel ();// will be cardlayout
+	public static JPanel MainUppage = new JPanel ();
 	MainmenuPanel Mainmenu = new MainmenuPanel();
 	
 	public static CardLayout MainpageCl = new CardLayout();
 	public static MainChatPanel MCPanel = new MainChatPanel();
-	//public static ChattingPanel Chatting = new ChattingPanel();
+	public static ChattingPanel Chatting = new ChattingPanel();
 	
 	
 	public MainLayout() {
 		setBackground(new Color(240, 255, 240));
-		//setBounds(100,100,600,450);
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));//the overall look will be box
-		MainUppage.setAlignmentY(0.0f);
+		setBounds(100,100,600,450);
+		MainUppage.setBounds(0, 0, 600, 400);
 		MainUppage.setLayout(MainpageCl);
-		MainUppage.setPreferredSize(new Dimension(600,400));
-		Mainmenu.setPreferredSize(new Dimension(600, 50));
-		//setPreferredSize(new Dimension(200, 200));
 		MainUppage.add(MCPanel,"MCPanel");
+		MainUppage.add(Chatting,"Chatting");
+
+		Mainmenu.setBounds(0, 400, 600, 50);
+		setLayout(null);
 		add(MainUppage);
-		Mainmenu.setAlignmentY(0.0f);
 		add(Mainmenu);
-		
 		
 		
 		

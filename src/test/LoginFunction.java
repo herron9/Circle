@@ -5,16 +5,11 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import com.sun.security.ntlm.Client;
-
-import client.CircleClient;
-import communication.Message;
-import scala.annotation.StaticAnnotation;
 
 
 public class LoginFunction {
@@ -38,24 +33,24 @@ public class LoginFunction {
 //      		  JOptionPane.showMessageDialog(null,"login failed");
 //		  }
 //	}
-	public static String AccessToken;
-	//public static Boolean ClientVerifyFlag = false;
 	
 	public static void Login(String operation,String username,String password) {
 		int p1,p2;
 		String str1="circleAccessToken";
 		String str2="code";
-		
+		String AccessToken;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
-      		  JOptionPane.showMessageDialog(null,"login successful");
+//      		  JOptionPane.showMessageDialog(null,"login successful");
       		  operation="accessToken-Verification?";
 			  p1=response.indexOf(str1);
 			  p2=response.indexOf(str2);
 			  AccessToken=response.substring(p1+20, p2-3);
       		  VerifyAccessToken(operation,AccessToken);
-          	  MainFrame.cl.show(MainFrame.panelCont, "Main");
+      		  operation="friendList-request?";
+      		  GetFriendList(operation, AccessToken);
+          	  CLayout.cl.show(CLayout.panelCont, "Main");
 		  }
 		  else{
       		  JOptionPane.showMessageDialog(null,"login failed");
@@ -74,8 +69,16 @@ public class LoginFunction {
 			  LoginPanel.circleAccessToken=response.substring(p1+11, p2-3);
 		  }
 		  else{
-      		  JOptionPane.showMessageDialog(null,"failed");
 		  }
+	}
+	
+	public static void GetFriendList(String operation,String AccessToken) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println(response);
+		LoginPanel.names=parseFriendList(response);
+//      	JOptionPane.showMessageDialog(null,LoginPanel.names);
+		FriendPanel FriendList = new FriendPanel();
+		MainLayout.MainUppage.add(FriendList,"FriendList");
 	}
 	
 	public static void Test(String operation,String username,String password) {
@@ -83,7 +86,7 @@ public class LoginFunction {
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
       		  JOptionPane.showMessageDialog(null,"registration successful");
-          	  MainFrame.cl.show(MainFrame.panelCont, "Log");
+          	  CLayout.cl.show(CLayout.panelCont, "Log");
 		  }
 		  else{
       		  JOptionPane.showMessageDialog(null,"registration failed");
@@ -134,5 +137,31 @@ public class LoginFunction {
 		}
 	}
 
+	public static String[] parseFriendList(String s) {
+		String[] friendList;
+		Pattern p = Pattern.compile("\"friendList\":\\[(.+)\\]");
+		Matcher m = p.matcher(s);
+		String friendNameList ="";
+		if(m.find()) {
+			friendNameList = m.group(1);
+		}
+		friendList = friendNameList.split(",");
+		for (int i = 0; i < friendList.length; i++) {
+			String name = friendList[i];
+			if (name.length() > 0) {
+				friendList[i] = (name.substring(1,  name.length() - 1));
+			}
+		}
+		return friendList;
+	}
+	
+//	public static void main(String a[]) {
+//		String s = "{\"succeed\":true,\"friendList\":[\"furanyaya@gmail.com\",\"xue.liu@ufl.edu\"],\"code\":0}";
+//		String[] list = (new LoginFunction().parseFriendList(s));
+//		  JOptionPane.showMessageDialog(null,list);
+//		  String names[]={"Alex","Bob","Jack"};
+//		  JOptionPane.showMessageDialog(null,names);
+//
+//	}
 }
 

@@ -1,15 +1,13 @@
 package test;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+public class CLayout {
 
-public class MainFrame {
-
-	public JFrame mainFrame = new JFrame("Circle");
+	public JFrame Circle = new JFrame("Circle");
 	public static CardLayout cl= new CardLayout();
 	public static JPanel panelCont = new JPanel();
 	public static LoginPanel panelLog = new LoginPanel();
@@ -18,26 +16,26 @@ public class MainFrame {
 	
 	MainLayout panelMain = new MainLayout();
 
-	public MainFrame() {
+	public CLayout() {
 		panelCont.setLayout(cl);
 		panelCont.add("Log",panelLog);
 		panelCont.add("Reg",panelReg);
 		panelCont.add("Main",panelMain);
 
 		cl.show(panelCont, "Log");
-		mainFrame.setSize(600, 450);
-		mainFrame.getContentPane().add(BorderLayout.CENTER,panelCont);
-		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//mainFrame.setResizable(false);
 		
+		Circle.getContentPane().add(panelCont);
+		Circle.setBounds(100, 100, 600, 470);
+		Circle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Circle.setResizable(false);
 	}
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame window = new MainFrame();
-					window.mainFrame.setVisible(true);
+					CLayout window = new CLayout();
+					window.Circle.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
