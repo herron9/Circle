@@ -5,6 +5,9 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -39,12 +42,14 @@ public class LoginFunction {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
-      		  JOptionPane.showMessageDialog(null,"login successful");
+//      		  JOptionPane.showMessageDialog(null,"login successful");
       		  operation="accessToken-Verification?";
 			  p1=response.indexOf(str1);
 			  p2=response.indexOf(str2);
 			  AccessToken=response.substring(p1+20, p2-3);
       		  VerifyAccessToken(operation,AccessToken);
+      		  operation="friendList-request?";
+      		  GetFriendList(operation, AccessToken);
           	  CLayout.cl.show(CLayout.panelCont, "Main");
 		  }
 		  else{
@@ -64,8 +69,16 @@ public class LoginFunction {
 			  LoginPanel.circleAccessToken=response.substring(p1+11, p2-3);
 		  }
 		  else{
-      		  JOptionPane.showMessageDialog(null,"failed");
 		  }
+	}
+	
+	public static void GetFriendList(String operation,String AccessToken) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println(response);
+		LoginPanel.names=parseFriendList(response);
+//      	JOptionPane.showMessageDialog(null,LoginPanel.names);
+		FriendPanel FriendList = new FriendPanel();
+		MainLayout.MainUppage.add(FriendList,"FriendList");
 	}
 	
 	public static void Test(String operation,String username,String password) {
@@ -124,5 +137,31 @@ public class LoginFunction {
 		}
 	}
 
+	public static String[] parseFriendList(String s) {
+		String[] friendList;
+		Pattern p = Pattern.compile("\"friendList\":\\[(.+)\\]");
+		Matcher m = p.matcher(s);
+		String friendNameList ="";
+		if(m.find()) {
+			friendNameList = m.group(1);
+		}
+		friendList = friendNameList.split(",");
+		for (int i = 0; i < friendList.length; i++) {
+			String name = friendList[i];
+			if (name.length() > 0) {
+				friendList[i] = (name.substring(1,  name.length() - 1));
+			}
+		}
+		return friendList;
+	}
+	
+//	public static void main(String a[]) {
+//		String s = "{\"succeed\":true,\"friendList\":[\"furanyaya@gmail.com\",\"xue.liu@ufl.edu\"],\"code\":0}";
+//		String[] list = (new LoginFunction().parseFriendList(s));
+//		  JOptionPane.showMessageDialog(null,list);
+//		  String names[]={"Alex","Bob","Jack"};
+//		  JOptionPane.showMessageDialog(null,names);
+//
+//	}
 }
 

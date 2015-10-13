@@ -16,7 +16,6 @@ public class MainLayout extends JPanel {
 	public static CardLayout MainpageCl = new CardLayout();
 	public static MainChatPanel MCPanel = new MainChatPanel();
 	public static ChattingPanel Chatting = new ChattingPanel();
-	public static FriendPanel FriendList = new FriendPanel();
 	
 	
 	public MainLayout() {
@@ -25,7 +24,7 @@ public class MainLayout extends JPanel {
 		MainUppage.setBounds(0, 0, 600, 400);
 		MainUppage.setLayout(MainpageCl);
 		MainUppage.add(MCPanel,"MCPanel");
-		MainUppage.add(FriendList,"FriendList");
+		MainUppage.add(Chatting,"Chatting");
 
 		Mainmenu.setBounds(0, 400, 600, 50);
 		setLayout(null);

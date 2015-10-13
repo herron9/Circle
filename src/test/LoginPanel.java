@@ -35,6 +35,7 @@ public class LoginPanel extends JPanel {
 	
 	public static String operation;
 	public static String circleAccessToken;
+	public static String[] names={""};
 		
 	public LoginPanel() {
 		setBackground(SystemColor.window);
@@ -136,7 +137,6 @@ public class LoginPanel extends JPanel {
 				char[] pass = LoginPanel.Login_password.getPassword();
 				String password = new String(pass);
             	LoginFunction.Login(operation,Login_username.getText(),password);
-            	JOptionPane.showMessageDialog(null,"The accessToken is:"+circleAccessToken);
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));

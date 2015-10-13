@@ -15,9 +15,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
-import client.CircleClient;
-import client.ReceiverHandler;
-import communication.Message;
+//import client.CircleClient;
+//import client.ReceiverHandler;
+//import communication.Message;
 
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -72,35 +72,35 @@ public class ChattingPanel extends JPanel {
 		SendMsgBtn.setBounds(480,368,120,34);
 		add(SendMsgBtn);
 		
-		try {
-			CircleClient client = new CircleClient("huang zhi", new TestHandler(ChatArea));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		SendMsgBtn.addActionListener(new SendTextButtonHandler(MsgField, ChatArea));
-
-
+//		try {
+//			CircleClient client = new CircleClient("huang zhi", new TestHandler(ChatArea));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		SendMsgBtn.addActionListener(new SendTextButtonHandler(MsgField, ChatArea));
+//
+//
 	}
 
 }
 
-class TestHandler implements ReceiverHandler {
-
-	private JTextArea chatArea;
-	
-	public TestHandler(JTextArea chatArea) {
-		// TODO Auto-generated constructor stub
-		this.chatArea = chatArea;
-	}
-	
-	@Override
-	public void reaction(Message message) {
-		// TODO Auto-generated method stub
-		chatArea.append("Sender:"+message.getMessageSrcID());
-		chatArea.append(" "+message.getMessageTimeStamp()+"\n");
-		chatArea.append(message.getMessageContent()+"\n");
-	}
-	
-}
+//class TestHandler implements ReceiverHandler {
+//
+//	private JTextArea chatArea;
+//	
+//	public TestHandler(JTextArea chatArea) {
+//		// TODO Auto-generated constructor stub
+//		this.chatArea = chatArea;
+//	}
+//	
+//	@Override
+//	public void reaction(Message message) {
+//		// TODO Auto-generated method stub
+//		chatArea.append("Sender:"+message.getMessageSrcID());
+//		chatArea.append(" "+message.getMessageTimeStamp()+"\n");
+//		chatArea.append(message.getMessageContent()+"\n");
+//	}
+//	
+//}

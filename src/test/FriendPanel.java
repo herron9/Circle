@@ -35,17 +35,21 @@ import java.awt.Dimension;
 
 public class FriendPanel extends JPanel {
 	
-	public static String names[]={"Alex","Bob","Jack","Lee","Wang"};
-	public static JList list = new JList(names);	
+	public static String[] names=LoginPanel.names;
+	public static JList list = new JList(names);
 	public static JScrollPane Scroller=new JScrollPane(list);
 	JPanel South=new JPanel();
 	public static String friendname;
+	
+	
 	
 	public FriendPanel() {
 		
 		setBackground(UIManager.getColor("CheckBox.background"));
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-		
+      	JOptionPane.showMessageDialog(null,LoginPanel.names);
+
+						
 		Scroller.setPreferredSize(new Dimension(600, 400));
 		list.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 		list.setBorder(BorderFactory.createTitledBorder("Friend Lists"));
@@ -58,8 +62,13 @@ public class FriendPanel extends JPanel {
 		list.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
             	friendname=(String) list.getSelectedValue();
-            	JOptionPane.showMessageDialog(null, "选择与" +friendname+"聊天", null, JOptionPane.INFORMATION_MESSAGE);
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "Chatting");
+            	if(friendname.equals(LoginPanel.circleAccessToken)){
+            		JOptionPane.showMessageDialog(null,"you can not chat with yourself", null, JOptionPane.INFORMATION_MESSAGE);
+            	}
+            	else {
+            		JOptionPane.showMessageDialog(null, "choose to chat with " +friendname, null, JOptionPane.INFORMATION_MESSAGE);
+                	MainLayout.MainpageCl.show(MainLayout.MainUppage, "Chatting");
+				}
             	}
 		});
 		

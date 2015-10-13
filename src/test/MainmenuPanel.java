@@ -3,6 +3,7 @@ package test;
 import javax.swing.BorderFactory;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;

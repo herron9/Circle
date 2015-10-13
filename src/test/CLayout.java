@@ -22,7 +22,7 @@ public class CLayout {
 		panelCont.add("Reg",panelReg);
 		panelCont.add("Main",panelMain);
 
-		cl.show(panelCont, "Main");
+		cl.show(panelCont, "Log");
 		
 		Circle.getContentPane().add(panelCont);
 		Circle.setBounds(100, 100, 600, 470);
