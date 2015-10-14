@@ -54,7 +54,7 @@ public class MainmenuPanel extends JPanel {
 		
 		MenuLabChat.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "Chatting");
+            	MainLayout.MainpageCl.show(MainLayout.MCPanel, "MCPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabChat.setBackground(null);
@@ -69,7 +69,7 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabFriend.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabFriend.setBackground(null);

@@ -8,6 +8,14 @@ import java.net.URL;
 
 import javax.swing.JOptionPane;
 
+//import org.omg.CORBA.PUBLIC_MEMBER;
+//
+//import com.sun.security.ntlm.Client;
+//
+//import client.CircleClient;
+//import communication.Message;
+//import scala.annotation.StaticAnnotation;
+
 
 public class LoginFunction {
 //	public static void main(String args[]) {
@@ -30,12 +38,14 @@ public class LoginFunction {
 //      		  JOptionPane.showMessageDialog(null,"login failed");
 //		  }
 //	}
+	public static String AccessToken;
+	//public static Boolean ClientVerifyFlag = false;
 	
 	public static void Login(String operation,String username,String password) {
 		int p1,p2;
 		String str1="circleAccessToken";
 		String str2="code";
-		String AccessToken;
+		
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
@@ -45,7 +55,7 @@ public class LoginFunction {
 			  p2=response.indexOf(str2);
 			  AccessToken=response.substring(p1+20, p2-3);
       		  VerifyAccessToken(operation,AccessToken);
-          	  CLayout.cl.show(CLayout.panelCont, "Main");
+          	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{
       		  JOptionPane.showMessageDialog(null,"login failed");
@@ -73,7 +83,7 @@ public class LoginFunction {
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
       		  JOptionPane.showMessageDialog(null,"registration successful");
-          	  CLayout.cl.show(CLayout.panelCont, "Log");
+          	  MainFrame.cl.show(MainFrame.panelCont, "Log");
 		  }
 		  else{
       		  JOptionPane.showMessageDialog(null,"registration failed");

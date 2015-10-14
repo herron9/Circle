@@ -2,105 +2,77 @@ package test;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.awt.Dimension;
 
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.io.IOException;
-
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
-import client.CircleClient;
-import client.ReceiverHandler;
-import communication.Message;
-
 import javax.swing.JTextField;
 import java.awt.Font;
-import java.awt.Color;
+import java.awt.FlowLayout;
+import javax.swing.SwingConstants;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import java.awt.Component;
+import javax.swing.BoxLayout;
 
 public class ChattingPanel extends JPanel {
-	
-	JTextArea ChatArea = new JTextArea(20,20);
-	JScrollPane ScrollChatArea = new JScrollPane(ChatArea);
-	public static JTextField MsgField = new JTextField(20);
-	JButton SendMsgBtn = new JButton("Send");
+
+	public static JTextArea ChatArea = new JTextArea(16,40);
+	public static JScrollPane Scroller = new JScrollPane(ChatArea);//add chatarea to scrollarea
+	public static JTextField MsgField = new JTextField(40);
+	public static JButton SendMsgBtn = new JButton("Send");
+	JPanel South = new JPanel();
 	
 	
 	public ChattingPanel() {
-		setBackground(UIManager.getColor("CheckBox.select"));
-		setLayout(null);
+		setBackground(UIManager.getColor("CheckBox.background"));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		ScrollChatArea.setBounds(0, 0, 600, 370);
-		ChatArea.setForeground(new Color(0, 0, 0));
-		ChatArea.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		ChatArea.setBounds(0, 0, 600, 370);
-		ChatArea.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		Scroller.setPreferredSize(new Dimension(600, 370));
+		ChatArea.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		ChatArea.setBackground(UIManager.getColor("CheckBox.background"));
 		ChatArea.setLineWrap(true);//automatic line feed
-		ChatArea.setEditable(false); //forbid input from chatarea
-		ScrollChatArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		ScrollChatArea.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		ScrollChatArea.add(ChatArea);
-		add(ScrollChatArea);
+		Scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		Scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		Scroller.setViewportView(ChatArea);//set sroller to the component u want to scroll
+		add(Scroller);//add scroller to panel, not the textarea
+		MsgField.setHorizontalAlignment(SwingConstants.LEFT);
 		MsgField.setBackground(UIManager.getColor("Button.highlight"));
-		MsgField.setBounds(0,370,480,30);
-		MsgField.setText("Hello!");
-		add(MsgField);
+		
+		FlowLayout flowLayout = (FlowLayout) South.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		flowLayout.setVgap(0);
+		flowLayout.setHgap(0);
+		South.add(MsgField);
+		South.add(SendMsgBtn);
+		SendMsgBtn.setPreferredSize(new Dimension(100, 32));
+		add(South);
+		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
 		
 		class FocusHandler extends FocusAdapter{
         	public void focusGained(FocusEvent e) {
-        		if(e.getSource()==MsgField){
-        			if("Hello!".equals(MsgField.getText()))
-        				MsgField.setText("");
-        		}
+//        		if(e.getSource()==MsgField){
+//        			if("say something".equals(MsgField.getText()))
+//        				MsgField.setText("");
+//        		}
         	}    	
         	public void focusLost(FocusEvent e) {
-        		if(e.getSource()==MsgField){
-        			if("".equals(MsgField.getText()) )
-        				MsgField.setText("Hello!");
-        		}
+//        		if(e.getSource()==MsgField){
+//        			if("".equals(MsgField.getText()) )
+//        				MsgField.setText("say something");
+//        		}
         	}
         }
         
 		MsgField.addFocusListener(new FocusHandler());
 
-
-		SendMsgBtn.setBounds(480,368,120,34);
-		add(SendMsgBtn);
-		
-		try {
-			CircleClient client = new CircleClient("huang zhi", new TestHandler(ChatArea));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		SendMsgBtn.addActionListener(new SendTextButtonHandler(MsgField, ChatArea));
-
-
 	}
 
 }
 
-class TestHandler implements ReceiverHandler {
-
-	private JTextArea chatArea;
-	
-	public TestHandler(JTextArea chatArea) {
-		// TODO Auto-generated constructor stub
-		this.chatArea = chatArea;
-	}
-	
-	@Override
-	public void reaction(Message message) {
-		// TODO Auto-generated method stub
-		chatArea.append("Sender:"+message.getMessageSrcID());
-		chatArea.append(" "+message.getMessageTimeStamp()+"\n");
-		chatArea.append(message.getMessageContent()+"\n");
-	}
-	
-}

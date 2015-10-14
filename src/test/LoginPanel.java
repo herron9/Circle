@@ -9,6 +9,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
+import client.CircleClient;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -18,8 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
-
+import java.io.IOException;
 
 public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
@@ -115,7 +118,7 @@ public class LoginPanel extends JPanel {
         
         lblRegister.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	CLayout.cl.show(CLayout.panelCont, "Reg");
+            	MainFrame.cl.show(MainFrame.panelCont, "Reg");
              }
              public void  mouseExited(MouseEvent e) {
          		lblRegister.setForeground(Color.BLUE);
@@ -137,11 +140,23 @@ public class LoginPanel extends JPanel {
 				String password = new String(pass);
             	LoginFunction.Login(operation,Login_username.getText(),password);
             	JOptionPane.showMessageDialog(null,"The accessToken is:"+circleAccessToken);
+            	try {
+					CircleClient client0 = new CircleClient(circleAccessToken, new TestHandler());	
+					ClientFunction.GetClient(client0);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));
 			}
 		});
+        
+       
 	}	
+	
+	
 
 }
