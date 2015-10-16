@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/Server/lib/akka-actor_2.11-2.3.13.jar"/>
+	<classpathentry kind="lib" path="/Server/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="/Server/lib/scala-library-2.11.5.jar"/>
+	<classpathentry kind="lib" path="/Server/lib/typesafe-config-2.10.1.jar"/>
+	<classpathentry kind="src" path=".apt_generated">
+		<attributes>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/herron/Documents/workspace/Server/lib/CircleCommunicationService_10.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
