@@ -21,6 +21,8 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.text.DefaultCaret;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ChattingPanel extends JPanel {
 
@@ -53,6 +55,10 @@ public class ChattingPanel extends JPanel {
 		flowLayout.setVgap(0);
 		flowLayout.setHgap(0);
 		South.add(MsgField);
+		SendMsgBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		South.add(SendMsgBtn);
 		SendMsgBtn.setPreferredSize(new Dimension(100, 32));
 		add(South);

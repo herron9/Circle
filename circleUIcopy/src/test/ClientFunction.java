@@ -17,30 +17,7 @@ import client.ReceiverHandler;
 import communication.Message;
 
 public class ClientFunction {
-	
-	public static void CreateClient(String UserName ){
-		try {
-			CircleClient client = new CircleClient(UserName, new TestHandler());
-//			CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
-//			//ChattingPanel.ChatArea.append("-"+"Start chatting with"+friendname+"-");
-//			//CPanel.ChatArea.addActionListener(new TestHandler());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-}	
-	
-//	public static void CreateClient(String UserName,ChattingPanel CPanel,String friendname ){
-//			try {
-//				CircleClient client = new CircleClient(UserName, new TestHandler());
-//				CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
-//				//ChattingPanel.ChatArea.append("-"+"Start chatting with"+friendname+"-");
-//				//CPanel.ChatArea.addActionListener(new TestHandler());
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}		
-//	}	
+
 	public static CircleClient client;
 	public static void GetClient(CircleClient Client){
 		client = Client;		
@@ -73,11 +50,6 @@ public class ClientFunction {
 
 class TestHandler implements ReceiverHandler {
 
-//	private JTextArea chatArea;
-//	
-//	public void getChatArea(JTextArea chatArea) {
-//		this.chatArea = chatArea;
-//	}
 	
 	@Override
 	public void reaction(Message message) {

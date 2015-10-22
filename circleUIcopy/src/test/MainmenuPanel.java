@@ -54,7 +54,8 @@ public class MainmenuPanel extends JPanel {
 		
 		MenuLabChat.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainLayout.MainpageCl.show(MainLayout.MCPanel, "MCPanel");
+            	//MainFrame.cl.show(MainFrame.panelCont, "Main");
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabChat.setBackground(null);

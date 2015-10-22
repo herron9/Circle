@@ -14,6 +14,7 @@ public class MainFrame {
 	public static JPanel panelCont = new JPanel();
 	public static LoginPanel panelLog = new LoginPanel();
 	public static RegisterPanel panelReg = new RegisterPanel();
+	
 
 	
 	MainLayout panelMain = new MainLayout();
@@ -23,8 +24,10 @@ public class MainFrame {
 		panelCont.add("Log",panelLog);
 		panelCont.add("Reg",panelReg);
 		panelCont.add("Main",panelMain);
+		//panelCont.add("newC",newC);
 
-		cl.show(panelCont, "Log");
+		cl.show(panelCont, "Main");
+		//cl.show(panelCont, "Log");
 		mainFrame.setSize(600, 450);
 		mainFrame.getContentPane().add(BorderLayout.CENTER,panelCont);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
