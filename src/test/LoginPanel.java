@@ -9,6 +9,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+//import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
+import client.CircleClient;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -18,8 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
-
+import java.io.IOException;
 
 public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
@@ -34,7 +37,8 @@ public class LoginPanel extends JPanel {
 	public JButton LogButton = new JButton("Log in");//switch to main
 	
 	public static String operation;
-	public static String circleAccessToken;
+	public static String circleAccessToken;	//username
+	public static String AccessToken;	//accesstoken
 	public static String[] names={""};
 		
 	public LoginPanel() {
@@ -83,7 +87,7 @@ public class LoginPanel extends JPanel {
         				Login_password.setText("");
         			    Login_password.setEchoChar('*');
         		}
-        		if(("".equals(Login_password.getPassword()))|("password".equals(Login_password.getText()))){
+        		if(("".equals(Login_password.getText()))|("password".equals(Login_password.getText()))){
             	}
             	else{
             		Login_password.setEchoChar('*');
@@ -97,12 +101,12 @@ public class LoginPanel extends JPanel {
         				Login_username.setText("username");
         		}
         		if(e.getSource()==Login_password){
-        			if("".equals(Login_password.getPassword()))
+        			if("".equals(Login_password.getText()))
         				Login_password.setText("password");
         				Login_password.setEchoChar((char) (0));
 
         		}
-        		if(("".equals(Login_password.getPassword()))|("password".equals(Login_password.getText()))){
+        		if(("".equals(Login_password.getText()))|("password".equals(Login_password.getText()))){
             	}
             	else{
             		Login_password.setEchoChar('*');
@@ -116,7 +120,10 @@ public class LoginPanel extends JPanel {
         
         lblRegister.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	CLayout.cl.show(CLayout.panelCont, "Reg");
+            	MainFrame.cl.show(MainFrame.panelCont, "Reg");
+            	Login_username.setText("username");
+            	Login_password.setText("password");
+            	Login_password.setEchoChar((char) (0));
              }
              public void  mouseExited(MouseEvent e) {
          		lblRegister.setForeground(Color.BLUE);
@@ -137,11 +144,18 @@ public class LoginPanel extends JPanel {
 				char[] pass = LoginPanel.Login_password.getPassword();
 				String password = new String(pass);
             	LoginFunction.Login(operation,Login_username.getText(),password);
+            	//JOptionPane.showMessageDialog(null,"The accessToken is:"+circleAccessToken);
+            	
+            	
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));
 			}
 		});
+        
+       
 	}	
+	
+	
 
 }

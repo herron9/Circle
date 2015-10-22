@@ -3,7 +3,6 @@ package test;
 import javax.swing.BorderFactory;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -55,7 +54,7 @@ public class MainmenuPanel extends JPanel {
 		
 		MenuLabChat.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "Chatting");
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabChat.setBackground(null);
@@ -86,6 +85,7 @@ public class MainmenuPanel extends JPanel {
 		MenuLabMon.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
+//            	FriendPanel.FriendList.updateUI();
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMon.setBackground(null);

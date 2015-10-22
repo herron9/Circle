@@ -65,7 +65,10 @@ public class RegisterPanel extends JPanel {
 		
 		lblBack.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	CLayout.cl.show(CLayout.panelCont, "Log");
+            	MainFrame.cl.show(MainFrame.panelCont, "Log");
+            	Register_username.setText("email address");
+            	Register_password.setText("password");
+            	Register_password.setEchoChar((char) (0));
              }
              public void  mouseExited(MouseEvent e) {
             	 lblBack.setForeground(Color.BLUE);
@@ -105,6 +108,7 @@ public class RegisterPanel extends JPanel {
         		if(e.getSource()==Register_password){
         			if("".equals(Register_password.getText()))
         				Register_password.setText("password");
+    					Register_password.setEchoChar((char) (0));
         		}
         		if(("".equals(Register_password.getText()))|("password".equals(Register_password.getText()))){
             	}

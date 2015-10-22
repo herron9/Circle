@@ -1,26 +1,31 @@
-// herron
 package test;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainChatPanel extends JPanel {
 
 	public MainChatPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{Double.MIN_VALUE, 0.0};
-		gridBagLayout.rowWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, 0.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
 		
 		JLabel CircleChat = new JLabel("Circle");
 		CircleChat.setFont(new Font("Lucida Grande", Font.BOLD, 30));
 		GridBagConstraints gbc_CircleChat = new GridBagConstraints();
+		gbc_CircleChat.insets = new Insets(0, 0, 5, 5);
 		gbc_CircleChat.weighty = 0.1;
 		gbc_CircleChat.weightx = 0.8;
 		gbc_CircleChat.gridy = 0;
@@ -29,6 +34,7 @@ public class MainChatPanel extends JPanel {
 		
 		JLabel AddChatCon = new JLabel("plus");
 		GridBagConstraints gbc_AddChatCon = new GridBagConstraints();
+		gbc_AddChatCon.insets = new Insets(0, 0, 5, 0);
 		gbc_AddChatCon.weightx = 0.1;
 		gbc_AddChatCon.gridy = 0;
 		gbc_AddChatCon.gridx = 2;
@@ -37,6 +43,7 @@ public class MainChatPanel extends JPanel {
 		JLabel ChatAvatar1= new JLabel("chatAvatar1");
 		ChatAvatar1.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		GridBagConstraints gbc_ChatAvatar1 = new GridBagConstraints();
+		gbc_ChatAvatar1.insets = new Insets(0, 0, 5, 5);
 		gbc_ChatAvatar1.weighty = 0.2;
 		gbc_ChatAvatar1.weightx = 0.05;
 		gbc_ChatAvatar1.gridy = 1;
@@ -44,6 +51,7 @@ public class MainChatPanel extends JPanel {
 		add(ChatAvatar1, gbc_ChatAvatar1);
 		JLabel ChatLog1= new JLabel("chatlog1");//flag to control listener?
 		GridBagConstraints gbc_ChatLog1 = new GridBagConstraints();
+		gbc_ChatLog1.insets = new Insets(0, 0, 5, 0);
 		gbc_ChatLog1.weighty = 0.2;
 		gbc_ChatLog1.weightx = 0.8;
 		gbc_ChatLog1.gridwidth = 2;
@@ -54,7 +62,7 @@ public class MainChatPanel extends JPanel {
 		JLabel ChatAvatar2= new JLabel("chatAvatar2");
 		ChatAvatar2.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		GridBagConstraints gbc_ChatAvatar2 = new GridBagConstraints();
-		gbc_ChatAvatar2.insets = new Insets(0, 0, 180, 0);
+		gbc_ChatAvatar2.insets = new Insets(0, 0, 180, 5);
 		gbc_ChatAvatar2.weighty = 0.2;
 		gbc_ChatAvatar2.weightx = 0.05;
 		gbc_ChatAvatar2.gridy = 2;
@@ -69,7 +77,29 @@ public class MainChatPanel extends JPanel {
 		gbc_ChatLog2.gridwidth = 2;
 		gbc_ChatLog2.gridx = 1;
 		add(ChatLog2, gbc_ChatLog2);
-
+		
+		
+		
+//		JButton btnNewButton = new JButton("Start");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String UserAT = LoginPanel.circleAccessToken;
+//				//JOptionPane.showMessageDialog(null,LoginPanel.circleAccessToken);
+//				ChattingPanel CPanel = new ChattingPanel();
+//				ClientFunction.CreateClient(UserAT,CPanel);	
+//				MainLayout.MainUppage.add(CPanel,"CPanel");
+//				MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
+//				//CLayout.cl.show(CLayout.panelCont, "Reg");
+//				
+//			}
+//		});
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 1;
+		gbc_btnNewButton.gridy = 5;
+		//add(btnNewButton, gbc_btnNewButton);
+		
+		
 
 		
 		
