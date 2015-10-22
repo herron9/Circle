@@ -46,8 +46,16 @@ public class LoginFunction {
 //		  }
 //	}
 	public static String AccessToken;
+	public static String source[];
+//	public static JList source[];
+	public static JList destination;
+	public static JList time;
+	public static JList content;
 	//public static Boolean ClientVerifyFlag = false;
-	
+//	public static void ChatHistory(String sourcename) {
+//		LoginFunction.source.add(sourcename);
+//	}
+
 	public static void Login(String operation,String username,String password) {
 		int p1,p2;
 		String str1="circleAccessToken";
