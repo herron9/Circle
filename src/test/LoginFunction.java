@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -46,15 +47,15 @@ public class LoginFunction {
 //		  }
 //	}
 	public static String AccessToken;
-	public static String source[];
+	public static JList<String[]> source = new JList<String[]>();
 //	public static JList source[];
 	public static JList destination;
 	public static JList time;
 	public static JList content;
 	//public static Boolean ClientVerifyFlag = false;
-//	public static void ChatHistory(String sourcename) {
-//		LoginFunction.source.add(sourcename);
-//	}
+	public static void ChatHistory(String sourcename) {
+		LoginFunction.source.addElement(sourcename);
+	}
 
 	public static void Login(String operation,String username,String password) {
 		int p1,p2;
