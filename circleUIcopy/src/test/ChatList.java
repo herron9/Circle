@@ -1,14 +1,5 @@
 package test;
 
-import java.util.ArrayList;
-
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import client.CircleClient;
-import communication.Message;
-
 
 public class ChatList{
 	

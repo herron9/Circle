@@ -1,24 +1,9 @@
 package test;
 
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import com.sun.org.apache.xml.internal.security.Init;
-import com.sun.security.ntlm.Client;
-
 import client.CircleClient;
 import client.ReceiverHandler;
 import communication.Message;
-import test.SendTextButtonHandler.Setname;
-import javax.swing.JFrame;
 
 public class ClientFunction {
 

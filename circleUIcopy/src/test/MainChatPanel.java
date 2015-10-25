@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.BoxLayout;
-import java.awt.Color;
 
 
 public class MainChatPanel extends JPanel {

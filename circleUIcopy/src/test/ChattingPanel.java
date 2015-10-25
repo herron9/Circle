@@ -5,8 +5,6 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
@@ -23,8 +21,6 @@ import client.CircleClient;
 import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.text.DefaultCaret;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ChattingPanel extends JPanel {
 
