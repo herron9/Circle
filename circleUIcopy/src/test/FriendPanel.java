@@ -49,12 +49,7 @@ public class FriendPanel extends JPanel {
             public void  mouseClicked(MouseEvent e) {
             	LoginPanel.operation="add-friend?";
         		String inputValue = JOptionPane.showInputDialog("Enter the friend you want to add");
-            	LoginFunction.AddAFriend(LoginPanel.operation,LoginPanel.AccessToken,inputValue,MainLayout.MainUppage);
-//            	MainLayout.MainUppage.updateUI();
-//            	MainLayout.MainUppage.repaint();
-//            	FriendPanel FriendList = new FriendPanel();
-//    			MainLayout.MainUppage.add(FriendList,"FriendList");
-//            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
+            	LoginFunction.AddAFriend(LoginPanel.operation,LoginFunction.AccessToken,inputValue,MainLayout.MainUppage);
              }
              public void  mouseExited(MouseEvent e) {
              }
