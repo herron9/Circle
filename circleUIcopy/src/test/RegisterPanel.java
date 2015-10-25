@@ -24,9 +24,9 @@ import java.util.regex.Pattern;
 
 public class RegisterPanel extends JPanel {
 
-	private ImageIcon RegLogo = new ImageIcon("bin/Circle_LOGOss.png");//cant scale
+	private ImageIcon RegLogo = new ImageIcon("src/Circle_LOGOss.png");//cant scale
 	private JLabel RegLogo1 = new JLabel(RegLogo);
-	public ImageIcon User = new ImageIcon("bin/avatar.png");//cant scale!
+	public ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	public JLabel UserIcon = new JLabel(User);
 	public JLabel lblBack = new JLabel("Back");
 	private JTextField Register_username = new JTextField("email address");

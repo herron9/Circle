@@ -54,7 +54,6 @@ public class MainmenuPanel extends JPanel {
 		
 		MenuLabChat.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	ChatList.DisplayLog();
             	MainFrame.mainFrame.setTitle("Circle - Chat");
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
              }

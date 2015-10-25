@@ -88,9 +88,20 @@ public class FriendPanel extends JPanel {
             		JOptionPane.showMessageDialog(null,"you can not chat with yourself", null, JOptionPane.INFORMATION_MESSAGE);
             	}
             	else{
-            	JOptionPane.showMessageDialog(null, "chat with " + friendname, null, JOptionPane.INFORMATION_MESSAGE);
-            	ClientFunction.CreateChatting(friendname);
-            	ChatList.CreateEntry(friendname);
+            	JOptionPane.showMessageDialog(null, "chat with "+ friendname, null, JOptionPane.INFORMATION_MESSAGE);
+            	boolean find=false;
+            	for(int i=0;i<LoginFunction.receiver.size();i++){
+            		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
+            			find=true;
+            		}
+            	}
+            	if(find==true){
+            		ClientFunction.RecallChatting(friendname);
+            	}
+            	else{
+                	ClientFunction.CreateChatting(friendname);
+                	ChatList.CreateEntry(friendname);
+            	}
             	}
             }
 		});

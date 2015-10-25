@@ -19,7 +19,7 @@ import java.awt.Insets;
 
 public class ChatLog extends JPanel {
 
-	public ImageIcon User = new ImageIcon("bin/avatar.png");//cant scale!
+	public ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	public JLabel UserIcon = new JLabel(User);
 	JPanel Right = new JPanel();
 	JLabel NameLabel =new JLabel();
@@ -45,8 +45,6 @@ public class ChatLog extends JPanel {
 		setup();
 
 		NameLabel.setText(name);
-		TimeLabel.setText(null);
-		HistoryLabel.setText(null);
 
 
 	}
@@ -79,17 +77,15 @@ public class ChatLog extends JPanel {
 		gbc_HistoryLabel.gridwidth=2;
 		gbc_HistoryLabel.ipady = 20;
 		Right.add(HistoryLabel, gbc_HistoryLabel);
-//		GridBagConstraints gbc_empty = new GridBagConstraints();
-//		gbc_empty.anchor = GridBagConstraints.WEST;
-//		gbc_empty.insets = new Insets(0, 0, 5, 0);
-//		gbc_empty.gridx = 0;
-//		gbc_empty.gridy = 1;
-//		Right.add(empty, gbc_empty);
 		add(Right);
-		
-		
-		
+	
 	}
+	
+	public void Renew(String Time,String LastMsg) {
+		TimeLabel.setText(Time);
+		HistoryLabel.setText(LastMsg);
+	}
+	
 	
 //	 private static void addAButton(String text, Container container) {
 //	        JButton button = new JButton(text);

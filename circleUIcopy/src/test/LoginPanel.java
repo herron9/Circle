@@ -26,9 +26,9 @@ import java.io.IOException;
 
 public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
-	private ImageIcon RegLogo = new ImageIcon("bin/Circle_LOGOss.png");//cant scale
+	private ImageIcon RegLogo = new ImageIcon("src/Circle_LOGOss.png");//cant scale
 	private JLabel RegLogo1 = new JLabel(RegLogo);
-	public ImageIcon User = new ImageIcon("bin/avatar.png");//cant scale!
+	public ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	public JLabel UserIcon = new JLabel(User);
 	
 	public static JTextField Login_username = new JTextField();

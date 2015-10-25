@@ -50,17 +50,13 @@ public class SendTextButtonHandler implements ActionListener{
 	
 		try {
 			client.sendTextMessage(message);
-			//ChatArea.setForeground(new Color(51, 153, 102));//blue
 			ChatArea.append("- ME -");
-			//ChatArea.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			ChatArea.append(" "+message.getMessageTimeStamp()+"\n");
-			//ChatArea.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			ChatArea.append(message.getMessageContent()+"\n\n");
-			//JOptionPane.showMessageDialog(null,"-"+message.getMessageSrcID()+"-"+message.getMessageContent());
-			//ChatArea.setForeground(new Color(0, 153, 255));
-			//ChatArea.append(MsgField.getText());
 			MsgField.setText("");
-			
+			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), "- ME -");
+			//next step : consider the group chatting
+			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

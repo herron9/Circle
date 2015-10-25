@@ -43,42 +43,15 @@ public class ChatList{
 		
 
 	
-	public static void DisplayLog() {
+	public static void DisplayLog(String name, String Time,String LastMsg) {
 		MainLayout.MCPanel.MCInter.removeAll();
-		//int length = LogList.size();
 		for (int i = 0; i < LogList.size(); i++) {
-			//LogList.get(i).TimeLabel=  
-			//need integrate with history
+			if(LogList.get(i).name.equals(name)){
+				LogList.get(i).Renew(Time,LastMsg);
+			}	
 			MainLayout.MCPanel.MCInter.add(LogList.get(i));				
 		}
 		
 	}
 		
 }
-
- 
-//public class BoxLayoutDemo {
-//    public static void addComponentsToPane(Container pane) {
-//        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
-// 
-//        addAButton("Button 1", pane);
-//        addAButton("Button 2", pane);
-//        addAButton("Button 3", pane);
-//        addAButton("Long-Named Button 4", pane);
-//        addAButton("5", pane);
-//    }
-// 
-//    private static void addAButton(String text, Container container) {
-//        JButton button = new JButton(text);
-//        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        container.add(button);
-//    }
-// 
-//
-//	// add your JPanel object like this way
-//	panelList.add(yourPanel);
-//
-//	// retrieve your JPanel object from list
-//	JPanel panel = panelList.get(index);
-
-//}

@@ -43,8 +43,8 @@ public class ClientFunction {
 		    }
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
 		MsgReceiver.SrcID=friendname;
-		ChattingPanel.ChatArea.setText(null);
-		MainFrame.mainFrame.setTitle("Chat with"+friendname);
+		CPanel.ChatArea.setText(null);
+		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
 	
@@ -53,8 +53,9 @@ public class ClientFunction {
 		    	CPanel.SendMsgBtn.removeActionListener( al );
 		    }
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
-		//ChattingPanel.ChatArea.setText(null);
-		MainFrame.mainFrame.setTitle("Chat with"+friendname);
+		MsgReceiver.SrcID=friendname;
+		LoginFunction.RecallHistory(CPanel, friendname);
+		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
     
@@ -70,11 +71,13 @@ class MsgReceiver implements ReceiverHandler {
 			ClientFunction.CPanel.ChatArea.append("-"+message.getMessageSrcID()+"-");
 			ClientFunction.CPanel.ChatArea.append(" "+message.getMessageTimeStamp()+"\n");
 			ClientFunction.CPanel.ChatArea.append(message.getMessageContent()+"\n\n");
-			
+			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 		}
 		else{
 			ChatList.CreateEntry(message.getMessageSrcID());
-			//add history
+			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 			
 		}
 		

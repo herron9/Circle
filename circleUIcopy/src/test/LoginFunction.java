@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.regex.*;
 
 import javax.swing.JList;
@@ -19,16 +20,48 @@ import client.CircleClient;
 public class LoginFunction {
 
 	public static String AccessToken;
-	public static JList<String[]> source = new JList<String[]>();
-//	public static JList source[];
-	public static JList destination;
-	public static JList time;
-	public static JList content;
-	//public static Boolean ClientVerifyFlag = false;
-	public static void ChatHistory(String sourcename) {
-		//LoginFunction.source.addElement(sourcename);
+	public static ArrayList<ChatHistory> receiver=new ArrayList<>();
+	
+	public static void History(String friendname,String content,String time,String sourceID) {
+		boolean find=false;
+		int index=0;
+		for(int i=0;i<receiver.size();i++){
+			if(friendname.equals(receiver.get(i).friendname)){
+				find=true;
+				index=i;
+			}
+		}
+		if(find==true){
+			chatRecord record = new chatRecord();
+			record.message=content;
+			record.time=time;
+			record.sourceID=sourceID;
+			receiver.get(index).history.add(record);
+		}
+		else{
+			ChatHistory chat = new ChatHistory();
+			chat.friendname=friendname;
+			chatRecord record = new chatRecord();
+			record.message=content;
+			record.time=time;
+			record.sourceID=sourceID;
+			chat.history.add(record);
+			receiver.add(chat);
+		}
 	}
-	//public static Boolean ClientVerifyFlag = false;
+	
+	public static void RecallHistory(ChattingPanel CPanel,String friendname) {
+		CPanel.ChatArea.setText(null);
+		for(int i=0;i<receiver.size();i++){
+			if(friendname.equals(receiver.get(i).friendname)){
+				for(int j=0;j<receiver.get(i).history.size();j++){
+					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
+					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
+					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
+				}
+			}
+		}
+	}
 	
 	public static void Login(String operation,String username,String password) {
 		int p1,p2;
@@ -82,10 +115,6 @@ public class LoginFunction {
 		LoginPanel.names=parseFriendList(response);
 		MainLayout.FriendList.removeAll();
 		MainLayout.FriendList=new FriendPanel(LoginPanel.names);
-//		MainLayout.FriendList.updateUI();
-//		MainLayout.FriendList.repaint();
-//		JOptionPane.showMessageDialog(null,MainLayout.FriendList.list);
-//		FriendPanel FriendList = new FriendPanel();
 		MainLayout.MainUppage.add(MainLayout.FriendList,"FriendList");    
 	}
 	
@@ -102,8 +131,6 @@ public class LoginFunction {
         	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
 		}
       	panel.updateUI();
-//		FriendPanel FriendList = new FriendPanel();
-//		MainLayout.MainUppage.add(FriendList,"FriendList");
 	}
 	
 	public static void Test(String operation,String username,String password) {
@@ -180,6 +207,32 @@ public class LoginFunction {
 		}
 		return friendList;
 	}
+	
+
+	//--------------------------------ProfileFunction------------------------------------	
+	public static void ModifyPassword(String operation,String AccessToken,String newpassword){
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&password="+newpassword,"");
+		System.out.println(response);
+		if(response.indexOf("true")!=-1){
+			JOptionPane.showMessageDialog(null,"modification successful");
+		}
+		else{
+			JOptionPane.showMessageDialog(null,"modification failed");
+		}
+
+	}
+	
+	public static void CreateProfile(String operation,String AccessToken) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println(response);
+	}
+	
+	public static void ModifyProfile(String operation,String AccessToken,String gender,String phonenumber) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&gender="+gender+"&phonenumber="+phonenumber,"");
+		System.out.println(response);
+	}
+	
+	//-----------------------------------------------------------------------------------
 
 }
 

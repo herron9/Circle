@@ -28,10 +28,10 @@ import java.awt.event.ActionEvent;
 
 public class ChattingPanel extends JPanel {
 
-	public static JTextArea ChatArea = new JTextArea(16,40);
-	public static JScrollPane Scroller = new JScrollPane(ChatArea);//add chatarea to scrollarea
-	public static JTextField MsgField = new JTextField(40);
-	public static JButton SendMsgBtn = new JButton("Send");
+	public JTextArea ChatArea = new JTextArea(16,40);
+	public JScrollPane Scroller = new JScrollPane(ChatArea);//add chatarea to scrollarea
+	public JTextField MsgField = new JTextField(40);
+	public JButton SendMsgBtn = new JButton("Send");
 	JPanel South = new JPanel();
 	String DesID = "null";
 	
