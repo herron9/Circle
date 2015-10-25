@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class MainFrame {
+public class MainFrame extends JFrame{
 
-	public JFrame mainFrame = new JFrame("Circle");
+	public static JFrame mainFrame = new JFrame("Circle");
 	public static CardLayout cl= new CardLayout();
 	public static JPanel panelCont = new JPanel();
 	public static LoginPanel panelLog = new LoginPanel();
@@ -24,10 +24,9 @@ public class MainFrame {
 		panelCont.add("Log",panelLog);
 		panelCont.add("Reg",panelReg);
 		panelCont.add("Main",panelMain);
-		//panelCont.add("newC",newC);
-
-		cl.show(panelCont, "Main");
-		//cl.show(panelCont, "Log");
+		//panelCont.add("main",panelMain)
+		//cl.show(panelCont, "Main");
+		cl.show(panelCont, "Log");
 		mainFrame.setSize(600, 450);
 		mainFrame.getContentPane().add(BorderLayout.CENTER,panelCont);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

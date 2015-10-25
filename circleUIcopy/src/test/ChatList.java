@@ -7,27 +7,49 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import client.CircleClient;
+import communication.Message;
+
 
 public class ChatList{
-	ArrayList<ChatLog> LogList = new ArrayList<ChatLog>();
+	
+	static ArrayList<ChatLog> LogList = new ArrayList<ChatLog>();
 	public ChatList() {
-//		create
-//		add
-		// TODO Auto-generated constructor stub
+
 	} 
 	
-	public void CreateEntry(String name) {
-		ChatLog log = new ChatLog();
-		log.name = name;
-		LogList.add(log);
+	public static void CreateEntry(String fname) {
+		boolean isIn = false;
+		if(LogList.isEmpty()){
+			ChatLog log = new ChatLog(fname);
+			LogList.add(log);	
+			isIn = true;
+		}
+		else {
+			for (int i = 0; i < LogList.size(); i++) {
+				if (fname.equals(LogList.get(i).name)) {
+					isIn = true;
+				} 
+			}	
+		}
+		if (isIn == true) {
+		}
+		else {
+			ChatLog log = new ChatLog(fname);
+			//log.name = name;
+			LogList.add(log);	
+		}
+		
 	}
+		
+
 	
-	public void DisplayLog() {
-		MainLayout.MCPanel.removeAll();
+	public static void DisplayLog() {
+		MainLayout.MCPanel.MCInter.removeAll();
 		//int length = LogList.size();
 		for (int i = 0; i < LogList.size(); i++) {
-			//LogList.get(i)	
-			MainLayout.MCPanel.add(LogList.get(i));				
+			//LogList.get(i).TimeLabel=  
+			//need integrate with history
+			MainLayout.MCPanel.MCInter.add(LogList.get(i));				
 		}
 		
 	}

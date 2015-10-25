@@ -20,22 +20,26 @@ public class SendTextButtonHandler implements ActionListener{
 	JTextField MsgField;
 	JTextArea ChatArea;
 	CircleClient client;
-	String FriendName;
+	static String FriendName;
 	
 	public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client, String friendname) {
+	//public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
 		// TODO Auto-generated constructor stub
 		this.MsgField = MsgField;
 		this.ChatArea = ChatArea;
 		this.client = client;
-		this.FriendName = friendname;
+		SendTextButtonHandler.FriendName = friendname;
 	}
+//	public static void setname(String name) {
+//		FriendName = name;
+//	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ae)
     {
 
 		ArrayList<String> des = new ArrayList<>();
-	    des.add(FriendPanel.friendname);
+	    des.add(FriendName);
 	    Message message = new Message();
 	    message.setMessageType(Message.TEXT);
 	    message.setMessageSrcID(LoginPanel.circleAccessToken);
@@ -62,6 +66,11 @@ public class SendTextButtonHandler implements ActionListener{
 			e.printStackTrace();
 		}
     }
-
+	
+	public class Setname{  
+		public void setname(String name) {
+			FriendName = name;
+		}
+	}
 }
 

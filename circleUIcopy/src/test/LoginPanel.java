@@ -38,6 +38,7 @@ public class LoginPanel extends JPanel {
 	
 	public static String operation;
 	public static String circleAccessToken;
+	public static String AccessToken;	//accesstoken
 	public static String[] names={""};
 		
 	public LoginPanel() {
@@ -143,15 +144,7 @@ public class LoginPanel extends JPanel {
 				char[] pass = LoginPanel.Login_password.getPassword();
 				String password = new String(pass);
             	LoginFunction.Login(operation,Login_username.getText(),password);
-            	//JOptionPane.showMessageDialog(null,"The accessToken is:"+circleAccessToken);
-            	try {
-					CircleClient client0 = new CircleClient(circleAccessToken, new TestHandler());	
-					ClientFunction.GetClient(client0);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	
+
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));
