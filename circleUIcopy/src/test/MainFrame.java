@@ -15,6 +15,7 @@ public class MainFrame extends JFrame{
 	public static LoginPanel panelLog = new LoginPanel();
 	public static RegisterPanel panelReg = new RegisterPanel();
 	
+	
 
 	
 	MainLayout panelMain = new MainLayout();
@@ -26,7 +27,7 @@ public class MainFrame extends JFrame{
 		panelCont.add("Main",panelMain);
 		//panelCont.add("main",panelMain)
 		//cl.show(panelCont, "Main");
-		cl.show(panelCont, "Log");
+		cl.show(panelCont, "Main");
 		mainFrame.setSize(600, 450);
 		mainFrame.getContentPane().add(BorderLayout.CENTER,panelCont);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

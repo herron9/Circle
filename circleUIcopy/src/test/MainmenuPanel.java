@@ -101,7 +101,7 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabMe.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMe.setBackground(null);
