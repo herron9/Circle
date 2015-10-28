@@ -85,6 +85,8 @@ public class LoginFunction {
       		  }
       		  operation="friendList-request?";
     		  GetFriendList(operation, AccessToken);
+    		  operation="create-user-profile?";
+    		  CreateProfile(operation, AccessToken);
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{

@@ -71,7 +71,9 @@ public class MainmenuPanel extends JPanel {
 		MenuLabFriend.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
             	MainFrame.mainFrame.setTitle("Circle - FriendList");
+//            	LoginFunction.GetFriendList("friendList-request?", LoginFunction.AccessToken);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
+//            	MainLayout.MainUppage.updateUI();
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabFriend.setBackground(null);
