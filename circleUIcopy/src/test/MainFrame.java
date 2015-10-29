@@ -27,7 +27,7 @@ public class MainFrame extends JFrame{
 		panelCont.add("Main",panelMain);
 		//panelCont.add("main",panelMain)
 		//cl.show(panelCont, "Main");
-		cl.show(panelCont, "Main");
+		cl.show(panelCont, "Log");
 		mainFrame.setSize(600, 450);
 		mainFrame.getContentPane().add(BorderLayout.CENTER,panelCont);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

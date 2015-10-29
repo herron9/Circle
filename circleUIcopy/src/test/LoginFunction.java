@@ -77,8 +77,10 @@ public class LoginFunction {
 			  AccessToken=response.substring(p1+20, p2-3);
       		  VerifyAccessToken(operation,AccessToken);
       		try {
-				CircleClient client0 = new CircleClient(LoginPanel.circleAccessToken, new MsgReceiver());	
+				CircleClient client0 = new CircleClient(LoginPanel.circleAccessToken, new MsgReceiver());
+				ProfilePanel.getUserID(LoginPanel.circleAccessToken);
 				ClientFunction.GetClient(client0);
+				
       		  } catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

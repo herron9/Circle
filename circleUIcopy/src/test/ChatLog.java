@@ -65,6 +65,8 @@ public class ChatLog extends JPanel {
 		gbc_NameLabel.gridy = 0;
 		Right.add(NameLabel, gbc_NameLabel);
 		GridBagConstraints gbc_TimeLabel = new GridBagConstraints();
+		gbc_TimeLabel.gridy = 0;
+		gbc_TimeLabel.gridx = 1;
 		gbc_NameLabel.anchor = GridBagConstraints.WEST;
 		gbc_NameLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_NameLabel.gridx = 1;
@@ -73,7 +75,7 @@ public class ChatLog extends JPanel {
 		GridBagConstraints gbc_HistoryLabel = new GridBagConstraints();
 		gbc_HistoryLabel.anchor = GridBagConstraints.WEST;
 		gbc_HistoryLabel.gridx = 0;
-		gbc_HistoryLabel.gridy = 2;
+		gbc_HistoryLabel.gridy = 1;
 		gbc_HistoryLabel.gridwidth=2;
 		gbc_HistoryLabel.ipady = 10;
 		Right.add(HistoryLabel, gbc_HistoryLabel);
@@ -82,22 +84,16 @@ public class ChatLog extends JPanel {
 	}
 	
 	public void Renew(String Time,String LastMsg) {
-		//boolean flag = true;
-//		if (flag == true) {
-//			TimeLabel.setText(Time+" ");
-//			SetHistory(LastMsg+" ");
-//			flag = false;
-//			return;
-//		}
-//		else{
-//			TimeLabel.setText(Time);
-//			SetHistory(LastMsg);
-//			flag = true;
-//		}
-//		System.out.println("x "+flag);
-		//flag = false;
+		System.out.println(Time);
+		System.out.println(LastMsg);
 		TimeLabel.setText(Time);
 		SetHistory(LastMsg);
+		//TimeLabel.validate();
+		//HistoryLabel.repaint();
+		System.out.println(TimeLabel.getText());
+		System.out.println(HistoryLabel.getText());
+		
+		
 	}
 
 	public void SetHistory(String LastMsg){
