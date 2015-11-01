@@ -53,7 +53,6 @@ public class SendTextButtonHandler implements ActionListener{
 			//next step : consider the group chatting
 			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

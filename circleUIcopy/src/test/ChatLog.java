@@ -19,11 +19,12 @@ public class ChatLog extends JPanel {
 	public JLabel UserIcon = new JLabel(User);
 	JPanel Right = new JPanel();
 	JLabel NameLabel =new JLabel();
-	JLabel TimeLabel = new JLabel();
-	//JLabel empty = new JLabel("                                                                          ");
+	JLabel TimeLabel = new JLabel();                                                             
 	JLabel HistoryLabel = new JLabel();
 	String name = "null";
 	String user =  LoginPanel.circleAccessToken;
+	
+	static boolean flag =true;
 
 	
 	public ChatLog(final String name) {
@@ -35,18 +36,21 @@ public class ChatLog extends JPanel {
 		});
 		
 		this.name = name;
-		setSize(new Dimension(600, 40));
+		setPreferredSize(new Dimension(590, 60));
+		//setSize(new Dimension(600, 40));
 		setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setup();
 
 		NameLabel.setText(name);
+		HistoryLabel.setPreferredSize(new Dimension(600, 60));
 
 
 	}
 	
 	public void setup() {
-		UserIcon.setBounds(0, 0, 20, 20);
+		UserIcon.setPreferredSize(new Dimension(60, 60));
+		UserIcon.setBounds(0, 0, 60, 60);
 		add(UserIcon);
 		GridBagLayout gbl_Right = new GridBagLayout();
 		gbl_Right.columnWidths = new int[]{200, 0};
@@ -71,22 +75,40 @@ public class ChatLog extends JPanel {
 		gbc_HistoryLabel.gridx = 0;
 		gbc_HistoryLabel.gridy = 2;
 		gbc_HistoryLabel.gridwidth=2;
-		gbc_HistoryLabel.ipady = 20;
+		gbc_HistoryLabel.ipady = 10;
 		Right.add(HistoryLabel, gbc_HistoryLabel);
 		add(Right);
 	
 	}
 	
 	public void Renew(String Time,String LastMsg) {
+		//boolean flag = true;
+//		if (flag == true) {
+//			TimeLabel.setText(Time+" ");
+//			SetHistory(LastMsg+" ");
+//			flag = false;
+//			return;
+//		}
+//		else{
+//			TimeLabel.setText(Time);
+//			SetHistory(LastMsg);
+//			flag = true;
+//		}
+//		System.out.println("x "+flag);
+		//flag = false;
 		TimeLabel.setText(Time);
-		HistoryLabel.setText(LastMsg);
+		SetHistory(LastMsg);
 	}
-	
-	
-//	 private static void addAButton(String text, Container container) {
-//	        JButton button = new JButton(text);
-//	        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-//	        container.add(button);
-//	    }
+
+	public void SetHistory(String LastMsg){
+		if (LastMsg.length() > 70) {
+			LastMsg = LastMsg.substring(0, 70) ;
+			HistoryLabel.setText(LastMsg + "...");
+		}
+		else {
+			HistoryLabel.setText(LastMsg);
+		}
+		
+	}
 
 }

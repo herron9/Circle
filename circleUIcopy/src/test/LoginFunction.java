@@ -49,14 +49,14 @@ public class LoginFunction {
 		}
 	}
 	
-	public static void RecallHistory(ChattingPanel CPanel,String friendname) {
-		CPanel.ChatArea.setText(null);
+	public static void RecallHistory(String friendname) {
+		ClientFunction.CPanel.ChatArea.setText(null);
 		for(int i=0;i<receiver.size();i++){
 			if(friendname.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
-					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
-					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
-					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
+					ClientFunction.CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
+					ClientFunction.CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
+					ClientFunction.CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
 				}
 			}
 		}

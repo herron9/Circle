@@ -39,7 +39,7 @@ public class ClientFunction {
 		    }
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
 		MsgReceiver.SrcID=friendname;
-		LoginFunction.RecallHistory(CPanel, friendname);
+		LoginFunction.RecallHistory(friendname);
 		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}

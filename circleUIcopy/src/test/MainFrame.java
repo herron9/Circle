@@ -15,6 +15,7 @@ public class MainFrame extends JFrame{
 	public static LoginPanel panelLog = new LoginPanel();
 	public static RegisterPanel panelReg = new RegisterPanel();
 	
+	
 
 	
 	MainLayout panelMain = new MainLayout();
