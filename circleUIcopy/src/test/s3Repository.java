@@ -1,6 +1,7 @@
 package test;
 
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,7 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.URL;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -63,7 +67,15 @@ public class s3Repository {
 		s3Repository s3= new s3Repository();
 		String key = ""+UUID.randomUUID()+".jpg";
 		String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-		s3.uploadFile(key, filePath);
-        
+		s3.uploadFile(key,filePath);
+		String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+		System.out.println(fileurl);
+		BufferedImage img = null;
+		try {
+			URL myURL = new URL(fileurl);
+			img = ImageIO.read(myURL);
+		} catch (IOException e) {
+		}
+		System.out.println(img.getWidth());
 	}
 }

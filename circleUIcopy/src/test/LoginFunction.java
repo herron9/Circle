@@ -20,6 +20,8 @@ public class LoginFunction {
 
 	public static String AccessToken;
 	public static ArrayList<ChatHistory> receiver=new ArrayList<>();
+	public static String Gender;
+	public static String Phonenumber;
 	
 	public static void History(String friendname,String content,String time,String sourceID) {
 		boolean find=false;
@@ -77,16 +79,20 @@ public class LoginFunction {
 			  AccessToken=response.substring(p1+20, p2-3);
       		  VerifyAccessToken(operation,AccessToken);
       		try {
-				CircleClient client0 = new CircleClient(LoginPanel.circleAccessToken, new MsgReceiver());	
+				CircleClient client0 = new CircleClient(LoginPanel.circleAccessToken, new MsgReceiver());
+				ProfilePanel.getUserID(LoginPanel.circleAccessToken);
 				ClientFunction.GetClient(client0);
+				
       		  } catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
       		  }
       		  operation="friendList-request?";
     		  GetFriendList(operation, AccessToken);
-    		  operation="create-user-profile?";
-    		  CreateProfile(operation, AccessToken);
+//    		  operation="create-user-profile?";
+//    		  CreateProfile(operation, AccessToken);
+    		  operation="get-user-profile?";
+    		  GetProfile(operation, AccessToken);
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{
@@ -117,6 +123,23 @@ public class LoginFunction {
 		MainLayout.FriendList.removeAll();
 		MainLayout.FriendList=new FriendPanel(LoginPanel.names);
 		MainLayout.MainUppage.add(MainLayout.FriendList,"FriendList");    
+	}
+	
+	public static void GetProfile(String operation,String AccessToken) {
+		int p1,p2,p3;
+		String str1="gender";
+		String str2="phoneNumber";
+		String str3="}";
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println(response);
+		if(response.indexOf("true")!=-1){
+			p1=response.indexOf(str1);
+			p2=response.indexOf(str2);
+			p3=response.indexOf(str3,p2+15);
+			Gender=response.substring(p1+9, p2-3);
+			Phonenumber=response.substring(p2+14,p3-1);
+			System.out.println("Gender is: "+Gender+"Phonenumber is: "+Phonenumber);
+		}
 	}
 	
 	public static void AddAFriend(String operation,String AccessToken,String friendname,JPanel panel) {

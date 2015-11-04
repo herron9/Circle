@@ -103,13 +103,9 @@ public class FriendPanel extends JPanel {
 	                    	ChatList.CreateEntry(friendname);
 	                	}
 	            	}
-   
             	}
             }
 		});
-
-		
-		
 	}
 }
 

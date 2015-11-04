@@ -30,7 +30,7 @@ public class ProfilePanel extends JPanel {
 	Font font = new Font("Lucida Grande", Font.PLAIN, 18);
 	ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	JLabel UserIcon = new JLabel(User);
-	JLabel Userid = new JLabel("New label");
+	static JLabel Userid = new JLabel("New label");
 	public JRadioButton RadioBtnM;
 	public JRadioButton RadioBtnF;
 	public JRadioButton RadioBtnU;
@@ -50,9 +50,10 @@ public class ProfilePanel extends JPanel {
         UIManager.put("Label.font", font);
         UIManager.put("RadioButton.font", font);
         
+        System.out.println(LoginPanel.circleAccessToken);
         RadioBtnM = new JRadioButton("Male");
         RadioBtnF = new JRadioButton("Female");
-        RadioBtnU = new JRadioButton("Unknown");
+        RadioBtnU = new JRadioButton("Keep Secret");
         phoneField = new JTextField();
         pwField = new JTextField();		
         valid1 = new JLabel(" ");
@@ -63,7 +64,10 @@ public class ProfilePanel extends JPanel {
         LogoutBtn = new JButton("Log out");
         LogoutBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		//MainFrame mainFrame = new MainFrame();
+        	    //mainFrame.cl.show(mainFrame.panelCont, "Log");
+        	    //MainLayout.MCPanel.MCInter.removeAll();
+        		//MainLayout.getContentPane().removeAll();
         	}
         });
         setPreferredSize(new Dimension(600, 400));
@@ -89,13 +93,13 @@ public class ProfilePanel extends JPanel {
 					if (isDigit&&isChar&&!y.isEmpty()) {
 						
 					if (RadioBtnM.isSelected()) {
-						newgender = "M";
+						newgender = "Male";
 					}
 					if (RadioBtnF.isSelected()) {
-						newgender = "F";
+						newgender = "Female";
 					}
 					if (RadioBtnU.isSelected()) {   //get gender
-						newgender = "U";
+						newgender = "keep secret";
 					}
 						newphone = phoneField.getText(); //get phone
 						newpw = pwField.getText();   //get password
@@ -107,9 +111,8 @@ public class ProfilePanel extends JPanel {
 						EditBtn.setText("   Edit   ");
 						valid1.setText(" ");
 						valid2.setText(" ");
-//						System.out.println(newgender);
-//						System.out.println(newphone);
-//						System.out.println(newpw);
+						LoginPanel.operation="modify-user-profile?";
+						LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone);
 						return;
 					}
 					else {
@@ -123,11 +126,6 @@ public class ProfilePanel extends JPanel {
 							valid2.setText("Cannot Leave this Empty");
 							
 						}
-//						System.out.println("in "+isChar);
-//						System.out.println("in "+isDigit);
-//						System.out.println("in "+newgender);
-//						System.out.println("in "+newphone);
-//						System.out.println("in "+newpw);
 						return;				
 					}
 					
@@ -139,21 +137,25 @@ public class ProfilePanel extends JPanel {
 		
 	}
 	
-	public void setInfo(String id,String gender,String phone,String pw) {
+//	public void setInfo(String id,String gender,String phone,String pw) {
+//		//Userid.setText(id);
+//		if (condition) {
+//			RadioBtnM.setSelected(true);
+//		}
+//		if (condition) {
+//			RadioBtnF.setSelected(true);
+//		}
+//		if (condition) {
+//			RadioBtnU.setSelected(true);
+//		}
+//		phoneField.setText(phone);
+//		pwField.setText(pw);
+//		
+//	}
+	public static void getUserID(String id) {
 		Userid.setText(id);
-		if (condition) {
-			RadioBtnM.setSelected(true);
-		}
-		if (condition) {
-			RadioBtnF.setSelected(true);
-		}
-		if (condition) {
-			RadioBtnU.setSelected(true);
-		}
-		phoneField.setText(phone);
-		pwField.setText(pw);
-		
 	}
+	
 	public void setProfile() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{80, 120, 70, 70, 70, 0, 0};
@@ -170,7 +172,7 @@ public class ProfilePanel extends JPanel {
 		gbc_UserIcon.gridy = 1;
 		add(UserIcon, gbc_UserIcon);
 		
-		JLabel UserID = new JLabel("UserID");
+		JLabel UserID = new JLabel("UserID:");
 		GridBagConstraints gbc_UserID = new GridBagConstraints();
 		gbc_UserID.anchor = GridBagConstraints.WEST;
 		gbc_UserID.gridwidth = 2;
@@ -178,6 +180,7 @@ public class ProfilePanel extends JPanel {
 		gbc_UserID.gridx = 2;
 		gbc_UserID.gridy = 1;
 		add(UserID, gbc_UserID);
+		
 		
 		GridBagConstraints gbc_Userid = new GridBagConstraints();
 		gbc_Userid.anchor = GridBagConstraints.NORTHWEST;
@@ -300,8 +303,6 @@ public class ProfilePanel extends JPanel {
 		gbc_logoutBtn.gridx = 0;
 		gbc_logoutBtn.gridy = 10;
 		add(LogoutBtn, gbc_logoutBtn);
-		
-		//setProfile();
 	
 		
 	}

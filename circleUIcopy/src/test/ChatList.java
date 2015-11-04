@@ -46,8 +46,10 @@ public class ChatList{
 		for (int i = 0; i < LogList.size(); i++) {
 //			System.out.println("T "+Time);
 //			System.out.println("M "+LastMsg);
-			if(LogList.get(i).name.equals(name)){
-				LogList.get(i).Renew(Time,LastMsg);
+			if(LogList.get(i).name.equals(name)){	    
+				LogList.get(i).TimeLabel.setText(Time);
+				LogList.get(i).SetHistory(LastMsg);
+				//LogList.get(i).validate();
 			}
 //			System.out.println(LogList.get(0).TimeLabel.getText());
 //			System.out.println(LogList.get(0).HistoryLabel.getText());

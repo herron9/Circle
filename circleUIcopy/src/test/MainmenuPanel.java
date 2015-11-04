@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 
 public class MainmenuPanel extends JPanel {
@@ -29,7 +30,7 @@ public class MainmenuPanel extends JPanel {
 		setLayout(new GridLayout(0, 4, 0, 0));
 		
 		MenuLabChat.setHorizontalAlignment(SwingConstants.CENTER);
-		MenuLabChat.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+		MenuLabChat.setBorder(new LineBorder(new Color(64, 64, 64)));
 		MenuLabChat.setOpaque(true);
 		MenuLabChat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		add(MenuLabChat);
