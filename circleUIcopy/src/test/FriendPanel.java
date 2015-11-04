@@ -77,7 +77,7 @@ public class FriendPanel extends JPanel {
             		JOptionPane.showMessageDialog(null,"you can not chat with yourself", null, JOptionPane.INFORMATION_MESSAGE);
             	}
             	else{
-            	JOptionPane.showMessageDialog(null, "chat with "+ friendname, null, JOptionPane.INFORMATION_MESSAGE);
+            	//JOptionPane.showMessageDialog(null, "chat with "+ friendname, null, JOptionPane.INFORMATION_MESSAGE);
             	boolean find=false;
             	if (LoginFunction.receiver.isEmpty()) {
             		ClientFunction.CreateChatting(friendname);

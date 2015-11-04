@@ -1,10 +1,16 @@
 package test;
 
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+
+import com.sun.org.apache.bcel.internal.generic.InstructionConstants.Clinit;
+
 import client.CircleClient;
 import client.ReceiverHandler;
 import communication.Message;
 import java.awt.CardLayout;
+import java.awt.Image;
 
 public class ClientFunction {
 
@@ -30,9 +36,9 @@ public class ClientFunction {
 		    for( ActionListener al : CPanel.SendMsgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	CPanel.SendMsgBtn.removeActionListener( al );
 		    }
-		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
+		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.Inner,CPanel.MsgField,client,friendname));
 		MsgReceiver.SrcID=friendname;
-		CPanel.ChatArea.setText(null);
+		CPanel.Inner.removeAll();
 		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
@@ -41,13 +47,18 @@ public class ClientFunction {
 		    for( ActionListener al : CPanel.SendMsgBtn.getActionListeners() ) {
 		    	CPanel.SendMsgBtn.removeActionListener( al );
 		    }
-		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.ChatArea,CPanel.MsgField,client,friendname));
+		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.Inner,CPanel.MsgField,client,friendname));
 		MsgReceiver.SrcID=friendname;
 		LoginFunction.RecallHistory(CPanel, friendname);
 		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
-    
+	public static ImageIcon resizeIcon(ImageIcon old,int x) {
+		Image img = old.getImage();
+		Image newimg = img.getScaledInstance(x, x, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon = new ImageIcon(newimg);
+		return newIcon;
+	}
 }
 
 class MsgReceiver implements ReceiverHandler {
@@ -61,18 +72,18 @@ class MsgReceiver implements ReceiverHandler {
 		    for( ActionListener al : ClientFunction.CPanel.SendMsgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	ClientFunction.CPanel.SendMsgBtn.removeActionListener( al );
 		    }
-		    ClientFunction.CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(ClientFunction.CPanel.ChatArea,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
+		    ClientFunction.CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
 		MsgReceiver.SrcID=message.getMessageSrcID();
 		SrcID = message.getMessageSrcID();
-		ClientFunction.CPanel.ChatArea.setText(null);
+		ClientFunction.CPanel.Inner.removeAll();
 		ChatList.CreateEntry(SrcID);
-		//MainFrame.mainFrame.setTitle("Chat with "+SrcID);
-		//MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 		}
 		if (message.getMessageSrcID().equals(SrcID)) {
-			ClientFunction.CPanel.ChatArea.append("-"+message.getMessageSrcID()+"-");
-			ClientFunction.CPanel.ChatArea.append(" "+message.getMessageTimeStamp()+"\n");
-			ClientFunction.CPanel.ChatArea.append(message.getMessageContent()+"\n\n");
+			ChattingCellR cell = new ChattingCellR();
+			cell.NameLabel.setText(message.getMessageSrcID());
+			cell.TimeLabel.setText(message.getMessageTimeStamp());
+			cell.msg.setText(message.getMessageContent());
+			ClientFunction.CPanel.Inner.add(cell);
 			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
 			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 		}

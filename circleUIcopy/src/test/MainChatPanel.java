@@ -12,6 +12,7 @@ public class MainChatPanel extends JPanel {
 
 	public JPanel MCInter = new JPanel();
 	public JScrollPane MainScroller = new JScrollPane(MCInter);
+	//ChattingCellS cell = new ChattingCellS();
 	
 	public MainChatPanel() {
 
@@ -19,11 +20,13 @@ public class MainChatPanel extends JPanel {
 		setSize(new Dimension(600, 400));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		MCInter.setPreferredSize(new Dimension(600, 400));
+		//MCInter.add(new CCShowArea());
 		MainScroller.setPreferredSize(new Dimension(600, 400));
 		MainScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		MainScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		MainScroller.setViewportView(MCInter);
 		MCInter.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		//MCInter.add(cell);
 		add(MainScroller);
 
 	}

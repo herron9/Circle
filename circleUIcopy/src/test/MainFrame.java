@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 
 public class MainFrame extends JFrame{
@@ -39,6 +40,7 @@ public class MainFrame extends JFrame{
 			public void run() {
 				try {
 					MainFrame window = new MainFrame();
+					//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					window.mainFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

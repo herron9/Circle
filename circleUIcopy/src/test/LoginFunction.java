@@ -50,13 +50,30 @@ public class LoginFunction {
 	}
 	
 	public static void RecallHistory(ChattingPanel CPanel,String friendname) {
-		CPanel.ChatArea.setText(null);
+//		CPanel.ChatArea.setText(null);
+		ClientFunction.CPanel.Inner.removeAll();
 		for(int i=0;i<receiver.size();i++){
 			if(friendname.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
-					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
-					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
-					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
+					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
+						ChattingCellR cell = new ChattingCellR();
+						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.msg.setText(receiver.get(i).history.get(j).message);
+						ClientFunction.CPanel.Inner.add(cell);
+					}
+					if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
+						ChattingCellS cell = new ChattingCellS();
+						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.msg.setText(receiver.get(i).history.get(j).message);
+						ClientFunction.CPanel.Inner.add(cell);
+					}
+					
+					
+//					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
+//					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
+//					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
 				}
 			}
 		}
@@ -70,7 +87,7 @@ public class LoginFunction {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
-      		  JOptionPane.showMessageDialog(null,"login successful");
+      		  //JOptionPane.showMessageDialog(null,"login successful");
       		  operation="accessToken-Verification?";
 			  p1=response.indexOf(str1);
 			  p2=response.indexOf(str2);
