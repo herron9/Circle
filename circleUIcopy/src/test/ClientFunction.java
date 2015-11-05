@@ -36,6 +36,7 @@ public class ClientFunction {
 		    for( ActionListener al : CPanel.SendMsgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	CPanel.SendMsgBtn.removeActionListener( al );
 		    }
+		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(CPanel.Inner,CPanel.MsgField,client,friendname));
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(CPanel.Inner,CPanel.MsgField,client,friendname));
 		MsgReceiver.SrcID=friendname;
 		CPanel.Inner.removeAll();
