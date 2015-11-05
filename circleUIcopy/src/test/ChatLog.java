@@ -16,7 +16,7 @@ import java.awt.Insets;
 public class ChatLog extends JPanel {
 
 	public ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
-	public JLabel UserIcon = new JLabel(User);
+	public JLabel UserIcon;
 	JPanel Right = new JPanel();
 	JLabel NameLabel =new JLabel();
 	JLabel TimeLabel = new JLabel();                                                             
@@ -49,8 +49,7 @@ public class ChatLog extends JPanel {
 	}
 	
 	public void setup() {
-		UserIcon.setPreferredSize(new Dimension(60, 60));
-		UserIcon.setBounds(0, 0, 60, 60);
+		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
 		add(UserIcon);
 		GridBagLayout gbl_Right = new GridBagLayout();
 		gbl_Right.columnWidths = new int[]{200, 0};

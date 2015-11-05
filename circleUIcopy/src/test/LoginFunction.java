@@ -22,6 +22,8 @@ public class LoginFunction {
 	public static ArrayList<ChatHistory> receiver=new ArrayList<>();
 	public static String Gender;
 	public static String Phonenumber;
+	public static String Nickname;
+	public static String Iconurl;
 	
 	public static void History(String friendname,String content,String time,String sourceID) {
 		boolean find=false;
@@ -51,14 +53,40 @@ public class LoginFunction {
 		}
 	}
 	
-	public static void RecallHistory(String friendname) {
-		ClientFunction.CPanel.ChatArea.setText(null);
+//	public static void RecallHistory(String friendname) {
+//		ClientFunction.CPanel.ChatArea.setText(null);
+//		for(int i=0;i<receiver.size();i++){
+//			if(friendname.equals(receiver.get(i).friendname)){
+//				for(int j=0;j<receiver.get(i).history.size();j++){
+//					ClientFunction.CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
+//					ClientFunction.CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
+//					ClientFunction.CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
+//					
+	public static void RecallHistory(ChattingPanel CPanel,String friendname) {
+//		CPanel.ChatArea.setText(null);
+		ClientFunction.CPanel.Inner.removeAll();
 		for(int i=0;i<receiver.size();i++){
 			if(friendname.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
-					ClientFunction.CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
-					ClientFunction.CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
-					ClientFunction.CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
+					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
+						ChattingCellR cell = new ChattingCellR();
+						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.msg.setText(receiver.get(i).history.get(j).message);
+						ClientFunction.CPanel.Inner.add(cell);
+					}
+					if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
+						ChattingCellS cell = new ChattingCellS();
+						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.msg.setText(receiver.get(i).history.get(j).message);
+						ClientFunction.CPanel.Inner.add(cell);
+					}
+					
+					
+//					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
+//					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
+//					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
 				}
 			}
 		}
@@ -72,7 +100,7 @@ public class LoginFunction {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println(response);
 		  if(response.indexOf("true")!=-1){
-      		  JOptionPane.showMessageDialog(null,"login successful");
+      		  //JOptionPane.showMessageDialog(null,"login successful");
       		  operation="accessToken-Verification?";
 			  p1=response.indexOf(str1);
 			  p2=response.indexOf(str2);
@@ -126,19 +154,25 @@ public class LoginFunction {
 	}
 	
 	public static void GetProfile(String operation,String AccessToken) {
-		int p1,p2,p3;
+		int p1,p2,p3,p4,p5;
 		String str1="gender";
 		String str2="phoneNumber";
-		String str3="}";
+		String str3="nickname";
+		String str4="iconurl";
+		String str5="}";
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println(response);
 		if(response.indexOf("true")!=-1){
 			p1=response.indexOf(str1);
 			p2=response.indexOf(str2);
-			p3=response.indexOf(str3,p2+15);
+			p3=response.indexOf(str5,p2+14);
+//			p4=response.indexOf(str4);
+//			p5=response.indexOf(str5,p4+10);
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-1);
-			System.out.println("Gender is: "+Gender+"Phonenumber is: "+Phonenumber);
+//			Nickname=response.substring(p3+11,p4-3);
+//			Iconurl=response.substring(p4+14,p5-1);
+			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber);
 		}
 	}
 	
@@ -251,8 +285,8 @@ public class LoginFunction {
 		System.out.println(response);
 	}
 	
-	public static void ModifyProfile(String operation,String AccessToken,String gender,String phonenumber) {
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&gender="+gender+"&phonenumber="+phonenumber,"");
+	public static void ModifyProfile(String operation,String AccessToken,String gender,String phonenumber,String nickname,String iconurl) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&gender="+gender+"&phonenumber="+phonenumber+"&nickname="+nickname+"&iconurl="+iconurl,"");
 		System.out.println(response);
 	}
 	

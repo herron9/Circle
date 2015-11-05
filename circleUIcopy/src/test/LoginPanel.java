@@ -68,6 +68,26 @@ public class LoginPanel extends JPanel {
 		Login_password.setText("password");
 		Login_password.setBounds(240, 240,220, 35);
 		
+		JButton btnYhr = new JButton("yhr");
+		btnYhr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operation="sign-in?";
+            	LoginFunction.Login(operation,"yanghrong@outlook.com","123");
+			}
+		});
+		btnYhr.setBounds(28, 38, 117, 29);
+		add(btnYhr);
+		
+		JButton btnDuras = new JButton("duras");
+		btnDuras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operation="sign-in?";
+				LoginFunction.Login(operation,"duras.yhr@gmail.com","234");
+			}
+		});
+		btnDuras.setBounds(28, 75, 117, 29);
+		add(btnDuras);
+		
 		
 		
 		class FocusHandler extends FocusAdapter{
@@ -139,6 +159,7 @@ public class LoginPanel extends JPanel {
 				String password = new String(pass);
             	LoginFunction.Login(operation,Login_username.getText(),password);
 
+
 				Login_username.setText("username");
             	Login_password.setText("password");
             	Login_password.setEchoChar((char) (0));
@@ -147,7 +168,4 @@ public class LoginPanel extends JPanel {
         
        
 	}	
-	
-	
-
 }

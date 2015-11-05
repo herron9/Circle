@@ -103,6 +103,8 @@ public class FriendPanel extends JPanel {
 	                    	ChatList.CreateEntry(friendname);
 	                	}
 	            	}
+            	//JOptionPane.showMessageDialog(null, "chat with "+ friendname, null, JOptionPane.INFORMATION_MESSAGE);
+            	
             	}
             }
 		});
