@@ -1,5 +1,7 @@
 package test;
 
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,6 +24,7 @@ import com.sun.xml.internal.ws.wsdl.parser.MemberSubmissionAddressingWSDLParserE
 
 import client.CircleClient;
 import communication.Message;
+
 import scala.collection.generic.BitOperations.Int;
 import scala.util.Left;
 
@@ -96,21 +99,26 @@ public class SendTextButtonHandler implements ActionListener{
 			ChattingCellS cell = new ChattingCellS();
 			cell.NameLabel.setText(message.getMessageSrcID());
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
+
 			if(type==Message.TEXT){
 				cell.msg.setText(message.getMessageContent());
-				if (cell.msg.getText().length()>20) {
-					cell.msg.setSize(400,200);
+				if (cell.msg.getText().length()>30) {
+					cell.msg.setPreferredSize(new Dimension(300, 0));
 			        cell.msg.setLineWrap(true);
 			        cell.msg.setWrapStyleWord(true);
 				}
 			}
 			else if(type==Message.LINK){
-				//cell.Image=new JLabel(newIcon);
-				//cell.ShowArea.add(cell.Image);
+
+				cell.ShowArea.remove(cell.msg);
 				cell.PicMsg(newIcon);
+				cell.ShowArea.setPreferredSize(new Dimension(newIcon.getIconWidth(), 200));
+				//cell.ShowArea.setPreferredSize(new Dimension(300,300));
+				//cell.ShowArea.add(cell.Image);
 			}
 			MsgField.setText(null);
 			Inner.add(cell);
+			//cell.setAlignmentX(0);
 			Inner.revalidate();
 			Inner.repaint();
 			LoginFunction.History(type,FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);

@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
@@ -55,9 +56,15 @@ public class ClientFunction {
 		    CPanel.ImgBtn.removeActionListener( al );
 		}
 		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname));
+		CPanel.VideoBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VideoFrame video = new VideoFrame();
+			}
+		});
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname));
-		MsgReceiver.SrcID=friendname;
+		MsgReceiver.SrcID=friendname;		
 		LoginFunction.RecallHistory(friendname);
+		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
 	public static ImageIcon resizeIcon(ImageIcon old,int x) {
