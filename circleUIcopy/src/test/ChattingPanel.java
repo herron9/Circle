@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 
@@ -22,6 +23,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
@@ -31,14 +33,19 @@ import javax.swing.text.DefaultCaret;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import client.CircleClient;
+import communication.Message;
 
 import java.awt.Component;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
 
 public class ChattingPanel extends JPanel {
 
@@ -47,61 +54,40 @@ public class ChattingPanel extends JPanel {
 	public JScrollPane Scroller = new JScrollPane(Inner);//add chatarea to scrollarea
 	public JTextField MsgField = new JTextField(38);
 	public JButton SendMsgBtn = new JButton("Send");
+	public JButton EmoBtn = new JButton("Emotion");
+	public JButton ImgBtn = new JButton("Image");
+	public JButton VideoBtn = new JButton("Video Call");
+	public static JList list;
+
 	public JLabel Plus;
-	public ImageIcon PlusIcon = new ImageIcon("bin/plus.png");
+	public ImageIcon PlusIcon = new ImageIcon("bin/avatar.png");
+	public JScrollBar vertical = Scroller.getVerticalScrollBar();
 	
 	JPanel South = new JPanel();
 	JPanel SubBar = new JPanel();
 	String DesID = "null";
-	JButton ImgBtn = new JButton("Image");
 	boolean subbar=false;
 	
 	
-	public ChattingPanel(CircleClient client) {
-		
-		
-		
+	public ChattingPanel( CircleClient client) {
+		//add(VideoBtn);
 		setBackground(UIManager.getColor("CheckBox.background"));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
-		JLabel AddFriend = new JLabel("Picture");
-		GridBagConstraints gbc_AddFriend = new GridBagConstraints();
-		gbc_AddFriend.insets = new Insets(0, 0, 5, 0);
-		gbc_AddFriend.weightx = 0.1;
-		gbc_AddFriend.gridy = 0;
-		gbc_AddFriend.gridx = 5;
-		add(AddFriend, gbc_AddFriend);
-		
-		AddFriend.addMouseListener(new MouseListener(){
-            public void  mouseClicked(MouseEvent e) {
-            	s3Repository s3= new s3Repository();
-        		String key = ""+UUID.randomUUID()+".jpg";
-        		String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-        		s3.uploadFile(key, filePath);
-             }
-             public void  mouseExited(MouseEvent e) {
-             }
-             public void  mouseEntered(MouseEvent e) {            	
-             }
-             public void  mouseReleased(MouseEvent e) {            	 
-             }
-             public void  mousePressed(MouseEvent e) { 
-             }
-         });
 
 		Scroller.setPreferredSize(new Dimension(600, 370));
 		Scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		Scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		DefaultCaret caret = (DefaultCaret)ChatArea.getCaret();
 //		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		
-//		Scroller.setViewportView(ChatArea);//set sroller to the component u want to scroll
-		
-//		JScrollBar Bar = Scroller.getVerticalScrollBar();
-//		Bar.setValue( Bar.getMaximum() );
-//		DefaultCaret caret = (DefaultCaret)Inner.getCaret();
-//		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		vertical.setValue( vertical.getMaximum() );
 		Scroller.setViewportView(Inner);
+
+		VerticalFlowLayout vfl_Inner = new VerticalFlowLayout();
+		vfl_Inner.setVgap(0);
+		vfl_Inner.setHgap(0);
+		vfl_Inner.setAlignment(0);
+		Inner.setLayout(vfl_Inner);
+		//Inner.setPreferredSize(new Dimension(600, 0));
 		add(Scroller);//add scroller to panel, not the textarea
 		MsgField.setHorizontalAlignment(SwingConstants.LEFT);
 		MsgField.setBackground(UIManager.getColor("Button.highlight"));
@@ -127,7 +113,7 @@ public class ChattingPanel extends JPanel {
 				}
 			}
 		});
-		
+				
 		FlowLayout flowLayout = (FlowLayout) South.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		flowLayout.setVgap(0);
@@ -135,42 +121,39 @@ public class ChattingPanel extends JPanel {
 		South.add(MsgField);
 		South.add(Plus);
 		South.add(SendMsgBtn);
-		SendMsgBtn.addActionListener(new SendTextButtonHandler(Inner,MsgField,client,null));
-		Inner.setPreferredSize(new Dimension(600, 370));
-		Inner.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		SendMsgBtn.setPreferredSize(new Dimension(100, 32));
-		add(South);
-		//add(SubBar);
-		SubBar.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
-		ImgBtn.setPreferredSize(new Dimension(100, 32));
-		SubBar.add(ImgBtn);
-		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
+		//Inner.add(Box.createVerticalStrut(370)); 
 		
-		ImgBtn.addMouseListener(new MouseListener(){
-            public void  mouseClicked(MouseEvent e) {
-            	s3Repository s3= new s3Repository();
-        		String key = ""+UUID.randomUUID()+".jpg";
-        		String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-        		s3.uploadFile(key,filePath);
-        		String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
-        		System.out.println(fileurl);
-        		BufferedImage img = null;
-        		try {
-        			URL myURL = new URL(fileurl);
-        			img = ImageIO.read(myURL);
-        		} catch (IOException f) {
-        		}
-        		System.out.println(img.getWidth());
-             }
-             public void  mouseExited(MouseEvent e) {
-             }
-             public void  mouseEntered(MouseEvent e) {            	
-             }
-             public void  mouseReleased(MouseEvent e) {            	 
-             }
-             public void  mousePressed(MouseEvent e) { 
-             }
-         });
+		SendMsgBtn.setPreferredSize(new Dimension(100, 32));
+
+		add(South);
+		SubBar.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+		//ImgBtn.setPreferredSize(new Dimension(50, 32));
+		//SubBar.add(EmoBtn);
+		SubBar.add(ImgBtn);
+		SubBar.add(VideoBtn);
+		importEmoji();
+		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
+	}
+
+
+//	private ActionListener SendTextButtonHandler(JPanel inner2, JTextField msgField2, CircleClient client,
+//			Object object) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
+	public void importEmoji() {
+		ImageIcon emoji;
+		JLabel emojiLab;
+		String emojilist[] = null;
+		list = new JList(emojilist);
+		for (int i = 701; i < 711; i++) {
+			emoji = new ImageIcon("bin/emotion/"+i+".png");
+			emojiLab = new JLabel(ClientFunction.resizeIcon(emoji,24));
+			//emojilist[i] = "bin/emotion/"+i+".png";
+			SubBar.add(emojiLab);
+		}
+		
 	}
 
 }

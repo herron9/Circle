@@ -16,6 +16,7 @@ import javax.swing.border.AbstractBorder;
 
 import java.awt.Insets;
 import java.awt.Color;
+import javax.swing.border.BevelBorder;
 
 
 public class ChattingCellR extends JPanel {
@@ -31,12 +32,13 @@ public class ChattingCellR extends JPanel {
 	String name = "null";
 	
 	public ChattingCellR() {
-		setSize(new Dimension(500, 55));
+		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.ORANGE, null, null, null));
+		setPreferredSize(new Dimension(570, 55));
 		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
-		gridBagLayout.columnWidths = new int[]{40, 380, 60, 40};
+//		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
+//		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.columnWidths = new int[]{40, 340, 150, 40};
 		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
@@ -61,7 +63,8 @@ public class ChattingCellR extends JPanel {
 			add(TimeLabel, gbc_TimeLabel);
 			
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
-			gbc_UserIcon.anchor = GridBagConstraints.NORTHEAST;
+			gbc_UserIcon.fill = GridBagConstraints.HORIZONTAL;
+			gbc_UserIcon.anchor = GridBagConstraints.NORTH;
 			gbc_UserIcon.gridx = 3;
 			gbc_UserIcon.gridy = 1;
 			add(UserIcon, gbc_UserIcon);
@@ -70,17 +73,17 @@ public class ChattingCellR extends JPanel {
 			//ShowArea.seth
 			//msg.setBounds(0,0,200,40);
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
-			gbc_ShowArea.insets = new Insets(0, 0, 0, 5);
-			gbc_ShowArea.gridwidth = 2;
+			gbc_ShowArea.ipadx = 20;
 			gbc_ShowArea.anchor = GridBagConstraints.EAST;
+			gbc_ShowArea.gridwidth = 2;
 			gbc_ShowArea.gridx = 1;
 			gbc_ShowArea.gridy = 1;
 			add(ShowArea, gbc_ShowArea);
 	        msg.setForeground(Color.BLACK);
 	        msg.setEditable(false);
+	        msg.setOpaque(false);
 			
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-	        msg.setOpaque(false);
 	        
 	        ShowArea.add(msg);
 			

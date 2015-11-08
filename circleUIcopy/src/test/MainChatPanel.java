@@ -19,7 +19,7 @@ public class MainChatPanel extends JPanel {
 		
 		setSize(new Dimension(600, 400));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		MCInter.setPreferredSize(new Dimension(600, 400));
+		MCInter.setPreferredSize(getPreferredSize());
 		//MCInter.add(new CCShowArea());
 		MainScroller.setPreferredSize(new Dimension(600, 400));
 		MainScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

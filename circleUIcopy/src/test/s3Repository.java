@@ -1,6 +1,7 @@
 package test;
 
 
+import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +15,10 @@ import java.net.URL;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -77,5 +82,8 @@ public class s3Repository {
 		} catch (IOException e) {
 		}
 		System.out.println(img.getWidth());
+		ImageIcon image=new ImageIcon(img);
+		System.out.println(image);
+		JLabel RegLogo1 = new JLabel(image);
 	}
 }

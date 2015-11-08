@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.Color;
+import javax.swing.border.BevelBorder;
+
+import com.sun.prism.Texture;
 
 
 public class ChattingCellS extends JPanel {
@@ -32,26 +35,29 @@ public class ChattingCellS extends JPanel {
 	public JLabel UserIcon;
 	public JLabel NameLabel = new JLabel("New label");
 	public JLabel TimeLabel = new JLabel("New label");
+	public JLabel Image= new JLabel();
 	public JPanel ShowArea;
-	public JTextArea msg = new JTextArea("hello");
+	public JTextArea msg = new JTextArea();
+	public JLabel PicLab;
 	
 	JPanel Right = new JPanel();
 	
 	String name = "null";
 	
 	public ChattingCellS() {
+		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.RED, Color.ORANGE, null, null));	
+		setPreferredSize(new Dimension(520,100));
 		
-		
-		setPreferredSize(new Dimension(520,55));
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
-		gridBagLayout.columnWidths = new int[]{40, 100,320,40};
-		gridBagLayout.rowHeights = new int[]{20, 50};
+		gridBagLayout.columnWidths = new int[]{40, 120,300,40};
+		//gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 
 		
 			ShowArea = new CCShowArea(CCShowArea.Left);
+			//ShowArea.setMaximumSize(new Dimension(400, 0));
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
 			gbc_ShowArea.insets = new Insets(0, 5, 0, 0);
 			gbc_ShowArea.gridwidth = 2;
@@ -59,14 +65,22 @@ public class ChattingCellS extends JPanel {
 			gbc_ShowArea.gridx = 1;
 			gbc_ShowArea.gridy = 1;
 			add(ShowArea, gbc_ShowArea);
+	        msg.setRows(1);
+	        msg.setWrapStyleWord(true);
+	        msg.setLineWrap(true);
 	        msg.setEditable(false);
+	        msg.setOpaque(false);
 	        //msg.setHorizontalAlignment(SwingConstants.LEFT);
 	        msg.setForeground(Color.BLACK);
 			//msg.setSize(new Dimension(100, 15));
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-	        msg.setOpaque(false);
 	        ShowArea.add(msg);
-	        //ShowArea.add(comp)
+//<<<<<<< HEAD
+//	        //ShowArea.add(comp)
+//=======
+//	        ShowArea.add(Image);
+//			
+//>>>>>>> 97cff60ce318388e92dded430d4360d199c14a21
 			ShowArea.setBackground(new Color(240, 255, 255));
 			
 			
@@ -101,27 +115,27 @@ public class ChattingCellS extends JPanel {
 			gbc_UserIcon.gridy = 1;
 			gbc_UserIcon.gridx = 0;
 			add(UserIcon, gbc_UserIcon);
-//			
+			
+			ShowArea.add(PicLab);
 			//loadpic();
 
 	}
 	
-	public void loadpic() {
-		//URL img = new URL("http://www.baidu.com/img/bdlogo.png");
-		//ImageIcon image = new ImageIcon(img);
-		//BufferedImage myPicture = ImageIO.read(new File("www.baidu.com/img/bdlogo.png"));
-		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");
-		ImageIcon pic = new ImageIcon("src/avatar.png");
-		
-		JLabel picLabel = new JLabel(pic);
-		ShowArea.add(picLabel);
-	}
+//	public void loadpic() {
+//		//URL img = new URL("http://www.baidu.com/img/bdlogo.png");
+//		//ImageIcon image = new ImageIcon(img);
+//		//BufferedImage myPicture = ImageIO.read(new File("www.baidu.com/img/bdlogo.png"));
+//		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");
+//		ImageIcon pic = new ImageIcon("src/avatar.png");
+//		
+//		JLabel picLabel = new JLabel(pic);
+//		ShowArea.add(picLabel);
+//	}
 	
 	public void PicMsg(ImageIcon picMsg) {
 //		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
-		JLabel PicLab= new JLabel(picMsg);
-		ShowArea.add(PicLab);
-		
+		PicLab= new JLabel(picMsg);
+		ShowArea.setVisible(true);
 	}
 	
 	

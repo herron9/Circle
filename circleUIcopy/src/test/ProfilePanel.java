@@ -40,6 +40,8 @@ public class ProfilePanel extends JPanel {
 	public JButton LogoutBtn;
 	public String newgender;
 	public String newphone;
+	public String newnickname;
+	public String newiconurl;
 	public String newpw;
 	public JLabel valid1;
 	public JLabel valid2;
@@ -112,7 +114,7 @@ public class ProfilePanel extends JPanel {
 						valid1.setText(" ");
 						valid2.setText(" ");
 						LoginPanel.operation="modify-user-profile?";
-						LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone);
+						LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone,newnickname,newiconurl);
 						return;
 					}
 					else {

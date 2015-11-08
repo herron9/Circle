@@ -25,31 +25,35 @@ public class MainmenuPanel extends JPanel {
 	
 
 	public MainmenuPanel() {
-		setBackground(UIManager.getColor("CheckBox.background"));
+		setBackground(new Color(220, 220, 220));
 		setBounds(0,0,600,50);
 		setLayout(new GridLayout(0, 4, 0, 0));
+		MenuLabChat.setBackground(new Color(220, 220, 220));
 		
 		MenuLabChat.setHorizontalAlignment(SwingConstants.CENTER);
-		MenuLabChat.setBorder(new LineBorder(new Color(64, 64, 64)));
+		//MenuLabChat.setBorder(new LineBorder(new Color(64, 64, 64)));
 		MenuLabChat.setOpaque(true);
 		MenuLabChat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		add(MenuLabChat);
+		MenuLabFriend.setBackground(new Color(220, 220, 220));
 		
 		MenuLabFriend.setOpaque(true);
 		MenuLabFriend.setHorizontalAlignment(SwingConstants.CENTER);
-		MenuLabFriend.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+//		MenuLabFriend.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		MenuLabFriend.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		add(MenuLabFriend);
+		MenuLabMon.setBackground(new Color(220, 220, 220));
 		
 		MenuLabMon.setOpaque(true);
 		MenuLabMon.setHorizontalAlignment(SwingConstants.CENTER);
-		MenuLabMon.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+//		MenuLabMon.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		MenuLabMon.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		add(MenuLabMon);
+		MenuLabMe.setBackground(new Color(220, 220, 220));
 		
 		MenuLabMe.setOpaque(true);
 		MenuLabMe.setHorizontalAlignment(SwingConstants.CENTER);
-		MenuLabMe.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+//		MenuLabMe.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		MenuLabMe.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		add(MenuLabMe);
 		

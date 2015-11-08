@@ -11,7 +11,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/CircleCommunicationService_10.12.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/CircleCommunicationService_11.5.jar"/>
+	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
