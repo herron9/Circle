@@ -31,11 +31,12 @@ public class ChattingCellR extends JPanel {
 	String name = "null";
 	
 	public ChattingCellR() {
-		setSize(new Dimension(520, 55));
+		setSize(new Dimension(500, 55));
 		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
 		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
-		gridBagLayout.columnWidths = new int[]{40, 340, 100, 40};
+		gridBagLayout.columnWidths = new int[]{40, 380, 60, 40};
 		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
@@ -69,6 +70,7 @@ public class ChattingCellR extends JPanel {
 			//ShowArea.seth
 			//msg.setBounds(0,0,200,40);
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
+			gbc_ShowArea.insets = new Insets(0, 0, 0, 5);
 			gbc_ShowArea.gridwidth = 2;
 			gbc_ShowArea.anchor = GridBagConstraints.EAST;
 			gbc_ShowArea.gridx = 1;
@@ -78,7 +80,6 @@ public class ChattingCellR extends JPanel {
 	        msg.setEditable(false);
 			
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-	        msg.setLineWrap(true);
 	        msg.setOpaque(false);
 	        
 	        ShowArea.add(msg);

@@ -45,6 +45,7 @@ public class ChattingCellS extends JPanel {
 		setPreferredSize(new Dimension(520,55));
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
 		gridBagLayout.columnWidths = new int[]{40, 100,320,40};
 		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
@@ -52,6 +53,7 @@ public class ChattingCellS extends JPanel {
 		
 			ShowArea = new CCShowArea(CCShowArea.Left);
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
+			gbc_ShowArea.insets = new Insets(0, 5, 0, 0);
 			gbc_ShowArea.gridwidth = 2;
 			gbc_ShowArea.anchor = GridBagConstraints.WEST;
 			gbc_ShowArea.gridx = 1;
@@ -64,11 +66,12 @@ public class ChattingCellS extends JPanel {
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 	        msg.setOpaque(false);
 	        ShowArea.add(msg);
-			
+	        //ShowArea.add(comp)
 			ShowArea.setBackground(new Color(240, 255, 255));
-			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			
-	        
+			
+			
+			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			NameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			GridBagConstraints gbc_NameLabel = new GridBagConstraints();
 			//gbc_NameLabel.ipady = 15;
@@ -112,6 +115,13 @@ public class ChattingCellS extends JPanel {
 		
 		JLabel picLabel = new JLabel(pic);
 		ShowArea.add(picLabel);
+	}
+	
+	public void PicMsg(ImageIcon picMsg) {
+//		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
+		JLabel PicLab= new JLabel(picMsg);
+		ShowArea.add(PicLab);
+		
 	}
 	
 	

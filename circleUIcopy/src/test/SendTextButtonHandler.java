@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import com.sun.org.apache.bcel.internal.classfile.InnerClass;
 
 import client.CircleClient;
 import communication.Message;
+import scala.deprecated;
 import scala.util.Left;
 
 public class SendTextButtonHandler implements ActionListener{
@@ -56,8 +58,8 @@ public class SendTextButtonHandler implements ActionListener{
 			cell.NameLabel.setText(message.getMessageSrcID());
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 			cell.msg.setText(message.getMessageContent());
-			if (cell.msg.getText().length()>20) {
-				cell.msg.setSize(400,200);
+			if (cell.msg.getWidth()>300) {
+				cell.msg.setPreferredSize(new Dimension(300, 0));
 		        cell.msg.setLineWrap(true);
 		        cell.msg.setWrapStyleWord(true);
 			}
