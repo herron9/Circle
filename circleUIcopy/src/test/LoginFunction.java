@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,10 +10,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.regex.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import client.CircleClient;
+import communication.Message;
+import scala.collection.generic.BitOperations.Int;
 
 
 
@@ -25,7 +29,7 @@ public class LoginFunction {
 	public static String Nickname;
 	public static String Iconurl;
 	
-	public static void History(String friendname,String content,String time,String sourceID) {
+	public static void History(int type,String friendname,String content,String time,String sourceID,BufferedImage bImage) {
 		boolean find=false;
 		int index=0;
 		for(int i=0;i<receiver.size();i++){
@@ -36,7 +40,12 @@ public class LoginFunction {
 		}
 		if(find==true){
 			chatRecord record = new chatRecord();
-			record.message=content;
+			if(type==Message.TEXT){
+				record.message=content;
+			}
+			else if(type==Message.LINK){
+				record.image=new ImageIcon(bImage);
+			}
 			record.time=time;
 			record.sourceID=sourceID;
 			receiver.get(index).history.add(record);

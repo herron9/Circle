@@ -82,7 +82,7 @@ class MsgReceiver implements ReceiverHandler {
 		    for( ActionListener al : ClientFunction.CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	ClientFunction.CPanel.ImgBtn.removeActionListener( al );
 		    }
-		    ClientFunction.CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(message.TEXT,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
+		    ClientFunction.CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(message.LINK,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
 		    ClientFunction.CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(message.TEXT,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
 		    MsgReceiver.SrcID=message.getMessageSrcID();
 		    SrcID = message.getMessageSrcID();
@@ -95,12 +95,12 @@ class MsgReceiver implements ReceiverHandler {
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 			cell.msg.setText(message.getMessageContent());
 			ClientFunction.CPanel.Inner.add(cell);
-			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+//			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
 			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 		}
 		else{
 			ChatList.CreateEntry(message.getMessageSrcID());
-			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+//			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
 			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 			
 		}

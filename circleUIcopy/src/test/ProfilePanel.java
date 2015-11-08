@@ -2,6 +2,8 @@ package test;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -35,13 +37,13 @@ public class ProfilePanel extends JPanel {
 	public JRadioButton RadioBtnF;
 	public JRadioButton RadioBtnU;
 	public JTextField phoneField;
-	public JTextField pwField;
+	public JPasswordField pwField;
 	public JButton EditBtn;
 	public JButton LogoutBtn;
 	public String newgender;
 	public String newphone;
-	public String newnickname;
-	public String newiconurl;
+	public String newnickname=null;
+	public String newiconurl="src/avatar.png";
 	public String newpw;
 	public JLabel valid1;
 	public JLabel valid2;
@@ -57,7 +59,7 @@ public class ProfilePanel extends JPanel {
         RadioBtnF = new JRadioButton("Female");
         RadioBtnU = new JRadioButton("Keep Secret");
         phoneField = new JTextField();
-        pwField = new JTextField();		
+        pwField = new JPasswordField();		
         valid1 = new JLabel(" ");
         valid1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
         valid2 = new JLabel(" ");

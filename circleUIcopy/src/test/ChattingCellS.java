@@ -34,7 +34,7 @@ public class ChattingCellS extends JPanel {
 	public JLabel TimeLabel = new JLabel("New label");
 	public JLabel Image= new JLabel();
 	public JPanel ShowArea;
-	public JTextArea msg = new JTextArea("hello");
+	public JTextArea msg = new JTextArea();
 	
 	JPanel Right = new JPanel();
 	
@@ -65,6 +65,7 @@ public class ChattingCellS extends JPanel {
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 	        msg.setOpaque(false);
 	        ShowArea.add(msg);
+	        Image.setText("12345678");
 	        ShowArea.add(Image);
 			
 			ShowArea.setBackground(new Color(240, 255, 255));
@@ -105,17 +106,20 @@ public class ChattingCellS extends JPanel {
 
 	}
 	
-	public void loadpic() {
+	public void loadpic(ImageIcon picMsg) {
 		//URL img = new URL("http://www.baidu.com/img/bdlogo.png");
 		//ImageIcon image = new ImageIcon(img);
 		//BufferedImage myPicture = ImageIO.read(new File("www.baidu.com/img/bdlogo.png"));
-		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");
-		ImageIcon pic = new ImageIcon("src/avatar.png");
-		
-		JLabel picLabel = new JLabel(pic);
+		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");		
+		JLabel picLabel = new JLabel(picMsg);
 		ShowArea.add(picLabel);
 	}
 	
+	public void PicMsg(ImageIcon picMsg) {
+		JLabel PicLab = new JLabel(picMsg);
+		ShowArea.add(PicLab);
+		
+	}
 	
 
 }

@@ -34,6 +34,7 @@ public class SendTextButtonHandler implements ActionListener{
 	int type;
 	static String FriendName;
 	ImageIcon newIcon = new ImageIcon();
+	BufferedImage bi;
 
 	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendname) {
 	//public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
@@ -68,7 +69,7 @@ public class SendTextButtonHandler implements ActionListener{
 			}
 			ImageIcon image=new ImageIcon(bufferedImage);
 			Image img = image.getImage();
-			BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bi.createGraphics();
 			g.drawImage(img, 0, 0, 50, 50, null);
 			newIcon = new ImageIcon(bi);
@@ -104,14 +105,15 @@ public class SendTextButtonHandler implements ActionListener{
 				}
 			}
 			else if(type==Message.LINK){
-				cell.Image=new JLabel(newIcon);
-				cell.ShowArea.add(cell.Image);
+				//cell.Image=new JLabel(newIcon);
+				//cell.ShowArea.add(cell.Image);
+				cell.PicMsg(newIcon);
 			}
 			MsgField.setText(null);
 			Inner.add(cell);
 			Inner.revalidate();
 			Inner.repaint();
-			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+			LoginFunction.History(type,FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
 			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

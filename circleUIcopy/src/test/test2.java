@@ -74,6 +74,9 @@ public class test2 {
 		Graphics g = bi.createGraphics();
 		g.drawImage(img, 0, 0, 50, 50, null);
 		ImageIcon newIcon = new ImageIcon(bi);
+		System.out.println(newIcon.getIconWidth());
+		System.out.println(newIcon.getIconHeight());
+
 
 		RegLogo1 = new JLabel(newIcon);
 		RegLogo1.setBounds(10, 10, 350, 350);
