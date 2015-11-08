@@ -1,5 +1,7 @@
 package test;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -9,14 +11,18 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.sun.org.apache.bcel.internal.classfile.InnerClass;
+import com.sun.xml.internal.ws.wsdl.parser.MemberSubmissionAddressingWSDLParserExtension;
 
 import client.CircleClient;
 import communication.Message;
+import scala.collection.generic.BitOperations.Int;
 import scala.util.Left;
 
 public class SendTextButtonHandler implements ActionListener{
@@ -25,11 +31,14 @@ public class SendTextButtonHandler implements ActionListener{
 	JTextArea ChatArea;
 	CircleClient client;
 	JPanel Inner;
+	int type;
 	static String FriendName;
+	ImageIcon newIcon = new ImageIcon();
 
-	public SendTextButtonHandler(JPanel Inner,JTextField MsgField, CircleClient client, String friendname) {
+	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendname) {
 	//public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
 		// TODO Auto-generated constructor stub
+		this.type=type;
 		this.MsgField = MsgField;
 		//this.ChatArea = ChatArea;
 		this.client = client;
@@ -43,65 +52,73 @@ public class SendTextButtonHandler implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent ae)
     {
-		
-		s3Repository s3= new s3Repository();
-		String key = ""+UUID.randomUUID()+".jpg";
-		String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-		s3.uploadFile(key,filePath);
-		String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
-		System.out.println(fileurl);
-		BufferedImage img = null;
-		try {
-			URL myURL = new URL(fileurl);
-			img = ImageIO.read(myURL);
-		} catch (IOException f) {
-		}
-		System.out.println(img.getWidth());
-		ArrayList<String> des = new ArrayList<>();
-	    des.add(FriendPanel.friendname);
 	    Message message = new Message();
-	    message.setMessageType(Message.LINK);
-	    message.setMessageSrcID(LoginPanel.circleAccessToken);
-	    message.setMessageDesIDList(des);
-	    message.setMessageContent(fileurl);
-		System.out.println(client);
+		if(type==Message.LINK){
+			s3Repository s3= new s3Repository();
+			String key = ""+UUID.randomUUID()+".jpg";
+			String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
+			s3.uploadFile(key,filePath);
+			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+			System.out.println(fileurl);
+			BufferedImage bufferedImage = null;
+			try {
+				URL myURL = new URL(fileurl);
+				bufferedImage = ImageIO.read(myURL);
+			} catch (IOException f) {
+			}
+			ImageIcon image=new ImageIcon(bufferedImage);
+			Image img = image.getImage();
+			BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			Graphics g = bi.createGraphics();
+			g.drawImage(img, 0, 0, 50, 50, null);
+			newIcon = new ImageIcon(bi);
+			
+			ArrayList<String> des = new ArrayList<>();
+		    des.add(FriendPanel.friendname);
+		    message.setMessageType(Message.LINK);
+		    message.setMessageSrcID(LoginPanel.circleAccessToken);
+		    message.setMessageDesIDList(des);
+		    message.setMessageContent(fileurl);
+		}
+		else if(type==Message.TEXT){
+			ArrayList<String> des = new ArrayList<>();
+		    des.add(FriendPanel.friendname);
+		    message.setMessageType(Message.TEXT);
+		    message.setMessageSrcID(LoginPanel.circleAccessToken);
+		    message.setMessageDesIDList(des);
+		    message.setMessageContent(MsgField.getText());
+		}
+		
+		
 	    try {
 			client.sendTextMessage(message);
+			ChattingCellS cell = new ChattingCellS();
+			cell.NameLabel.setText(message.getMessageSrcID());
+			cell.TimeLabel.setText(message.getMessageTimeStamp());
+			if(type==Message.TEXT){
+				cell.msg.setText(message.getMessageContent());
+				if (cell.msg.getText().length()>20) {
+					cell.msg.setSize(400,200);
+			        cell.msg.setLineWrap(true);
+			        cell.msg.setWrapStyleWord(true);
+				}
+			}
+			else if(type==Message.LINK){
+				cell.Image=new JLabel(newIcon);
+				cell.ShowArea.add(cell.Image);
+			}
+			MsgField.setText(null);
+			Inner.add(cell);
+			Inner.revalidate();
+			Inner.repaint();
+			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-//		ArrayList<String> des = new ArrayList<>();
-//	    des.add(FriendName);
-//	    Message message = new Message();
-//	    message.setMessageType(Message.TEXT);
-//	    message.setMessageSrcID(LoginPanel.circleAccessToken);
-//	    message.setMessageDesIDList(des);
-//	    message.setMessageContent(MsgField.getText());
-//	   // message.setMessageTimeStamp(new);
-//	    
-//	
-//		try {
-//			client.sendTextMessage(message);
-//			ChattingCellS cell = new ChattingCellS();
-//			cell.NameLabel.setText(message.getMessageSrcID());
-//			cell.TimeLabel.setText(message.getMessageTimeStamp());
-//			cell.msg.setText(message.getMessageContent());
-//			if (cell.msg.getText().length()>20) {
-//				cell.msg.setSize(400,200);
-//		        cell.msg.setLineWrap(true);
-//		        cell.msg.setWrapStyleWord(true);
-//			}
-//			MsgField.setText(null);
-//			Inner.add(cell);
-//			Inner.revalidate();
-//			Inner.repaint();
-//			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
-//			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+
     }
 	
 	public class Setname{  

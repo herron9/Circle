@@ -32,6 +32,7 @@ public class ChattingCellS extends JPanel {
 	public JLabel UserIcon;
 	public JLabel NameLabel = new JLabel("New label");
 	public JLabel TimeLabel = new JLabel("New label");
+	public JLabel Image= new JLabel();
 	public JPanel ShowArea;
 	public JTextArea msg = new JTextArea("hello");
 	
@@ -64,6 +65,7 @@ public class ChattingCellS extends JPanel {
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 	        msg.setOpaque(false);
 	        ShowArea.add(msg);
+	        ShowArea.add(Image);
 			
 			ShowArea.setBackground(new Color(240, 255, 255));
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
