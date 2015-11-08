@@ -120,6 +120,7 @@ public class LoginFunction {
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
+    		  ProfilePanel.setInfo(Gender,Phonenumber);
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{
@@ -156,22 +157,22 @@ public class LoginFunction {
 		int p1,p2,p3,p4,p5;
 		String str1="gender";
 		String str2="phoneNumber";
-		String str3="nickname";
-		String str4="iconurl";
+		String str3="nickName";
+		String str4="iconUrl";
 		String str5="}";
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println(response);
 		if(response.indexOf("true")!=-1){
 			p1=response.indexOf(str1);
 			p2=response.indexOf(str2);
-			p3=response.indexOf(str5,p2+14);
-//			p4=response.indexOf(str4);
-//			p5=response.indexOf(str5,p4+10);
+			p3=response.indexOf(str3);
+			p4=response.indexOf(str4);
+			p5=response.indexOf(str5,p4+10);
 			Gender=response.substring(p1+9, p2-3);
-			Phonenumber=response.substring(p2+14,p3-1);
-//			Nickname=response.substring(p3+11,p4-3);
-//			Iconurl=response.substring(p4+14,p5-1);
-			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber);
+			Phonenumber=response.substring(p2+14,p3-3);
+			Nickname=response.substring(p3+11,p4-3);
+			Iconurl=response.substring(p4+14,p5-1);
+			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber+"nickname is: "+Nickname+"iconurl is : "+Iconurl);
 		}
 	}
 	
@@ -271,7 +272,7 @@ public class LoginFunction {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&password="+newpassword,"");
 		System.out.println(response);
 		if(response.indexOf("true")!=-1){
-			JOptionPane.showMessageDialog(null,"modification successful");
+//			JOptionPane.showMessageDialog(null,"modification successful");
 		}
 		else{
 			JOptionPane.showMessageDialog(null,"modification failed");

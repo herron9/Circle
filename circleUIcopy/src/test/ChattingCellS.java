@@ -47,7 +47,7 @@ public class ChattingCellS extends JPanel {
 	
 	public ChattingCellS() {
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.RED, Color.ORANGE, null, null));	
-		setPreferredSize(new Dimension(520,100));
+		setPreferredSize(new Dimension(520,0));
 		
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -111,8 +111,7 @@ public class ChattingCellS extends JPanel {
 			gbc_UserIcon.gridy = 1;
 			gbc_UserIcon.gridx = 0;
 			add(UserIcon, gbc_UserIcon);
-			
-			ShowArea.add(PicLab);
+			//ShowArea.add(PicLab);
 			//loadpic();
 
 	}
@@ -128,9 +127,11 @@ public class ChattingCellS extends JPanel {
 
 	
 	public void PicMsg(ImageIcon picMsg) {
-		JLabel PicLab = new JLabel(picMsg);
+
+//		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
+		PicLab= new JLabel(picMsg);
 		ShowArea.add(PicLab);
-		
+		ShowArea.setVisible(true);
 	}
 	
 

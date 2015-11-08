@@ -46,15 +46,6 @@ public class ChatList{
 			}
 
 			MainLayout.MCPanel.MCInter.add(LogList.get(i));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
-			MainLayout.MCPanel.MCInter.add(new ChatLog(null));
 			MainLayout.MCPanel.MCInter.revalidate();
 			MainLayout.MCPanel.MCInter.repaint();
 		}
