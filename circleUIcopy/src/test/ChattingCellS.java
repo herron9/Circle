@@ -46,7 +46,7 @@ public class ChattingCellS extends JPanel {
 	
 	public ChattingCellS() {
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.RED, Color.ORANGE, null, null));	
-		setPreferredSize(new Dimension(520,100));
+		setPreferredSize(new Dimension(520,0));
 		
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -75,12 +75,7 @@ public class ChattingCellS extends JPanel {
 			//msg.setSize(new Dimension(100, 15));
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 	        ShowArea.add(msg);
-//<<<<<<< HEAD
-//	        //ShowArea.add(comp)
-//=======
-//	        ShowArea.add(Image);
-//			
-//>>>>>>> 97cff60ce318388e92dded430d4360d199c14a21
+
 			ShowArea.setBackground(new Color(240, 255, 255));
 			
 			
@@ -115,8 +110,7 @@ public class ChattingCellS extends JPanel {
 			gbc_UserIcon.gridy = 1;
 			gbc_UserIcon.gridx = 0;
 			add(UserIcon, gbc_UserIcon);
-			
-			ShowArea.add(PicLab);
+			//ShowArea.add(PicLab);
 			//loadpic();
 
 	}
@@ -135,6 +129,7 @@ public class ChattingCellS extends JPanel {
 	public void PicMsg(ImageIcon picMsg) {
 //		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
 		PicLab= new JLabel(picMsg);
+		ShowArea.add(PicLab);
 		ShowArea.setVisible(true);
 	}
 	

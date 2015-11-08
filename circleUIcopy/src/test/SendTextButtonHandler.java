@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.amazonaws.services.elasticsearch.model.CreateElasticsearchDomainRequest;
 import com.sun.org.apache.bcel.internal.classfile.InnerClass;
 import com.sun.xml.internal.ws.wsdl.parser.MemberSubmissionAddressingWSDLParserExtension;
 
@@ -73,7 +74,7 @@ public class SendTextButtonHandler implements ActionListener{
 			Image img = image.getImage();
 			BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bi.createGraphics();
-			g.drawImage(img, 0, 0, 50, 50, null);
+			g.drawImage(img, 15, 15, 50, 50, null);
 			newIcon = new ImageIcon(bi);
 			
 			ArrayList<String> des = new ArrayList<>();
@@ -100,17 +101,21 @@ public class SendTextButtonHandler implements ActionListener{
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 
 			if(type==Message.TEXT){
+				cell.setPreferredSize(new Dimension(520,70));
+				//cell.msg.setPreferredSize(new Dimension());
 				cell.msg.setText(message.getMessageContent());
 				if (cell.msg.getText().length()>30) {
-					cell.msg.setPreferredSize(new Dimension(300, 0));
+					
+					cell.msg.setPreferredSize(new Dimension(400,50));
 			        cell.msg.setLineWrap(true);
 			        cell.msg.setWrapStyleWord(true);
 				}
 			}
 			else if(type==Message.LINK){
+				cell.setPreferredSize(new Dimension(520, newIcon.getIconHeight()+20));
 				cell.ShowArea.remove(cell.msg);
 				cell.PicMsg(newIcon);
-				cell.ShowArea.setPreferredSize(new Dimension(newIcon.getIconWidth(), 200));
+				cell.ShowArea.setPreferredSize(new Dimension(newIcon.getIconWidth(),newIcon.getIconHeight()));
 				//cell.ShowArea.setPreferredSize(new Dimension(300,300));
 				//cell.ShowArea.add(cell.Image);
 			}
