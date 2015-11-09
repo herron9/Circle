@@ -34,13 +34,14 @@ public class ChattingCellR extends JPanel {
 	
 	public ChattingCellR() {
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.ORANGE, null, null, null));
-		setPreferredSize(new Dimension(570, 0));
+		setPreferredSize(new Dimension(570, 00));
 		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
+		UserIcon.setVerticalAlignment(SwingConstants.TOP);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 //		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
 //		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWidths = new int[]{40, 340, 150, 40};
-		//gridBagLayout.rowHeights = new int[]{20, 50};
+		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		
@@ -64,7 +65,6 @@ public class ChattingCellR extends JPanel {
 			add(TimeLabel, gbc_TimeLabel);
 			
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
-			gbc_UserIcon.fill = GridBagConstraints.HORIZONTAL;
 			gbc_UserIcon.anchor = GridBagConstraints.NORTH;
 			gbc_UserIcon.gridx = 3;
 			gbc_UserIcon.gridy = 1;
@@ -75,7 +75,7 @@ public class ChattingCellR extends JPanel {
 			//msg.setBounds(0,0,200,40);
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
 			gbc_ShowArea.ipadx = 20;
-			gbc_ShowArea.anchor = GridBagConstraints.EAST;
+			gbc_ShowArea.anchor = GridBagConstraints.NORTHEAST;
 			gbc_ShowArea.gridwidth = 2;
 			gbc_ShowArea.gridx = 1;
 			gbc_ShowArea.gridy = 1;

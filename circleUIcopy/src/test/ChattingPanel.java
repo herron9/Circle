@@ -61,7 +61,7 @@ public class ChattingPanel extends JPanel {
 	//public static JList list;
 
 	public JLabel Plus;
-	public ImageIcon PlusIcon = new ImageIcon("bin/avatar.png");
+	public ImageIcon PlusIcon = new ImageIcon("bin/plus.png");
 	public JScrollBar vertical = Scroller.getVerticalScrollBar();
 	
 	JPanel South = new JPanel();
@@ -138,7 +138,7 @@ public class ChattingPanel extends JPanel {
 //            public void  mouseClicked(MouseEvent e) {
 //            	MainFrame.mainFrame.setTitle("Circle - Chat");
 //            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
-//             }
+//             } 
 //             public void  mouseExited(MouseEvent e) {
 //            	 MenuLabChat.setBackground(null);
 //             }

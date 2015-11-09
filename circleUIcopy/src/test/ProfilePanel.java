@@ -2,6 +2,8 @@ package test;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -31,17 +33,18 @@ public class ProfilePanel extends JPanel {
 	ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	JLabel UserIcon = new JLabel(User);
 	static JLabel Userid = new JLabel("New label");
-	public JRadioButton RadioBtnM;
-	public JRadioButton RadioBtnF;
-	public JRadioButton RadioBtnU;
-	public JTextField phoneField;
-	public JTextField pwField;
+	public static JRadioButton RadioBtnM;
+	public static JRadioButton RadioBtnF;
+	public static JRadioButton RadioBtnU;
+	public static JTextField phoneField;
+	public static JPasswordField pwField;
 	public JButton EditBtn;
+	public JButton EditPWBtn;
 	public JButton LogoutBtn;
 	public String newgender;
 	public String newphone;
-	public String newnickname;
-	public String newiconurl;
+	public String newnickname=null;
+	public String newiconurl="src/avatar.png";
 	public String newpw;
 	public JLabel valid1;
 	public JLabel valid2;
@@ -56,12 +59,13 @@ public class ProfilePanel extends JPanel {
         RadioBtnF = new JRadioButton("Female");
         RadioBtnU = new JRadioButton("Keep Secret");
         phoneField = new JTextField();
-        pwField = new JTextField();		
+        pwField = new JPasswordField();		
         valid1 = new JLabel(" ");
         valid1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
         valid2 = new JLabel(" ");
         valid2.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-        EditBtn = new JButton("   Edit   ");
+        EditBtn = new JButton("   Edit Profile  ");
+        EditPWBtn = new JButton("   Edit Password  ");
         LogoutBtn = new JButton("Log out");
         LogoutBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -76,16 +80,71 @@ public class ProfilePanel extends JPanel {
         
         EditBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (EditBtn.getText().equals("   Edit   ")) {
+				if (EditBtn.getText().equals("   Edit Profile  ")) {
 					RadioBtnM.setEnabled(true);
 					RadioBtnF.setEnabled(true);
 					RadioBtnU.setEnabled(true);
 					phoneField.setEditable(true);
-					pwField.setEditable(true);
 					EditBtn.setText("Confirm");
 					return;
 				}
 				if (EditBtn.getText().equals("Confirm")) {
+					String x = phoneField.getText();
+					String y = pwField.getText();
+					boolean isDigit = isNumeric(x);//x.matches("\\d{1}");
+					boolean isChar =isLetterDigit(y);// y.matches("[a-zA-z]{1}");
+					
+//					if (isDigit&&isChar&&!y.isEmpty()) {
+						
+					if (RadioBtnM.isSelected()) {
+						newgender = "Male";
+					}
+					if (RadioBtnF.isSelected()) {
+						newgender = "Female";
+					}
+					if (RadioBtnU.isSelected()) {   //get gender
+						newgender = "keep secret";
+					}
+						newphone = phoneField.getText(); //get phone
+						newpw = pwField.getText();   //get password
+						RadioBtnM.setEnabled(false);
+						RadioBtnF.setEnabled(false);
+						RadioBtnU.setEnabled(false);
+						phoneField.setEditable(false);
+						pwField.setEditable(false);
+						EditBtn.setText("   Edit Profile  ");
+						valid1.setText(" ");
+						valid2.setText(" ");
+						LoginPanel.operation="modify-user-profile?";
+						LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone,newnickname,newiconurl);
+						LoginPanel.operation="get-user-profile?";
+						LoginFunction.GetProfile(LoginPanel.operation, LoginFunction.AccessToken);
+			    		setInfo(LoginFunction.Gender,LoginFunction.Phonenumber);
+						return;
+					}
+					else {
+//						if (isDigit == false) {
+//							valid1.setText("Must Contain Digits Only");
+//						}
+//						if (isChar == false) {
+//							valid2.setText("Must Contain Letters And Digits Only");
+//						}
+						
+						return;				
+					}
+					
+//				}
+				
+			}
+		});
+        EditPWBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (EditPWBtn.getText().equals("   Edit Password  ")) {
+					pwField.setEditable(true);
+					EditPWBtn.setText("Confirm");
+					return;
+				}
+				if (EditPWBtn.getText().equals("Confirm")) {
 					String x = phoneField.getText();
 					String y = pwField.getText();
 					boolean isDigit = isNumeric(x);//x.matches("\\d{1}");
@@ -109,20 +168,21 @@ public class ProfilePanel extends JPanel {
 						RadioBtnU.setEnabled(false);
 						phoneField.setEditable(false);
 						pwField.setEditable(false);
-						EditBtn.setText("   Edit   ");
+						EditPWBtn.setText("   Edit Password  ");
 						valid1.setText(" ");
 						valid2.setText(" ");
-						LoginPanel.operation="modify-user-profile?";
-						LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone,newnickname,newiconurl);
+						LoginPanel.operation="modify-password?";
+						LoginFunction.ModifyPassword(LoginPanel.operation, LoginFunction.AccessToken, newpw);
+			    		setInfo(LoginFunction.Gender,LoginFunction.Phonenumber);
 						return;
 					}
 					else {
-						if (isDigit == false) {
-							valid1.setText("Must Contain Digits Only");
-						}
-						if (isChar == false) {
-							valid2.setText("Must Contain Letters And Digits Only");
-						}
+//						if (isDigit == false) {
+//							valid1.setText("Must Contain Digits Only");
+//						}
+//						if (isChar == false) {
+//							valid2.setText("Must Contain Letters And Digits Only");
+//						}
 						if (y.isEmpty()) {
 							valid2.setText("Cannot Leave this Empty");
 							
@@ -134,25 +194,26 @@ public class ProfilePanel extends JPanel {
 				
 			}
 		});
-        
 		
 	}
 	
-//	public void setInfo(String id,String gender,String phone,String pw) {
-//		//Userid.setText(id);
-//		if (condition) {
-//			RadioBtnM.setSelected(true);
-//		}
-//		if (condition) {
-//			RadioBtnF.setSelected(true);
-//		}
-//		if (condition) {
-//			RadioBtnU.setSelected(true);
-//		}
-//		phoneField.setText(phone);
-//		pwField.setText(pw);
-//		
-//	}
+	public static void setInfo(String gender,String phone) {
+		//Userid.setText(id)
+		System.out.println(gender);
+
+		if (gender.equals("Male")) {
+			RadioBtnM.setSelected(true);
+		}
+		if (gender.equals("Female")) {
+			RadioBtnF.setSelected(true);
+		}
+		if (gender.equals("Unknown")) {
+			RadioBtnU.setSelected(true);
+		}
+		phoneField.setText(phone);
+		pwField.setText(null);
+		
+	}
 	public static void getUserID(String id) {
 		Userid.setText(id);
 	}
@@ -224,7 +285,7 @@ public class ProfilePanel extends JPanel {
 		gender.add(RadioBtnM);
 		gender.add(RadioBtnF);
 		gender.add(RadioBtnU);
-		RadioBtnU.setSelected(true);
+//		RadioBtnU.setSelected(true);
 		RadioBtnM.setEnabled(false);
 		RadioBtnF.setEnabled(false);
 		RadioBtnU.setEnabled(false);
@@ -296,14 +357,23 @@ public class ProfilePanel extends JPanel {
 		gbc_EditBtn.gridy = 9;
 		add(EditBtn, gbc_EditBtn);
 		
-		GridBagConstraints gbc_logoutBtn = new GridBagConstraints();
-		gbc_logoutBtn.fill = GridBagConstraints.VERTICAL;
-		gbc_logoutBtn.ipadx = 70;
-		gbc_logoutBtn.ipady = 8;
-		gbc_logoutBtn.gridwidth = 7;
-		gbc_logoutBtn.gridx = 0;
-		gbc_logoutBtn.gridy = 10;
-		add(LogoutBtn, gbc_logoutBtn);
+		GridBagConstraints gbc_EditPWBtn = new GridBagConstraints();
+		gbc_EditPWBtn.fill = GridBagConstraints.VERTICAL;
+		gbc_EditPWBtn.ipadx = 70;
+		gbc_EditPWBtn.ipady = 8;
+		gbc_EditPWBtn.gridwidth = 7;
+		gbc_EditPWBtn.gridx = 0;
+		gbc_EditPWBtn.gridy = 10;
+		add(EditPWBtn, gbc_EditPWBtn);
+		
+//		GridBagConstraints gbc_logoutBtn = new GridBagConstraints();
+//		gbc_logoutBtn.fill = GridBagConstraints.VERTICAL;
+//		gbc_logoutBtn.ipadx = 70;
+//		gbc_logoutBtn.ipady = 8;
+//		gbc_logoutBtn.gridwidth = 7;
+//		gbc_logoutBtn.gridx = 0;
+//		gbc_logoutBtn.gridy = 10;
+//		add(LogoutBtn, gbc_logoutBtn);
 	
 		
 	}

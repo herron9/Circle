@@ -70,13 +70,16 @@ public class test2 {
 		
 		ImageIcon image=new ImageIcon(bufferedImage);
 		Image img = image.getImage();
-		BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bi.createGraphics();
 		g.drawImage(img, 0, 0, 50, 50, null);
 		ImageIcon newIcon = new ImageIcon(bi);
+		System.out.println(newIcon.getIconWidth());
+		System.out.println(newIcon.getIconHeight());
+
 
 		RegLogo1 = new JLabel(newIcon);
-		RegLogo1.setBounds(10, 10, 350, 350);
+		RegLogo1.setBounds(0, 0, 50, 50);
 		frame.getContentPane().add(RegLogo1);
 
 		

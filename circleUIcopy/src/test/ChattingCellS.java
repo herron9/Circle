@@ -38,6 +38,7 @@ public class ChattingCellS extends JPanel {
 	public JLabel Image= new JLabel();
 	public JPanel ShowArea;
 	public JTextArea msg = new JTextArea();
+
 	public JLabel PicLab;
 	
 	JPanel Right = new JPanel();
@@ -50,7 +51,7 @@ public class ChattingCellS extends JPanel {
 		
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 		gridBagLayout.columnWidths = new int[]{40, 120,300,40};
 		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
@@ -59,10 +60,9 @@ public class ChattingCellS extends JPanel {
 			ShowArea = new CCShowArea(CCShowArea.Left);
 			//ShowArea.setMaximumSize(new Dimension(400, 0));
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
-			gbc_ShowArea.fill = GridBagConstraints.VERTICAL;
 			gbc_ShowArea.insets = new Insets(0, 5, 0, 0);
 			gbc_ShowArea.gridwidth = 2;
-			gbc_ShowArea.anchor = GridBagConstraints.WEST;
+			gbc_ShowArea.anchor = GridBagConstraints.NORTHWEST;
 			gbc_ShowArea.gridx = 1;
 			gbc_ShowArea.gridy = 1;
 			add(ShowArea, gbc_ShowArea);
@@ -106,7 +106,7 @@ public class ChattingCellS extends JPanel {
 			UserIcon.setVerticalAlignment(SwingConstants.TOP);
 			//UserIcon.setSize(new Dimension(40, 40));
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
-			gbc_UserIcon.anchor = GridBagConstraints.WEST;
+			gbc_UserIcon.anchor = GridBagConstraints.NORTHWEST;
 			//gbc_UserIcon.ipady = 40;
 			//gbc_UserIcon.ipadx = 40;
 			gbc_UserIcon.gridy = 1;
@@ -117,24 +117,23 @@ public class ChattingCellS extends JPanel {
 
 	}
 	
-//	public void loadpic() {
-//		//URL img = new URL("http://www.baidu.com/img/bdlogo.png");
-//		//ImageIcon image = new ImageIcon(img);
-//		//BufferedImage myPicture = ImageIO.read(new File("www.baidu.com/img/bdlogo.png"));
-//		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");
-//		ImageIcon pic = new ImageIcon("src/avatar.png");
-//		
-//		JLabel picLabel = new JLabel(pic);
-//		ShowArea.add(picLabel);
-//	}
+	public void loadpic(ImageIcon picMsg) {
+		//URL img = new URL("http://www.baidu.com/img/bdlogo.png");
+		//ImageIcon image = new ImageIcon(img);
+		//BufferedImage myPicture = ImageIO.read(new File("www.baidu.com/img/bdlogo.png"));
+		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");		
+		JLabel picLabel = new JLabel(picMsg);
+		ShowArea.add(picLabel);
+	}
+
 	
 	public void PicMsg(ImageIcon picMsg) {
+
 //		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
 		PicLab= new JLabel(picMsg);
 		ShowArea.add(PicLab);
 		ShowArea.setVisible(true);
 	}
-	
 	
 
 }

@@ -39,6 +39,7 @@ public class SendTextButtonHandler implements ActionListener{
 	int type;
 	static String FriendName;
 	ImageIcon newIcon = new ImageIcon();
+	BufferedImage bi;
 
 	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendname) {
 	//public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
@@ -59,7 +60,7 @@ public class SendTextButtonHandler implements ActionListener{
     {
 	    Message message = new Message();
 		if(type==Message.LINK){
-			s3Repository s3= new s3Repository();
+	 		s3Repository s3= new s3Repository();
 			String key = ""+UUID.randomUUID()+".jpg";
 			String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
 			s3.uploadFile(key,filePath);
@@ -74,9 +75,9 @@ public class SendTextButtonHandler implements ActionListener{
 			//bufferedImage.getHeight()
 			ImageIcon image=new ImageIcon(bufferedImage);
 			Image img = image.getImage();
-			BufferedImage bi = new BufferedImage(130, 120, BufferedImage.TYPE_INT_ARGB);
+			bi = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bi.createGraphics();
-			g.drawImage(img, 15, 15, 100, 100, null);
+			g.drawImage(img, 0, 0, 250, 250, null);
 			newIcon = new ImageIcon(bi);
 			
 			ArrayList<String> des = new ArrayList<>();
@@ -103,7 +104,11 @@ public class SendTextButtonHandler implements ActionListener{
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 
 			if(type==Message.TEXT){
-				cell.setPreferredSize(new Dimension(520,70));
+				if (message.getMessageContent()=="") {
+					
+				}
+				else{
+				cell.setPreferredSize(new Dimension(520,55));
 				//cell.msg.setPreferredSize(new Dimension());
 				cell.msg.setText(message.getMessageContent());
 				if (cell.msg.getText().length()>30) {
@@ -112,8 +117,10 @@ public class SendTextButtonHandler implements ActionListener{
 			        cell.msg.setLineWrap(true);
 			        cell.msg.setWrapStyleWord(true);
 				}
+				}
 			}
 			else if(type==Message.LINK){
+
 				cell.setPreferredSize(new Dimension(520, newIcon.getIconHeight()+20));
 				cell.ShowArea.remove(cell.msg);
 				cell.PicMsg(newIcon);
@@ -127,8 +134,11 @@ public class SendTextButtonHandler implements ActionListener{
 			//cell.setAlignmentX(0);
 			Inner.revalidate();
 			Inner.repaint();
-			
-			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+//<<<<<<< HEAD
+//			
+//			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+//=======
+			LoginFunction.History(type,FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
 			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

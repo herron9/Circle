@@ -86,6 +86,7 @@ class MsgReceiver implements ReceiverHandler {
 
 	public static String SrcID = null; //="null";
 	ImageIcon newIcon = new ImageIcon();
+	BufferedImage bi;
 	
 	@Override
 	public void reaction(Message message) {
@@ -97,7 +98,7 @@ class MsgReceiver implements ReceiverHandler {
 		    for( ActionListener al : ClientFunction.CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	ClientFunction.CPanel.ImgBtn.removeActionListener( al );
 		    }
-		    ClientFunction.CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(message.TEXT,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
+		    ClientFunction.CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(message.LINK,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
 		    ClientFunction.CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(message.TEXT,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
 		    MsgReceiver.SrcID=message.getMessageSrcID();
 		    SrcID = message.getMessageSrcID();
@@ -119,18 +120,18 @@ class MsgReceiver implements ReceiverHandler {
 				}
 			}
 			else if(message.getMessageType() == Message.LINK){
-
 				BufferedImage bufferedImage = null;
 				try {
 					URL myURL = new URL(message.getMessageContent());
 					bufferedImage = ImageIO.read(myURL);
 				} catch (IOException f) {
 				}
+				//bufferedImage.getHeight()
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
-				BufferedImage bi = new BufferedImage(130, 120, BufferedImage.TYPE_INT_ARGB);
+				bi = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 15, 15, 100, 100, null);
+				g.drawImage(img, 0, 0, 250, 250, null);
 				newIcon = new ImageIcon(bi);
 				cell.setPreferredSize(new Dimension(570, newIcon.getIconHeight()+30));
 				cell.ShowArea.remove(cell.msg);
@@ -139,12 +140,16 @@ class MsgReceiver implements ReceiverHandler {
 			}
 			
 			ClientFunction.CPanel.Inner.add(cell);
-			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+			ClientFunction.CPanel.Inner.revalidate();
+			ClientFunction.CPanel.Inner.repaint();
+			LoginFunction.History(message.getMessageType(), message.getMessageSrcID(), 
+			message.getMessageContent(), message.getMessageTimeStamp(), LoginPanel.circleAccessToken, bi);
 			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 		}
 		else{
 			ChatList.CreateEntry(message.getMessageSrcID());
-			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
+			LoginFunction.History(message.getMessageType(), message.getMessageSrcID(), 
+	        message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(), bi);
 			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 			
 		}

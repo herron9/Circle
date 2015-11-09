@@ -2,6 +2,8 @@ package test;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 public class ChatHistory {
 	
 	public String friendname;
@@ -15,6 +17,7 @@ class chatRecord{
 	public String time=null;
 	public String sourceID=null;
 	public String message=null;
+	public ImageIcon image=null;
 }
 class MessageRecord extends chatRecord{
 	public static String message;
