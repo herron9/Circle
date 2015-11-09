@@ -28,18 +28,19 @@ public class ChattingCellR extends JPanel {
 	public JPanel ShowArea;
 	public JTextArea msg = new JTextArea("hello");
 	JPanel Right = new JPanel();
+	public JLabel PicLab;
 	
 	String name = "null";
 	
 	public ChattingCellR() {
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.ORANGE, null, null, null));
-		setPreferredSize(new Dimension(570, 55));
+		setPreferredSize(new Dimension(570, 0));
 		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
 		GridBagLayout gridBagLayout = new GridBagLayout();
 //		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
 //		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWidths = new int[]{40, 340, 150, 40};
-		gridBagLayout.rowHeights = new int[]{20, 50};
+		//gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		
@@ -89,6 +90,13 @@ public class ChattingCellR extends JPanel {
 			
 			ShowArea.setBackground(new Color(240, 255, 240));
 		}
+	
+	public void PicMsg(ImageIcon picMsg) {
+//		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
+		PicLab= new JLabel(picMsg);
+		ShowArea.add(PicLab);
+		ShowArea.setVisible(true);
+	}
 	
 
 }

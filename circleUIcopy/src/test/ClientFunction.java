@@ -2,7 +2,11 @@ package test;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.sun.org.apache.bcel.internal.generic.InstructionConstants.Clinit;
@@ -11,11 +15,14 @@ import client.CircleClient;
 import client.ReceiverHandler;
 import communication.Message;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 
 public class ClientFunction {
 
 	public static CircleClient client;
+	public int type;
 	
 	public static ChattingPanel CPanel = new ChattingPanel(client);
 	public static boolean Init = true;
@@ -78,6 +85,7 @@ public class ClientFunction {
 class MsgReceiver implements ReceiverHandler {
 
 	public static String SrcID = null; //="null";
+	ImageIcon newIcon = new ImageIcon();
 	
 	@Override
 	public void reaction(Message message) {
@@ -100,7 +108,36 @@ class MsgReceiver implements ReceiverHandler {
 			ChattingCellR cell = new ChattingCellR();
 			cell.NameLabel.setText(message.getMessageSrcID());
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
-			cell.msg.setText(message.getMessageContent());
+			if (message.getMessageType() == Message.TEXT) {
+				cell.setPreferredSize(new Dimension(570,55));
+				//cell.msg.setPreferredSize(new Dimension());
+				cell.msg.setText(message.getMessageContent());
+				if (cell.msg.getText().length()>30) {		
+					cell.msg.setPreferredSize(new Dimension(400,50));
+			        cell.msg.setLineWrap(true);
+			        cell.msg.setWrapStyleWord(true);
+				}
+			}
+			else if(message.getMessageType() == Message.LINK){
+
+				BufferedImage bufferedImage = null;
+				try {
+					URL myURL = new URL(message.getMessageContent());
+					bufferedImage = ImageIO.read(myURL);
+				} catch (IOException f) {
+				}
+				ImageIcon image=new ImageIcon(bufferedImage);
+				Image img = image.getImage();
+				BufferedImage bi = new BufferedImage(130, 120, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = bi.createGraphics();
+				g.drawImage(img, 15, 15, 100, 100, null);
+				newIcon = new ImageIcon(bi);
+				cell.setPreferredSize(new Dimension(570, newIcon.getIconHeight()+30));
+				cell.ShowArea.remove(cell.msg);
+				cell.PicMsg(newIcon);
+				cell.ShowArea.setPreferredSize(new Dimension(newIcon.getIconWidth(),newIcon.getIconHeight()));
+			}
+			
 			ClientFunction.CPanel.Inner.add(cell);
 			LoginFunction.History(message.getMessageSrcID(), message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
 			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());

@@ -46,19 +46,20 @@ public class ChattingCellS extends JPanel {
 	
 	public ChattingCellS() {
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.RED, Color.ORANGE, null, null));	
-		setPreferredSize(new Dimension(520,0));
+		setPreferredSize(new Dimension(520,55));
 		
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
 		gridBagLayout.columnWidths = new int[]{40, 120,300,40};
-		//gridBagLayout.rowHeights = new int[]{20, 50};
+		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 
 		
 			ShowArea = new CCShowArea(CCShowArea.Left);
 			//ShowArea.setMaximumSize(new Dimension(400, 0));
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
+			gbc_ShowArea.fill = GridBagConstraints.VERTICAL;
 			gbc_ShowArea.insets = new Insets(0, 5, 0, 0);
 			gbc_ShowArea.gridwidth = 2;
 			gbc_ShowArea.anchor = GridBagConstraints.WEST;
@@ -102,6 +103,7 @@ public class ChattingCellS extends JPanel {
 			
 			
 			UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));
+			UserIcon.setVerticalAlignment(SwingConstants.TOP);
 			//UserIcon.setSize(new Dimension(40, 40));
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
 			gbc_UserIcon.anchor = GridBagConstraints.WEST;

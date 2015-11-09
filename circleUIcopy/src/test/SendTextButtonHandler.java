@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 import com.amazonaws.services.elasticsearch.model.CreateElasticsearchDomainRequest;
 import com.sun.org.apache.bcel.internal.classfile.InnerClass;
@@ -70,11 +71,12 @@ public class SendTextButtonHandler implements ActionListener{
 				bufferedImage = ImageIO.read(myURL);
 			} catch (IOException f) {
 			}
+			//bufferedImage.getHeight()
 			ImageIcon image=new ImageIcon(bufferedImage);
 			Image img = image.getImage();
-			BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			BufferedImage bi = new BufferedImage(130, 120, BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bi.createGraphics();
-			g.drawImage(img, 15, 15, 50, 50, null);
+			g.drawImage(img, 15, 15, 100, 100, null);
 			newIcon = new ImageIcon(bi);
 			
 			ArrayList<String> des = new ArrayList<>();
@@ -120,10 +122,12 @@ public class SendTextButtonHandler implements ActionListener{
 				//cell.ShowArea.add(cell.Image);
 			}
 			MsgField.setText(null);
+			ClientFunction.CPanel.vertical.setValue(ClientFunction.CPanel.vertical.getMaximum());
 			Inner.add(cell);
 			//cell.setAlignmentX(0);
 			Inner.revalidate();
 			Inner.repaint();
+			
 			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
 			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {

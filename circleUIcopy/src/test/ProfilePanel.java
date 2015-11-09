@@ -47,7 +47,6 @@ public class ProfilePanel extends JPanel {
 	public JLabel valid2;
 	
 	public ProfilePanel() {
-		
         UIManager.put("Button.font", font); 
         UIManager.put("Label.font", font);
         UIManager.put("RadioButton.font", font);
