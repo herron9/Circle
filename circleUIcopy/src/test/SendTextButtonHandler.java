@@ -134,11 +134,7 @@ public class SendTextButtonHandler implements ActionListener{
 			//cell.setAlignmentX(0);
 			Inner.revalidate();
 			Inner.repaint();
-//<<<<<<< HEAD
-//			
-//			LoginFunction.History(FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID());
-//=======
-			LoginFunction.History(type,FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
+			LoginFunction.History(type,FriendName, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
 			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

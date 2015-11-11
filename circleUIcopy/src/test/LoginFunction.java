@@ -82,10 +82,6 @@ public class LoginFunction {
 						ClientFunction.CPanel.Inner.add(cell);
 					}
 					
-					
-//					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
-//					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
-//					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
 				}
 			}
 		}

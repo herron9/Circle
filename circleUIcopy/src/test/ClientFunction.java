@@ -63,11 +63,11 @@ public class ClientFunction {
 		    CPanel.ImgBtn.removeActionListener( al );
 		}
 		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname));
-		CPanel.VideoBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VideoFrame video = new VideoFrame();
-			}
-		});
+//		CPanel.VideoBtn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				VideoFrame video = new VideoFrame();
+//			}
+//		});
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname));
 		MsgReceiver.SrcID=friendname;		
 		LoginFunction.RecallHistory(friendname);
@@ -113,8 +113,8 @@ class MsgReceiver implements ReceiverHandler {
 				cell.setPreferredSize(new Dimension(570,55));
 				//cell.msg.setPreferredSize(new Dimension());
 				cell.msg.setText(message.getMessageContent());
-				if (cell.msg.getText().length()>30) {		
-					cell.msg.setPreferredSize(new Dimension(400,50));
+				if (cell.msg.getText().length()>50) {		
+					cell.msg.setPreferredSize(new Dimension(400,100));
 			        cell.msg.setLineWrap(true);
 			        cell.msg.setWrapStyleWord(true);
 				}

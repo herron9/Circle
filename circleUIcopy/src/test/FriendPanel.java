@@ -86,23 +86,19 @@ public class FriendPanel extends JPanel {
 					}
 	            	else{
 	            		for(int i=0;i<LoginFunction.receiver.size();i++){
-	                		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
-	                			find=true;
-	                		}
-	                	}
+		            		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
+		            			find=true;
+		            		}
+		            		if(find==true){
+		                		ClientFunction.RecallChatting(friendname);
+		                	}
+		                	else{
+		                    	ClientFunction.CreateChatting(friendname);
+		                    	ChatList.CreateEntry(friendname);
+		                	}
+		            	}
 	            	}
-	            	for(int i=0;i<LoginFunction.receiver.size();i++){
-	            		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
-	            			find=true;
-	            		}
-	            		if(find==true){
-	                		ClientFunction.RecallChatting(friendname);
-	                	}
-	                	else{
-	                    	ClientFunction.CreateChatting(friendname);
-	                    	ChatList.CreateEntry(friendname);
-	                	}
-	            	}
+	            	
             	
             	}
             }
