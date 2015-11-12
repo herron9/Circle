@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -37,6 +38,11 @@ public class RegisterPanel extends JPanel {
 	boolean validate;
 	
 	public RegisterPanel() {
+//		try {
+//		    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
 		setBackground(SystemColor.window);
 		setLayout(null);	
 		add(Regtitle);

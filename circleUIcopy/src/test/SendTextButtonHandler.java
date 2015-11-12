@@ -14,21 +14,11 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.DefaultCaret;
-
-import com.amazonaws.services.elasticsearch.model.CreateElasticsearchDomainRequest;
-import com.sun.org.apache.bcel.internal.classfile.InnerClass;
-import com.sun.xml.internal.ws.wsdl.parser.MemberSubmissionAddressingWSDLParserExtension;
-
 import client.CircleClient;
 import communication.Message;
-
-import scala.collection.generic.BitOperations.Int;
-import scala.util.Left;
 
 public class SendTextButtonHandler implements ActionListener{
 

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import client.CircleClient;
 
@@ -28,10 +29,10 @@ public class LoginPanel extends JPanel {
 	public ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	public JLabel UserIcon = new JLabel(User);
 	
-	public static JTextField Login_username = new JTextField();
-	public static JPasswordField Login_password = new JPasswordField();
-	public JLabel lblRegister = new JLabel("Register");
-	public JButton LogButton = new JButton("Log in");//switch to main
+	public static JTextField Login_username;// = new JTextField();
+	public static JPasswordField Login_password;// = new JPasswordField();
+	public JLabel lblRegister;// = new JLabel("Register");
+	public JButton LogButton;//switch to main
 	
 	public static String operation;
 	public static String circleAccessToken;
@@ -39,9 +40,18 @@ public class LoginPanel extends JPanel {
 	public static String[] names={""};
 		
 	public LoginPanel() {
+		try {
+	    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+		
 		setBackground(SystemColor.window);
 		setLayout(null);
-		
+		Login_username = new JTextField();
+		Login_password = new JPasswordField();
+		lblRegister = new JLabel("Register");
+		LogButton = new JButton("Log in");
 		add(title);
 		add(RegLogo1);
 		add(UserIcon);		
@@ -52,9 +62,11 @@ public class LoginPanel extends JPanel {
 				
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Arial",Font.PLAIN, 40));
+		title.setForeground(new Color(94, 135, 184));
 		title.setBounds(230, 75, 220, 50);
 		RegLogo1.setBounds(140, 60, 80, 80);
 		UserIcon.setBounds(130, 176, 100, 100);// need PS
+
 		LogButton.setBounds(240, 300, 120, 40);
 		
 		Login_username.setText("username");
@@ -62,7 +74,7 @@ public class LoginPanel extends JPanel {
 		Login_username.setBounds(240, 180, 220, 35);
 		Login_username.setColumns(10);
 		
-		lblRegister.setForeground(Color.BLUE);
+		lblRegister.setForeground(new Color(137, 171, 201));
 		lblRegister.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblRegister.setBounds(470, 180, 80, 35);
 
@@ -95,6 +107,11 @@ public class LoginPanel extends JPanel {
 		
 		class FocusHandler extends FocusAdapter{
         	public void focusGained(FocusEvent e) {
+        		
+        		char[]passy =  Login_password.getPassword();
+
+        		    String p = new String( passy );
+
         		if(e.getSource()==Login_username){
         			if("username".equals(Login_username.getText()))
         				Login_username.setText("");
@@ -143,10 +160,11 @@ public class LoginPanel extends JPanel {
             	Login_password.setEchoChar((char) (0));
              }
              public void  mouseExited(MouseEvent e) {
-         		lblRegister.setForeground(Color.BLUE);
+         		lblRegister.setForeground(new Color(137, 171, 201));
+         		//lblRegister.setForeground(Color.BLUE);
              }
              public void  mouseEntered(MouseEvent e) {
-            	lblRegister.setForeground(Color.MAGENTA);
+         		lblRegister.setForeground(new Color(94, 135, 184));
             	
              }
              public void  mouseReleased(MouseEvent e) { }

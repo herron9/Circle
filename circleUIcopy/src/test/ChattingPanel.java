@@ -72,7 +72,7 @@ public class ChattingPanel extends JPanel {
 	
 	public ChattingPanel( CircleClient client) {
 		//add(VideoBtn);
-		setBackground(UIManager.getColor("CheckBox.background"));
+		setBackground(new Color(238, 238, 238));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		Scroller.setPreferredSize(new Dimension(600, 370));
