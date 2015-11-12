@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="lib/typesafe-config-2.10.1.jar"/>
 	<classpathentry kind="lib" path="lib/lombok.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/test/lib/CircleCommunicationService_11.5.jar"/>
+	<classpathentry kind="lib" path="/test/lib/CircleCommunicationService_11.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

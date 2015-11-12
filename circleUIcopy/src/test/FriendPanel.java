@@ -49,7 +49,42 @@ public class FriendPanel extends JPanel {
             public void  mouseClicked(MouseEvent e) {
             	LoginPanel.operation="friend-request?";
         		String inputValue = JOptionPane.showInputDialog("Enter the friend you want to add");
-            	LoginFunction.AddAFriend(LoginPanel.operation,LoginFunction.AccessToken,inputValue,MainLayout.MainUppage);
+            	LoginFunction.AddAFriend(LoginPanel.operation,LoginFunction.AccessToken,inputValue);
+            	LoginPanel.operation="friendRequestList-request?";
+       		  	LoginFunction.CheckFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
+       		 	LoginPanel.operation="friendList-request?";
+            	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+             }
+             public void  mouseExited(MouseEvent e) {
+             }
+             public void  mouseEntered(MouseEvent e) {            	
+             }
+             public void  mouseReleased(MouseEvent e) {            	 
+             }
+             public void  mousePressed(MouseEvent e) { 
+             }
+         });
+		
+		JLabel FriendRequest = new JLabel("new friend request");
+		GridBagConstraints gbc_FriendRequest = new GridBagConstraints();
+		gbc_FriendRequest.insets = new Insets(0, 0, 6, 0);
+		gbc_FriendRequest.weightx = 0.1;
+		gbc_FriendRequest.gridy = 1;
+		gbc_FriendRequest.gridx = 5;
+		
+		if(LoginFunction.friendrequest==true){
+			add(FriendRequest, gbc_FriendRequest);
+		}
+		else{
+			remove(FriendRequest);
+		}
+//		add(FriendRequest, gbc_FriendRequest);
+
+		
+		FriendRequest.addMouseListener(new MouseListener(){
+            public void  mouseClicked(MouseEvent e) {
+            	 LoginPanel.operation="friendRequestList-request?";
+       		  	 LoginFunction.GetFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
              }
              public void  mouseExited(MouseEvent e) {
              }
@@ -86,23 +121,19 @@ public class FriendPanel extends JPanel {
 					}
 	            	else{
 	            		for(int i=0;i<LoginFunction.receiver.size();i++){
-	                		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
-	                			find=true;
-	                		}
-	                	}
+		            		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
+		            			find=true;
+		            		}
+		            		if(find==true){
+		                		ClientFunction.RecallChatting(friendname);
+		                	}
+		                	else{
+		                    	ClientFunction.CreateChatting(friendname);
+		                    	ChatList.CreateEntry(friendname);
+		                	}
+		            	}
 	            	}
-	            	for(int i=0;i<LoginFunction.receiver.size();i++){
-	            		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
-	            			find=true;
-	            		}
-	            		if(find==true){
-	                		ClientFunction.RecallChatting(friendname);
-	                	}
-	                	else{
-	                    	ClientFunction.CreateChatting(friendname);
-	                    	ChatList.CreateEntry(friendname);
-	                	}
-	            	}
+	            	
             	
             	}
             }

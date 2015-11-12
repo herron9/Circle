@@ -8,6 +8,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import client.CircleClient;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -17,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
@@ -78,11 +81,11 @@ public class LoginPanel extends JPanel {
 		btnYhr.setBounds(28, 38, 117, 29);
 		add(btnYhr);
 		
-		JButton btnDuras = new JButton("duras");
+		JButton btnDuras = new JButton("zzq");
 		btnDuras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operation="sign-in?";
-				LoginFunction.Login(operation,"duras.yhr@gmail.com","234");
+				LoginFunction.Login(operation,"zhangziqi0839@outlook.com","123");
 			}
 		});
 		btnDuras.setBounds(28, 75, 117, 29);

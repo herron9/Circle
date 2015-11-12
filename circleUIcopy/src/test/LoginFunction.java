@@ -28,6 +28,7 @@ public class LoginFunction {
 	public static String Phonenumber;
 	public static String Nickname;
 	public static String Iconurl;
+	public static boolean friendrequest=false;
 	
 	public static void History(int type,String friendname,String content,String time,String sourceID,BufferedImage bImage) {
 		boolean find=false;
@@ -73,8 +74,8 @@ public class LoginFunction {
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
 						cell.msg.setText(receiver.get(i).history.get(j).message);
 						ClientFunction.CPanel.Inner.add(cell);
-					}
-					if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
+					}else{
+					//if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
 						ChattingCellS cell = new ChattingCellS();
 						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
@@ -82,10 +83,6 @@ public class LoginFunction {
 						ClientFunction.CPanel.Inner.add(cell);
 					}
 					
-					
-//					CPanel.ChatArea.append(receiver.get(i).history.get(j).sourceID);
-//					CPanel.ChatArea.append(" "+receiver.get(i).history.get(j).time+"\n");
-//					CPanel.ChatArea.append(receiver.get(i).history.get(j).message+"\n\n");
 				}
 			}
 		}
@@ -97,7 +94,7 @@ public class LoginFunction {
 		String str2="code";
 		
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
-		System.out.println(response);
+		System.out.println("Login: "+response);
 		  if(response.indexOf("true")!=-1){
       		  //JOptionPane.showMessageDialog(null,"login successful");
       		  operation="accessToken-Verification?";
@@ -114,6 +111,8 @@ public class LoginFunction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
       		  }
+      		  operation="friendRequestList-request?";
+      		  CheckFriendRequest(operation,AccessToken);
       		  operation="friendList-request?";
     		  GetFriendList(operation, AccessToken);
 //    		  operation="create-user-profile?";
@@ -121,6 +120,8 @@ public class LoginFunction {
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
     		  ProfilePanel.setInfo(Gender,Phonenumber);
+    		 
+    		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{
@@ -133,7 +134,7 @@ public class LoginFunction {
 		String str1="username";
 		String str2="code";
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println(response);
+		System.out.println("VerifyAccessToken: "+response);
 		  if(response.indexOf("true")!=-1){
 			  p1=response.indexOf(str1);
 			  p2=response.indexOf(str2);
@@ -146,7 +147,7 @@ public class LoginFunction {
 	
 	public static void GetFriendList(String operation,String AccessToken) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println(response);
+		System.out.println("GetFriendList: "+response);
 		LoginPanel.names=parseFriendList(response);
 		MainLayout.FriendList.removeAll();
 		MainLayout.FriendList=new FriendPanel(LoginPanel.names);
@@ -161,7 +162,7 @@ public class LoginFunction {
 		String str4="iconUrl";
 		String str5="}";
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println(response);
+		System.out.println("GetProfile: "+response);
 		if(response.indexOf("true")!=-1){
 			p1=response.indexOf(str1);
 			p2=response.indexOf(str2);
@@ -172,28 +173,88 @@ public class LoginFunction {
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
 			Iconurl=response.substring(p4+14,p5-1);
-			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber+"nickname is: "+Nickname+"iconurl is : "+Iconurl);
+			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber+" nickname is: "+Nickname+" iconurl is : "+Iconurl);
 		}
 	}
 	
-	public static void AddAFriend(String operation,String AccessToken,String friendname,JPanel panel) {
+	public static void AddAFriend(String operation,String AccessToken,String friendname) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&friend="+friendname,"");
-		System.out.println(response);
+		System.out.println("AddAFriend: "+response);
 		if(response.indexOf("true")!=-1){
-			operation="friendList-request?";
-			String response1 = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-			LoginPanel.names=parseFriendList(response1);
-			MainLayout.FriendList.removeAll();
-			MainLayout.FriendList=new FriendPanel(LoginPanel.names);
-			MainLayout.MainUppage.add(MainLayout.FriendList,"FriendList");
-        	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
 		}
-      	panel.updateUI();
+		else{
+    		  JOptionPane.showMessageDialog(null,"friend name is wrong");
+		}
+		
+	}
+	
+	public static void CheckFriendRequest(String operation,String AccessToken){
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println("CheckFriendRequest: "+response);
+		if(response.indexOf("requester")!=-1){
+			friendrequest=true;
+			System.out.println("true");
+		}
+		else{
+			friendrequest=false;
+			System.out.println("false");
+
+		}
+	}
+	
+	public static void GetFriendRequest(String operation,String AccessToken){
+		String s1="requester";
+		String s2="acceptUrl";
+		String s3="denyUrl";
+		String s4="}";
+		String requester;
+		String acceptUrl;
+		String denyUrl;
+		int index1,index2,index3,index4;
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println("GetFriendRequest: "+response);
+		index1 = response.indexOf(s1);
+		index2 = response.indexOf(s2);
+		index3 = response.indexOf(s3);
+		index4 = response.indexOf(s4);
+
+		while (index1 >= 0) {
+			requester=response.substring(index1+12, index2-3);
+			acceptUrl=response.substring(index2+12, index3-3);
+			denyUrl=response.substring(index3+10, index4-1);
+		    Object[] options = {"Cancel","Reject","Accept"};
+		    int n = JOptionPane.showOptionDialog(null,requester+" sent you a friend request", "New friend request", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,null);
+		    switch(n){
+            case 0:                 
+                   break;
+            case 1:
+        		   response = excuteGET(denyUrl,"");
+        		   operation="friendRequestList-request?";
+          		   CheckFriendRequest(operation,AccessToken);
+        		   operation="friendList-request?";
+               	   GetFriendList(operation, AccessToken);
+               	   MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
+
+                   break;
+            case 2:
+        		   response = excuteGET(acceptUrl,"");
+        		   operation="friendRequestList-request?";
+          		   CheckFriendRequest(operation,AccessToken);
+        		   operation="friendList-request?";
+               	   GetFriendList(operation, AccessToken);
+               	   MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
+                   break;
+            }
+		    index1 = response.indexOf(s1, index1 + 20);
+		    index2 = response.indexOf(s2, index2 + 20);
+		    index3 = response.indexOf(s3, index3 + 20);
+			index4 = response.indexOf(s4, index4 + 20);
+		}
 	}
 	
 	public static void Test(String operation,String username,String password) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
-		System.out.println(response);
+		System.out.println("Register: "+response);
 		  if(response.indexOf("true")!=-1){
       		  JOptionPane.showMessageDialog(null,"registration successful");
           	  MainFrame.cl.show(MainFrame.panelCont, "Log");
@@ -248,6 +309,40 @@ public class LoginFunction {
 		}
 	}
 	
+	public static String excuteGET(String targetURL, String urlParameters) {
+		HttpURLConnection connection = null;
+		try {
+			URL obj = new URL(targetURL);
+			connection = (HttpURLConnection) obj.openConnection();
+
+			// optional default is GET
+			connection.setRequestMethod("GET");
+
+			//add request header
+
+			int responseCode = connection.getResponseCode();
+			System.out.println("Response Code : " + responseCode);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			return response.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+		
+	}
+	
 	public static String[] parseFriendList(String s) {
 		String[] friendList;
 		Pattern p = Pattern.compile("\"friendList\":\\[(.+)\\]");
@@ -270,7 +365,7 @@ public class LoginFunction {
 	//--------------------------------ProfileFunction------------------------------------	
 	public static void ModifyPassword(String operation,String AccessToken,String newpassword){
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&password="+newpassword,"");
-		System.out.println(response);
+		System.out.println("ModifyPassword: "+response);
 		if(response.indexOf("true")!=-1){
 //			JOptionPane.showMessageDialog(null,"modification successful");
 		}
@@ -287,7 +382,7 @@ public class LoginFunction {
 	
 	public static void ModifyProfile(String operation,String AccessToken,String gender,String phonenumber,String nickname,String iconurl) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&gender="+gender+"&phonenumber="+phonenumber+"&nickname="+nickname+"&iconurl="+iconurl,"");
-		System.out.println(response);
+		System.out.println("ModifyProfile: "+response);
 	}
 	
 	//-----------------------------------------------------------------------------------

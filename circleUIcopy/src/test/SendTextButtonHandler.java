@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 import com.amazonaws.services.elasticsearch.model.CreateElasticsearchDomainRequest;
 import com.sun.org.apache.bcel.internal.classfile.InnerClass;
@@ -71,6 +72,7 @@ public class SendTextButtonHandler implements ActionListener{
 				bufferedImage = ImageIO.read(myURL);
 			} catch (IOException f) {
 			}
+			//bufferedImage.getHeight()
 			ImageIcon image=new ImageIcon(bufferedImage);
 			Image img = image.getImage();
 			bi = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
@@ -102,7 +104,11 @@ public class SendTextButtonHandler implements ActionListener{
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 
 			if(type==Message.TEXT){
-				cell.setPreferredSize(new Dimension(520,70));
+				if (message.getMessageContent()=="") {
+					
+				}
+				else{
+				cell.setPreferredSize(new Dimension(520,55));
 				//cell.msg.setPreferredSize(new Dimension());
 				cell.msg.setText(message.getMessageContent());
 				if (cell.msg.getText().length()>30) {
@@ -110,6 +116,7 @@ public class SendTextButtonHandler implements ActionListener{
 					cell.msg.setPreferredSize(new Dimension(400,50));
 			        cell.msg.setLineWrap(true);
 			        cell.msg.setWrapStyleWord(true);
+				}
 				}
 			}
 			else if(type==Message.LINK){
@@ -122,11 +129,12 @@ public class SendTextButtonHandler implements ActionListener{
 				//cell.ShowArea.add(cell.Image);
 			}
 			MsgField.setText(null);
+			ClientFunction.CPanel.vertical.setValue(ClientFunction.CPanel.vertical.getMaximum());
 			Inner.add(cell);
 			//cell.setAlignmentX(0);
 			Inner.revalidate();
 			Inner.repaint();
-			LoginFunction.History(type,FriendPanel.friendname, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
+			LoginFunction.History(type,FriendName, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
 			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

@@ -35,6 +35,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import client.CircleClient;
 import communication.Message;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.imageio.ImageIO;
@@ -57,10 +58,10 @@ public class ChattingPanel extends JPanel {
 	public JButton EmoBtn = new JButton("Emotion");
 	public JButton ImgBtn = new JButton("Image");
 	public JButton VideoBtn = new JButton("Video Call");
-	public static JList list;
+	//public static JList list;
 
-	public JLabel Plus;
-	public ImageIcon PlusIcon = new ImageIcon("bin/avatar.png");
+	public JLabel Plus=new JLabel("Plus");
+	public ImageIcon PlusIcon = new ImageIcon("bin/plus.png");
 	public JScrollBar vertical = Scroller.getVerticalScrollBar();
 	
 	JPanel South = new JPanel();
@@ -79,7 +80,7 @@ public class ChattingPanel extends JPanel {
 		Scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 //		DefaultCaret caret = (DefaultCaret)ChatArea.getCaret();
 //		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		vertical.setValue( vertical.getMaximum() );
+
 		Scroller.setViewportView(Inner);
 
 		VerticalFlowLayout vfl_Inner = new VerticalFlowLayout();
@@ -131,8 +132,25 @@ public class ChattingPanel extends JPanel {
 		//SubBar.add(EmoBtn);
 		SubBar.add(ImgBtn);
 		SubBar.add(VideoBtn);
-		importEmoji();
+		//importEmoji();
 		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
+//		addMouseListener(new MouseListener(){
+//            public void  mouseClicked(MouseEvent e) {
+//            	MainFrame.mainFrame.setTitle("Circle - Chat");
+//            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
+//             } 
+//             public void  mouseExited(MouseEvent e) {
+//            	 MenuLabChat.setBackground(null);
+//             }
+//             public void  mouseEntered(MouseEvent e) {
+//            	 MenuLabChat.setBackground(Color.LIGHT_GRAY);
+//            	
+//             }
+//             public void  mouseReleased(MouseEvent e) { }
+//             public void  mousePressed(MouseEvent e) { 
+//             }
+//         });
+		
 	}
 
 
@@ -142,19 +160,30 @@ public class ChattingPanel extends JPanel {
 //		return null;
 //	}
 	
-	public void importEmoji() {
-		ImageIcon emoji;
-		JLabel emojiLab;
-		String emojilist[] = null;
-		list = new JList(emojilist);
-		for (int i = 701; i < 711; i++) {
-			emoji = new ImageIcon("bin/emotion/"+i+".png");
-			emojiLab = new JLabel(ClientFunction.resizeIcon(emoji,24));
-			//emojilist[i] = "bin/emotion/"+i+".png";
-			SubBar.add(emojiLab);
-		}
-		
-	}
+//	public void importEmoji() {
+//		ArrayList<Emoji> emoList = new ArrayList<Emoji>();
+//		Emoji emoji;
+//		JLabel emojiLab;
+//		//String emojilist[] = null;
+//		//list = new JList(emojilist);
+//		for (int i = 701; i < 711; i++) {
+//			emoji = new Emoji("bin/"+i+".png");
+//			emoji.num=i;
+//			emoList.add(emoji);
+//			emojiLab = new JLabel(ClientFunction.resizeIcon(emoji,24));
+//			SubBar.add(emojiLab);
+//			
+//		}
+//		
+//	}
+//	
+//	class Emoji extends ImageIcon{
+//		public Emoji(String string) {
+//			ImageIcon x= new ImageIcon(string);
+//		}
+//
+//		int num;
+//	}
 
 }
 

@@ -50,7 +50,6 @@ public class ProfilePanel extends JPanel {
 	public JLabel valid2;
 	
 	public ProfilePanel() {
-		
         UIManager.put("Button.font", font); 
         UIManager.put("Label.font", font);
         UIManager.put("RadioButton.font", font);
@@ -65,8 +64,10 @@ public class ProfilePanel extends JPanel {
         valid1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
         valid2 = new JLabel(" ");
         valid2.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+        //EditBtn.setPreferredSize(new Dimension(200, 50));
         EditBtn = new JButton("   Edit Profile  ");
-        EditPWBtn = new JButton("   Edit Password  ");
+        //EditPWBtn.setPreferredSize(new Dimension(200, 50));
+        EditPWBtn = new JButton("Edit Password");
         LogoutBtn = new JButton("Log out");
         LogoutBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -86,10 +87,12 @@ public class ProfilePanel extends JPanel {
 					RadioBtnF.setEnabled(true);
 					RadioBtnU.setEnabled(true);
 					phoneField.setEditable(true);
+					EditPWBtn.setEnabled(false);
 					EditBtn.setText("Confirm");
 					return;
 				}
 				if (EditBtn.getText().equals("Confirm")) {
+					EditPWBtn.setEnabled(true);
 					String x = phoneField.getText();
 					String y = pwField.getText();
 					boolean isDigit = isNumeric(x);//x.matches("\\d{1}");
@@ -124,13 +127,6 @@ public class ProfilePanel extends JPanel {
 						return;
 					}
 					else {
-//						if (isDigit == false) {
-//							valid1.setText("Must Contain Digits Only");
-//						}
-//						if (isChar == false) {
-//							valid2.setText("Must Contain Letters And Digits Only");
-//						}
-						
 						return;				
 					}
 					
@@ -140,18 +136,21 @@ public class ProfilePanel extends JPanel {
 		});
         EditPWBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (EditPWBtn.getText().equals("   Edit Password  ")) {
+				if (EditPWBtn.getText().equals("Edit Password")) {
 					pwField.setEditable(true);
+					EditBtn.setEnabled(false);
 					EditPWBtn.setText("Confirm");
+					
 					return;
 				}
 				if (EditPWBtn.getText().equals("Confirm")) {
+					EditBtn.setEnabled(true); 
 					String x = phoneField.getText();
 					String y = pwField.getText();
 					boolean isDigit = isNumeric(x);//x.matches("\\d{1}");
 					boolean isChar =isLetterDigit(y);// y.matches("[a-zA-z]{1}");
 					
-					if (isDigit&&isChar&&!y.isEmpty()) {
+					if (isDigit&&isChar&&!y.isEmpty()) {    
 						
 					if (RadioBtnM.isSelected()) {
 						newgender = "Male";
@@ -169,7 +168,7 @@ public class ProfilePanel extends JPanel {
 						RadioBtnU.setEnabled(false);
 						phoneField.setEditable(false);
 						pwField.setEditable(false);
-						EditPWBtn.setText("   Edit Password  ");
+						EditPWBtn.setText("Edit Password");
 						valid1.setText(" ");
 						valid2.setText(" ");
 						LoginPanel.operation="modify-password?";
@@ -200,7 +199,7 @@ public class ProfilePanel extends JPanel {
 	
 	public static void setInfo(String gender,String phone) {
 		//Userid.setText(id)
-		System.out.println(gender);
+//		System.out.println(gender);
 
 		if (gender.equals("Male")) {
 			RadioBtnM.setSelected(true);
