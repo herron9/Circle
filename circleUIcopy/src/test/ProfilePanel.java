@@ -199,7 +199,7 @@ public class ProfilePanel extends JPanel {
 	
 	public static void setInfo(String gender,String phone) {
 		//Userid.setText(id)
-		System.out.println(gender);
+//		System.out.println(gender);
 
 		if (gender.equals("Male")) {
 			RadioBtnM.setSelected(true);

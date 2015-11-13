@@ -6,47 +6,24 @@ import javax.swing.JScrollPane;
 import java.awt.Dimension;
 
 
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-
 import javax.swing.JTextField;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.UUID;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.text.DefaultCaret;
-
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import client.CircleClient;
-import communication.Message;
-
 import java.awt.Color;
 import java.awt.Component;
 
-import javax.imageio.ImageIO;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
 
 public class ChattingPanel extends JPanel {
 
@@ -60,8 +37,8 @@ public class ChattingPanel extends JPanel {
 	public JButton VideoBtn = new JButton("Video Call");
 	//public static JList list;
 
-	public JLabel Plus;
-	public ImageIcon PlusIcon = new ImageIcon("bin/plus.png");
+	public JLabel Plus=new JLabel("Plus");
+	public ImageIcon PlusIcon = new ImageIcon("src/plus.png");
 	public JScrollBar vertical = Scroller.getVerticalScrollBar();
 	
 	JPanel South = new JPanel();

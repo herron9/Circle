@@ -40,11 +40,11 @@ public class LoginPanel extends JPanel {
 	public static String[] names={""};
 		
 	public LoginPanel() {
-		try {
-	    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+//		try {
+//	    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+//	} catch (Exception e) {
+//	    e.printStackTrace();
+//	}
 		
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -83,25 +83,25 @@ public class LoginPanel extends JPanel {
 		Login_password.setText("password");
 		Login_password.setBounds(240, 240,220, 35);
 		
-		JButton btnYhr = new JButton("yhr");
-		btnYhr.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				operation="sign-in?";
-            	LoginFunction.Login(operation,"yanghrong@outlook.com","123");
-			}
-		});
-		btnYhr.setBounds(28, 38, 117, 29);
-		add(btnYhr);
-		
-		JButton btnDuras = new JButton("zzq");
-		btnDuras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				operation="sign-in?";
-				LoginFunction.Login(operation,"zhangziqi0839@outlook.com","123");
-			}
-		});
-		btnDuras.setBounds(28, 75, 117, 29);
-		add(btnDuras);
+//		JButton btnYhr = new JButton("yhr");
+//		btnYhr.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				operation="sign-in?";
+//            	LoginFunction.Login(operation,"yanghrong@outlook.com","123");
+//			}
+//		});
+//		btnYhr.setBounds(28, 38, 117, 29);
+//		add(btnYhr);
+//		
+//		JButton btnDuras = new JButton("zzq");
+//		btnDuras.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				operation="sign-in?";
+//				LoginFunction.Login(operation,"zhangziqi0839@outlook.com","123");
+//			}
+//		});
+//		btnDuras.setBounds(28, 75, 117, 29);
+//		add(btnDuras);
 		
 		
 		
