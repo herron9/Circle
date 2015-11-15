@@ -13,6 +13,11 @@
 	<classpathentry kind="lib" path="lib/lombok.jar"/>
 	<classpathentry kind="lib" path="lib/scala-library-2.11.5.jar"/>
 	<classpathentry kind="lib" path="lib/typesafe-config-2.10.1.jar"/>
-	<classpathentry kind="lib" path="lib/CircleCommunicationService_11.12_3.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-300.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/herron/Downloads/Vision/opencv/build"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/CircleCommunicationService_11.12_6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
