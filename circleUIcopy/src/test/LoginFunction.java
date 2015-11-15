@@ -182,8 +182,12 @@ public class LoginFunction {
 		System.out.println("AddAFriend: "+response);
 		if(response.indexOf("true")!=-1){
 		}
+		else if(response.indexOf("You has already added that friend")!=-1){
+    		  JOptionPane.showMessageDialog(null,"You has already added that friend");
+		}
 		else{
-    		  JOptionPane.showMessageDialog(null,"friend name is wrong");
+  		  JOptionPane.showMessageDialog(null,"friend name is wrong");
+
 		}
 		
 	}
