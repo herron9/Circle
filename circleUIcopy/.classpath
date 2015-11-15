@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Server/lib/akka-actor_2.11-2.3.13.jar"/>
-	<classpathentry kind="lib" path="/Server/lib/lombok.jar"/>
-	<classpathentry kind="lib" path="/Server/lib/scala-library-2.11.5.jar"/>
-	<classpathentry kind="lib" path="/Server/lib/typesafe-config-2.10.1.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/akka-actor_2.11-2.3.13.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/CircleCommunicationService_11.12_6.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/CircleCommunicationService_Lombok.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/CircleCommunicationService.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/scala-library-2.11.5.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/seaglass-demo.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/seaglasslookandfeel-0.2.jar"/>
+	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/typesafe-config-2.10.1.jar"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
-	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
-	<classpathentry kind="lib" path="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/lib/CircleCommunicationService_11.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

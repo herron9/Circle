@@ -181,13 +181,22 @@ public class LoginFunction {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&friend="+friendname,"");
 		System.out.println("AddAFriend: "+response);
 		if(response.indexOf("true")!=-1){
+		}else if (response.indexOf("You has already added that friend.")!=-1) {
+			
+			JOptionPane.showMessageDialog(null,"You has already added that friend.");		
+		}else if (response.indexOf("Your friend has not registered yet.")!=-1) {
+			JOptionPane.showMessageDialog(null,"Your friend has not registered yet.");	
 		}
 		else if(response.indexOf("You has already added that friend")!=-1){
     		  JOptionPane.showMessageDialog(null,"You has already added that friend");
 		}
 		else{
+<<<<<<< HEAD
   		  JOptionPane.showMessageDialog(null,"friend name is wrong");
 
+=======
+			JOptionPane.showMessageDialog(null,"friend name is wrong.");
+>>>>>>> faf9f757afcf26786b77d7deac64eef18a471ffd
 		}
 		
 	}

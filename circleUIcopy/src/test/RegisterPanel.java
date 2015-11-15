@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -37,6 +38,11 @@ public class RegisterPanel extends JPanel {
 	boolean validate;
 	
 	public RegisterPanel() {
+//		try {
+//		    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+//		} catch (Exception e) {
+//		    e.printStackTrace();
+//		}
 		setBackground(SystemColor.window);
 		setLayout(null);	
 		add(Regtitle);
@@ -47,11 +53,12 @@ public class RegisterPanel extends JPanel {
 		add(Register_password);
 		add(Tip);
 		add(RegButton);
+		Regtitle.setForeground(new Color(94, 135, 184));
 		Regtitle.setFont(new Font("Arial",Font.PLAIN, 40));
 		Regtitle.setBounds(230, 75, 280, 50);
 		RegLogo1.setBounds(140, 60, 80, 80);
 		UserIcon.setBounds(130, 176, 100, 100);// need PS
-		lblBack.setForeground(Color.BLUE);
+		lblBack.setForeground(new Color(137, 171, 201));
 		lblBack.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblBack.setBounds(470, 180, 80, 35);
 		Register_username.setToolTipText("email address");
@@ -71,10 +78,10 @@ public class RegisterPanel extends JPanel {
             	Register_password.setEchoChar((char) (0));
              }
              public void  mouseExited(MouseEvent e) {
-            	 lblBack.setForeground(Color.BLUE);
+            	 lblBack.setForeground(new Color(137, 171, 201));
              }
              public void  mouseEntered(MouseEvent e) {
-            	 lblBack.setForeground(Color.MAGENTA);
+            	 lblBack.setForeground(new Color(94, 135, 184));
             	
              }
              public void  mouseReleased(MouseEvent e) { }

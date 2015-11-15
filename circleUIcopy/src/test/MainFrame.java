@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
+
 
 public class MainFrame extends JFrame{
 
@@ -38,10 +40,17 @@ public class MainFrame extends JFrame{
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+//				try {
+//				    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+//				} catch (Exception e) {
+//				    e.printStackTrace();
+//				}
 				try {
+					//UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 					MainFrame window = new MainFrame();
 					//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					window.mainFrame.setVisible(true);
+					//window.pack();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
