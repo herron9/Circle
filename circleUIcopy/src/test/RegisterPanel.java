@@ -133,7 +133,7 @@ public class RegisterPanel extends JPanel {
 				validate=Email(Register_username.getText());
 				if(validate==true){
 					LoginPanel.operation="create-new-account?";
-	            	LoginFunction.Test(LoginPanel.operation,Register_username.getText(),Register_password.getText());
+	            	LoginFunction.Register(LoginPanel.operation,Register_username.getText(),Register_password.getText());
 				}
 				else{
             		JOptionPane.showMessageDialog(null,"Not a valid email address");

@@ -3,6 +3,9 @@ package test;
 
 import java.util.ArrayList;
 
+import communication.Message;
+import scala.collection.generic.BitOperations.Int;
+
 public class ChatList{
 	
 	static ArrayList<ChatLog> LogList = new ArrayList<ChatLog>();
@@ -36,13 +39,18 @@ public class ChatList{
 		
 
 	
-	public static void DisplayLog(String name, String Time,String LastMsg) {
+	public static void DisplayLog(int type,String name, String Time,String LastMsg) {
 		MainLayout.MCPanel.MCInter.removeAll();
 
 		for (int i = 0; i < LogList.size(); i++) {
 			if(LogList.get(i).name.equals(name)){	    
 				LogList.get(i).TimeLabel.setText(Time);
-				LogList.get(i).SetHistory(LastMsg);
+				if(type==Message.TEXT){
+					LogList.get(i).SetHistory(LastMsg);
+				}
+				else if(type==Message.LINK){
+					LogList.get(i).SetHistory("[picture]");
+				}
 			}
 
 			MainLayout.MCPanel.MCInter.add(LogList.get(i));

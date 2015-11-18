@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -45,8 +46,10 @@ public class LoginFunction {
 				record.message=content;
 			}
 			else if(type==Message.LINK){
+				record.message="[picture]";
 				record.image=new ImageIcon(bImage);
 			}
+			record.type=type;
 			record.time=time;
 			record.sourceID=sourceID;
 			receiver.get(index).history.add(record);
@@ -55,7 +58,14 @@ public class LoginFunction {
 			ChatHistory chat = new ChatHistory();
 			chat.friendname=friendname;
 			chatRecord record = new chatRecord();
-			record.message=content;
+			if(type==Message.TEXT){
+				record.message=content;
+			}
+			else if(type==Message.LINK){
+				record.message="[picture]";
+				record.image=new ImageIcon(bImage);
+			}
+			record.type=type;
 			record.time=time;
 			record.sourceID=sourceID;
 			chat.history.add(record);
@@ -69,18 +79,37 @@ public class LoginFunction {
 			if(friendname.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
 					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
-						ChattingCellR cell = new ChattingCellR();
-						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
-						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
-						cell.msg.setText(receiver.get(i).history.get(j).message);
-						ClientFunction.CPanel.Inner.add(cell);
-					}else{
-					//if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
 						ChattingCellS cell = new ChattingCellS();
 						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
-						cell.msg.setText(receiver.get(i).history.get(j).message);
+						if(receiver.get(i).history.get(j).type==Message.TEXT){
+							cell.msg.setText(receiver.get(i).history.get(j).message);
+						}
+						else if(receiver.get(i).history.get(j).type==Message.LINK){
+							cell.setPreferredSize(new Dimension(520,receiver.get(i).history.get(j).image.getIconHeight()+20));
+							cell.ShowArea.remove(cell.msg);
+							cell.PicMsg(receiver.get(i).history.get(j).image);
+							cell.ShowArea.setPreferredSize(new Dimension(receiver.get(i).history.get(j).image.getIconWidth(),receiver.get(i).history.get(j).image.getIconHeight()));
+						}
 						ClientFunction.CPanel.Inner.add(cell);
+						ClientFunction.CPanel.Inner.revalidate();
+						ClientFunction.CPanel.Inner.repaint();
+					}
+					else if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
+						ChattingCellS cell = new ChattingCellS();
+						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						if(receiver.get(i).history.get(j).type==Message.TEXT){
+							cell.msg.setText(receiver.get(i).history.get(j).message);
+						}
+						else if(receiver.get(i).history.get(j).type==Message.LINK){
+							cell.setPreferredSize(new Dimension(520,receiver.get(i).history.get(j).image.getIconHeight()+20));
+							cell.ShowArea.remove(cell.msg);
+							cell.PicMsg(receiver.get(i).history.get(j).image);
+							cell.ShowArea.setPreferredSize(new Dimension(receiver.get(i).history.get(j).image.getIconWidth(),receiver.get(i).history.get(j).image.getIconHeight()));
+						}						ClientFunction.CPanel.Inner.add(cell);
+						ClientFunction.CPanel.Inner.revalidate();
+						ClientFunction.CPanel.Inner.repaint();
 					}
 					
 				}
@@ -119,7 +148,7 @@ public class LoginFunction {
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
-    		  ProfilePanel.setInfo(Gender,Phonenumber);
+    		  ProfilePanel.setInfo(Gender,Phonenumber,Iconurl);
     		 
     		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
@@ -172,7 +201,7 @@ public class LoginFunction {
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
-			Iconurl=response.substring(p4+14,p5-1);
+			Iconurl=response.substring(p4+10,p5-1);
 			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber+" nickname is: "+Nickname+" iconurl is : "+Iconurl);
 		}
 	}
@@ -181,24 +210,16 @@ public class LoginFunction {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&friend="+friendname,"");
 		System.out.println("AddAFriend: "+response);
 		if(response.indexOf("true")!=-1){
-		}else if (response.indexOf("You has already added that friend.")!=-1) {
-			
-			JOptionPane.showMessageDialog(null,"You has already added that friend.");		
-		}else if (response.indexOf("Your friend has not registered yet.")!=-1) {
+		}
+		else if (response.indexOf("Your friend has not registered yet.")!=-1) {
 			JOptionPane.showMessageDialog(null,"Your friend has not registered yet.");	
 		}
 		else if(response.indexOf("You has already added that friend")!=-1){
     		  JOptionPane.showMessageDialog(null,"You has already added that friend");
 		}
 		else{
-<<<<<<< HEAD
-  		  JOptionPane.showMessageDialog(null,"friend name is wrong");
-
-=======
 			JOptionPane.showMessageDialog(null,"friend name is wrong.");
->>>>>>> faf9f757afcf26786b77d7deac64eef18a471ffd
 		}
-		
 	}
 	
 	public static void CheckFriendRequest(String operation,String AccessToken){
@@ -206,12 +227,9 @@ public class LoginFunction {
 		System.out.println("CheckFriendRequest: "+response);
 		if(response.indexOf("requester")!=-1){
 			friendrequest=true;
-			System.out.println("true");
 		}
 		else{
 			friendrequest=false;
-			System.out.println("false");
-
 		}
 	}
 	
@@ -265,7 +283,7 @@ public class LoginFunction {
 		}
 	}
 	
-	public static void Test(String operation,String username,String password) {
+	public static void Register(String operation,String username,String password) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
 		System.out.println("Register: "+response);
 		  if(response.indexOf("true")!=-1){
@@ -334,7 +352,7 @@ public class LoginFunction {
 			//add request header
 
 			int responseCode = connection.getResponseCode();
-			System.out.println("Response Code : " + responseCode);
+//			System.out.println("Response Code : " + responseCode);
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String inputLine;
@@ -382,15 +400,13 @@ public class LoginFunction {
 		if(response.indexOf("true")!=-1){
 //			JOptionPane.showMessageDialog(null,"modification successful");
 		}
+		else if(response.indexOf("New password is the same as old password.")!=-1){
+			JOptionPane.showMessageDialog(null,"New password is the same as old password.");
+		}
 		else{
 			JOptionPane.showMessageDialog(null,"modification failed");
 		}
 
-	}
-	
-	public static void CreateProfile(String operation,String AccessToken) {
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println(response);
 	}
 	
 	public static void ModifyProfile(String operation,String AccessToken,String gender,String phonenumber,String nickname,String iconurl) {

@@ -47,13 +47,16 @@ public class FriendPanel extends JPanel {
 		
 		AddFriend.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	LoginPanel.operation="friend-request?";
         		String inputValue = JOptionPane.showInputDialog("Enter the friend you want to add");
-            	LoginFunction.AddAFriend(LoginPanel.operation,LoginFunction.AccessToken,inputValue);
+        		if(inputValue!=null){
+                	LoginPanel.operation="friend-request?";
+                	LoginFunction.AddAFriend(LoginPanel.operation,LoginFunction.AccessToken,inputValue);
+        		}
             	LoginPanel.operation="friendRequestList-request?";
        		  	LoginFunction.CheckFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
        		 	LoginPanel.operation="friendList-request?";
             	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
              }
              public void  mouseExited(MouseEvent e) {
              }

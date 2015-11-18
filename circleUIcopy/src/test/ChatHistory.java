@@ -18,6 +18,7 @@ class chatRecord{
 	public String sourceID=null;
 	public String message=null;
 	public ImageIcon image=null;
+	public int type;
 }
 class MessageRecord extends chatRecord{
 	public static String message;

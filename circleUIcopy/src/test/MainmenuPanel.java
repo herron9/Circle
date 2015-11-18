@@ -75,12 +75,12 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabFriend.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	MainFrame.mainFrame.setTitle("Circle - FriendList");
             	LoginPanel.operation="friendRequestList-request?";
        		  	LoginFunction.CheckFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
        		  	LoginPanel.operation="friendList-request?";
             	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
+            	MainFrame.mainFrame.setTitle("Circle - FriendList");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabFriend.setBackground(null);
@@ -110,8 +110,10 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabMe.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
+            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber);
+            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMe.setBackground(null);

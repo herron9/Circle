@@ -56,18 +56,12 @@ public class SendTextButtonHandler implements ActionListener{
 			s3.uploadFile(key,filePath);
 			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
 			System.out.println(fileurl);
-			BufferedImage bufferedImage = null;
-			try {
-				URL myURL = new URL(fileurl);
-				bufferedImage = ImageIO.read(myURL);
-			} catch (IOException f) {
-			}
-			//bufferedImage.getHeight()
-			ImageIcon image=new ImageIcon(bufferedImage);
+			ImageIcon image=new ImageIcon(filePath);
 			Image img = image.getImage();
-			bi = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
+			int height = image.getIconHeight()*300/image.getIconWidth();
+			bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics g = bi.createGraphics();
-			g.drawImage(img, 0, 0, 250, 250, null);
+			g.drawImage(img, 0, 0, 300, height, null);
 			newIcon = new ImageIcon(bi);
 			
 			ArrayList<String> des = new ArrayList<>();
@@ -125,7 +119,7 @@ public class SendTextButtonHandler implements ActionListener{
 			Inner.revalidate();
 			Inner.repaint();
 			LoginFunction.History(type,FriendName, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
-			ChatList.DisplayLog(FriendName,message.getMessageTimeStamp(),message.getMessageContent());
+			ChatList.DisplayLog(type,FriendName,message.getMessageTimeStamp(),message.getMessageContent());
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

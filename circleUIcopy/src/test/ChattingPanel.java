@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -74,7 +75,6 @@ public class ChattingPanel extends JPanel {
 		Plus.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("click");
 				if (subbar==false) {
 					add(SubBar);
 					revalidate();
@@ -137,30 +137,30 @@ public class ChattingPanel extends JPanel {
 //		return null;
 //	}
 	
-//	public void importEmoji() {
-//		ArrayList<Emoji> emoList = new ArrayList<Emoji>();
-//		Emoji emoji;
-//		JLabel emojiLab;
-//		//String emojilist[] = null;
-//		//list = new JList(emojilist);
-//		for (int i = 701; i < 711; i++) {
-//			emoji = new Emoji("bin/"+i+".png");
-//			emoji.num=i;
-//			emoList.add(emoji);
-//			emojiLab = new JLabel(ClientFunction.resizeIcon(emoji,24));
-//			SubBar.add(emojiLab);
-//			
-//		}
-//		
-//	}
-//	
-//	class Emoji extends ImageIcon{
-//		public Emoji(String string) {
-//			ImageIcon x= new ImageIcon(string);
-//		}
-//
-//		int num;
-//	}
+	public void importEmoji() {
+		ArrayList<Emoji> emoList = new ArrayList<Emoji>();
+		Emoji emoji;
+		JLabel emojiLab;
+		//String emojilist[] = null;
+		//list = new JList(emojilist);
+		for (int i = 701; i < 711; i++) {
+			emoji = new Emoji("bin/"+i+".png");
+			emoji.num=i;
+			emoList.add(emoji);
+			emojiLab = new JLabel(ClientFunction.resizeIcon(emoji,24));
+			SubBar.add(emojiLab);
+			
+		}
+		
+	}
+	
+	class Emoji extends ImageIcon{
+		public Emoji(String string) {
+			ImageIcon x= new ImageIcon(string);
+		}
+
+		int num;
+	}
 
 }
 

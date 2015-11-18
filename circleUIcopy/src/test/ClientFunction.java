@@ -129,9 +129,10 @@ class MsgReceiver implements ReceiverHandler {
 				//bufferedImage.getHeight()
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
-				bi = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
+				int height = image.getIconHeight()*300/image.getIconWidth();
+				bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 250, 250, null);
+				g.drawImage(img, 0, 0, 300, height, null);
 				newIcon = new ImageIcon(bi);
 				cell.setPreferredSize(new Dimension(570, newIcon.getIconHeight()+30));
 				cell.ShowArea.remove(cell.msg);
@@ -143,14 +144,14 @@ class MsgReceiver implements ReceiverHandler {
 			ClientFunction.CPanel.Inner.revalidate();
 			ClientFunction.CPanel.Inner.repaint();
 			LoginFunction.History(message.getMessageType(), message.getMessageSrcID(), 
-			message.getMessageContent(), message.getMessageTimeStamp(), LoginPanel.circleAccessToken, bi);
-			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
+			message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(), bi);
+			ChatList.DisplayLog(message.getMessageType(),SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 		}
 		else{
 			ChatList.CreateEntry(message.getMessageSrcID());
 			LoginFunction.History(message.getMessageType(), message.getMessageSrcID(), 
 	        message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(), bi);
-			ChatList.DisplayLog(SrcID,message.getMessageTimeStamp(),message.getMessageContent());
+			ChatList.DisplayLog(message.getMessageType(),SrcID,message.getMessageTimeStamp(),message.getMessageContent());
 			
 		}
 		

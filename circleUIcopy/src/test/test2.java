@@ -55,27 +55,26 @@ public class test2 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		s3Repository s3= new s3Repository();
+//		s3Repository s3= new s3Repository();
 		String key = ""+UUID.randomUUID()+".jpg";
 		String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-		s3.uploadFile(key,filePath);
+//		s3.uploadFile(key,filePath);
 		String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
-		System.out.println(fileurl);
-		BufferedImage bufferedImage = null;
-		try {
-			URL myURL = new URL(fileurl);
-			bufferedImage = ImageIO.read(myURL);
-		} catch (IOException e) {
-		}
+		System.out.println(filePath);
+//		BufferedImage bufferedImage = null;
+//		try {
+//			URL myURL = new URL(filePath);
+//			bufferedImage = ImageIO.read(myURL);
+//		} catch (IOException e) {
+//		}
 		
-		ImageIcon image=new ImageIcon(bufferedImage);
+		ImageIcon image=new ImageIcon(filePath);
 		Image img = image.getImage();
 		BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bi.createGraphics();
 		g.drawImage(img, 0, 0, 50, 50, null);
 		ImageIcon newIcon = new ImageIcon(bi);
-		System.out.println(newIcon.getIconWidth());
-		System.out.println(newIcon.getIconHeight());
+		System.out.println(filePath);
 
 
 		RegLogo1 = new JLabel(newIcon);
