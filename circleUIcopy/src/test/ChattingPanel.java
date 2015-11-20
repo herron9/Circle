@@ -111,32 +111,11 @@ public class ChattingPanel extends JPanel {
 		SubBar.add(VideoBtn);
 		//importEmoji();
 		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
-//		addMouseListener(new MouseListener(){
-//            public void  mouseClicked(MouseEvent e) {
-//            	MainFrame.mainFrame.setTitle("Circle - Chat");
-//            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
-//             } 
-//             public void  mouseExited(MouseEvent e) {
-//            	 MenuLabChat.setBackground(null);
-//             }
-//             public void  mouseEntered(MouseEvent e) {
-//            	 MenuLabChat.setBackground(Color.LIGHT_GRAY);
-//            	
-//             }
-//             public void  mouseReleased(MouseEvent e) { }
-//             public void  mousePressed(MouseEvent e) { 
-//             }
-//         });
+
 		
 	}
 
 
-//	private ActionListener SendTextButtonHandler(JPanel inner2, JTextField msgField2, CircleClient client,
-//			Object object) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
 	public void importEmoji() {
 		ArrayList<Emoji> emoList = new ArrayList<Emoji>();
 		Emoji emoji;

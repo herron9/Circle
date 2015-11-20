@@ -91,7 +91,7 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable
      */
     public VerticalFlowLayout()
     {
-        this(CENTER, 5, 5);
+       this(TOP, 5, 5);
     }
 
     /**
@@ -454,42 +454,6 @@ public class VerticalFlowLayout implements LayoutManager, java.io.Serializable
         }
 
         return getClass().getName() + "[hgap=" + hgap + ",vgap=" + vgap + str + "]";
-    }
-
-
-    public static void main(String[] args)
-    {
-        JPanel main = new JPanel( new BorderLayout() );
-
-        final JPanel buttons = new JPanel(new VerticalFlowLayout() );
-//      buttons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        main.add(buttons, BorderLayout.CENTER);
-
-        for (int i = 0; i < 7; i++)
-        {
-            buttons.add( new JRadioButton("button " + i) );
-        }
-
-        JButton button = new JButton("Add Radio Button");
-        main.add(button, BorderLayout.SOUTH);
-        button.addActionListener( new ActionListener()
-        {
-            private int i = 8;
-
-            public void actionPerformed(ActionEvent e)
-            {
-                buttons.add( new JRadioButton("button R Us" + i++) );
-                buttons.revalidate();
-//              pack();
-            }
-        });
-
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(main);
-        frame.setSize(300, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
     }
 
 

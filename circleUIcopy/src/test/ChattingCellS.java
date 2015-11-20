@@ -31,7 +31,7 @@ import com.sun.prism.Texture;
 public class ChattingCellS extends JPanel {
 	
 
-	public ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
+	public ImageIcon User = new ImageIcon("src/avatar.png");
 	public JLabel UserIcon;
 	public JLabel NameLabel = new JLabel("New label");
 	public JLabel TimeLabel = new JLabel("New label");
