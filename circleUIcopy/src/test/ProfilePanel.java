@@ -209,8 +209,8 @@ public class ProfilePanel extends JPanel {
 	}
 	
 	public static void setInfo(String gender,String phone,String Iconurl) {
-		MainLayout.panelPro.removeAll();
-		MainLayout.panelPro=new ProfilePanel();
+//		MainLayout.panelPro.removeAll();
+//		MainLayout.panelPro=new ProfilePanel();
 		if (gender.equals("Male")) {
 			RadioBtnM.setSelected(true);
 		}
@@ -229,11 +229,11 @@ public class ProfilePanel extends JPanel {
 		Graphics g = bi.createGraphics();
 		g.drawImage(img, 0, 0, 100, 100, null);
 		User=new ImageIcon(bi);
-		UserIcon=new JLabel(User);
+		UserIcon.setIcon(User);
 		phoneField.setText(phone);
 		pwField.setText(null);
 		
-		MainLayout.MainUppage.add(MainLayout.panelPro,"ProPanel");
+//		MainLayout.MainUppage.add(MainLayout.panelPro,"ProPanel");
 	}
 	public static void getUserID(String id) {
 		Userid.setText(id);
@@ -268,8 +268,8 @@ public class ProfilePanel extends JPanel {
     				LoginFunction.GetProfile(LoginPanel.operation, LoginFunction.AccessToken);
     	    		setInfo(LoginFunction.Gender,LoginFunction.Phonenumber,LoginFunction.Iconurl);
                 	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-                	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-                	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
+//                	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+//                	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
     			}
     			
             }

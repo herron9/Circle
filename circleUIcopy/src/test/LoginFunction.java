@@ -437,6 +437,7 @@ public class LoginFunction {
 		String textUrl;
 		String photoUrl;
 		String videoUrl;
+		int width,height;
 		int index1,index2,index3,index4,index5,index6;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetMoments: "+response);
@@ -459,16 +460,23 @@ public class LoginFunction {
 		    if(textUrl!=null){
 		    	newmoments.text=textUrl;
 		    }
-		    else if(photoUrl!=null){
+		    if(photoUrl!=null){
 		    	ImageIcon image=new ImageIcon(photoUrl);
 				Image img = image.getImage();
-				int height = image.getIconHeight()*300/image.getIconWidth();
-				BufferedImage bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
+				if(image.getIconWidth()>300){
+					width=300;
+					height = image.getIconHeight()*300/image.getIconWidth();
+				}
+				else{
+					width=image.getIconWidth();
+					height=image.getIconHeight();
+				}
+				BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 300, height, null);
+				g.drawImage(img, 0, 0, width, height, null);
 				newmoments.image = new ImageIcon(bi);
 		    }
-		    else if(videoUrl!=null){
+		    if(videoUrl!=null){
 		    	
 		    }
 		    moments.add(newmoments);

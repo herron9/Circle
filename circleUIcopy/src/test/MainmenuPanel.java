@@ -112,8 +112,8 @@ public class MainmenuPanel extends JPanel {
             public void  mouseClicked(MouseEvent e) {
             	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
+//            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+//            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMe.setBackground(null);
