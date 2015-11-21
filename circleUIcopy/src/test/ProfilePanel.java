@@ -22,6 +22,7 @@ import javax.swing.plaf.FontUIResource;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +32,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -223,7 +226,13 @@ public class ProfilePanel extends JPanel {
 		newiconurl=Iconurl;
 		newgender=gender;
 		newphone=phone;
-		ImageIcon image=new ImageIcon(Iconurl);
+		BufferedImage bufferedImage = null;
+		try {
+			URL myURL = new URL(Iconurl);
+			bufferedImage = ImageIO.read(myURL);
+		} catch (IOException f) {
+		}
+		ImageIcon image=new ImageIcon(bufferedImage);
 		Image img = image.getImage();
 		BufferedImage bi = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bi.createGraphics();
@@ -256,8 +265,12 @@ public class ProfilePanel extends JPanel {
 		add(UserIcon, gbc_UserIcon);
 		UserIcon.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
+            	s3Repository s3= new s3Repository();
+    			String key = ""+UUID.randomUUID()+".jpg";
     			String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-    			newiconurl=filePath;
+    			s3.uploadFile(key,filePath);
+    			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+    			newiconurl=fileurl;
     			if(filePath==null){
     				
     			}
