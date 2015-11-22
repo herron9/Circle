@@ -31,7 +31,7 @@ public class LoginFunction {
 	public static String Gender;
 	public static String Phonenumber;
 	public static String Nickname;
-	public static String Iconurl;
+	public static String Iconurl=null;
 	public static boolean friendrequest=false;
 	public static ArrayList<Moments> moments=new ArrayList<>();
 	public static ArrayList<Userid> userfriend=new ArrayList<>();
@@ -150,14 +150,15 @@ public class LoginFunction {
       		  operation="friendRequestList-request?";
       		  CheckFriendRequest(operation,AccessToken);
       		  operation="friendList-request?";
-    		  GetFriendList(operation, AccessToken);
+      		  GetFriendList(operation, AccessToken);
+      		  operation="get-friend-result-list?";
+    		  GetFriendResultList(operation, AccessToken);
 //    		  operation="create-user-profile?";
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
-    		  ProfilePanel.setInfo(Gender,Phonenumber,Iconurl);
-    		 
-    		 
+    		  MainLayout.panelPro.setInfo(Gender,Phonenumber,Iconurl);
+   		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{
@@ -182,6 +183,15 @@ public class LoginFunction {
 	}
 	
 	public static void GetFriendList(String operation,String AccessToken) {
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println("GetFriendList: "+response);
+		LoginPanel.names=parseFriendList(response);
+		MainLayout.FriendList.removeAll();
+		MainLayout.FriendList=new FriendPanel(LoginPanel.names);
+		MainLayout.MainUppage.add(MainLayout.FriendList,"FriendList");    
+	}
+	
+	public static void GetFriendResultList(String operation,String AccessToken) {
 		int p1,p2,p3,p4;
 		String str1="username";
 		String str2="nickname";
@@ -192,10 +202,6 @@ public class LoginFunction {
 		String iconurl;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetFriendList: "+response);
-		LoginPanel.names=parseFriendList(response);
-		MainLayout.FriendList.removeAll();
-		MainLayout.FriendList=new FriendPanel(LoginPanel.names);
-		MainLayout.MainUppage.add(MainLayout.FriendList,"FriendList");    
 		p1 = response.indexOf(str1);
 		p2 = response.indexOf(str2);
 		p3 = response.indexOf(str3);
@@ -208,18 +214,20 @@ public class LoginFunction {
 			iconurl=response.substring(p3+10, p4-1);
 			Userid user = new Userid();
 			
-			BufferedImage bufferedImage = null;
-			try {
-				URL myURL = new URL(iconurl);
-				bufferedImage = ImageIO.read(myURL);
-			} catch (IOException f) {
+			if(!iconurl.equals("Unknown")){
+				BufferedImage bufferedImage = null;
+				try {
+					URL myURL = new URL(iconurl);
+					bufferedImage = ImageIO.read(myURL);
+				} catch (IOException f) {
+				}
+				ImageIcon image=new ImageIcon(bufferedImage);
+				Image img = image.getImage();
+				BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = bi.createGraphics();
+				g.drawImage(img, 0, 0, 30, 30, null);
+				user.image = new ImageIcon(bi);
 			}
-			ImageIcon image=new ImageIcon(bufferedImage);
-			Image img = image.getImage();
-			BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
-			Graphics g = bi.createGraphics();
-			g.drawImage(img, 0, 0, 30, 30, null);
-			user.image = new ImageIcon(bi);
 			user.username=username;
 			user.nickname=nickname;
 			
@@ -239,7 +247,7 @@ public class LoginFunction {
 		String str2="phoneNumber";
 		String str3="nickName";
 		String str4="iconUrl";
-		String str5="}";
+		String str5="information";
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetProfile: "+response);
 		if(response.indexOf("true")!=-1){
@@ -251,7 +259,8 @@ public class LoginFunction {
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
-			Iconurl=response.substring(p4+10,p5-1);
+			Iconurl=response.substring(p4+10,p5-3);
+			System.out.println(Iconurl);
 		}
 	}
 	

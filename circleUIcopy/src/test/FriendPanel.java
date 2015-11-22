@@ -54,8 +54,10 @@ public class FriendPanel extends JPanel {
         		}
             	LoginPanel.operation="friendRequestList-request?";
        		  	LoginFunction.CheckFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
-       		 	LoginPanel.operation="friendList-request?";
-            	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+       		  	LoginPanel.operation="friendList-request?";
+    		  	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+       		 	LoginPanel.operation="get-friend-result-list?";
+            	LoginFunction.GetFriendResultList(LoginPanel.operation, LoginFunction.AccessToken);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
              }
              public void  mouseExited(MouseEvent e) {

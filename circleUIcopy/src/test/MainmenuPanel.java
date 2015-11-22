@@ -1,7 +1,7 @@
 package test;
 
 import javax.swing.BorderFactory;
-
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -19,7 +19,7 @@ public class MainmenuPanel extends JPanel {
 	
 	JLabel MenuLabChat = new JLabel("Chats");
 	JLabel MenuLabFriend = new JLabel("Friends");
-	JLabel MenuLabMon = new JLabel("Moments");
+	JLabel MenuLabMom = new JLabel("Moments");
 	JLabel MenuLabMe = new JLabel("Me");
 	
 	
@@ -42,13 +42,13 @@ public class MainmenuPanel extends JPanel {
 //		MenuLabFriend.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		MenuLabFriend.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		add(MenuLabFriend);
-		MenuLabMon.setBackground(new Color(220, 220, 220));
+		MenuLabMom.setBackground(new Color(220, 220, 220));
 		
-		MenuLabMon.setOpaque(true);
-		MenuLabMon.setHorizontalAlignment(SwingConstants.CENTER);
+		MenuLabMom.setOpaque(true);
+		MenuLabMom.setHorizontalAlignment(SwingConstants.CENTER);
 //		MenuLabMon.setBorder(BorderFactory.createLineBorder(Color.darkGray));
-		MenuLabMon.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		add(MenuLabMon);
+		MenuLabMom.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		add(MenuLabMom);
 		MenuLabMe.setBackground(new Color(220, 220, 220));
 		
 		MenuLabMe.setOpaque(true);
@@ -75,10 +75,13 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabFriend.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
+            	MainFrame.mainFrame.setTitle("Circle - Friends");
             	LoginPanel.operation="friendRequestList-request?";
        		  	LoginFunction.CheckFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
        		  	LoginPanel.operation="friendList-request?";
-            	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+       		  	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+       		  	LoginPanel.operation="get-friend-result-list?";
+            	LoginFunction.GetFriendResultList(LoginPanel.operation, LoginFunction.AccessToken);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
             	MainFrame.mainFrame.setTitle("Circle - FriendList");
              }
@@ -93,15 +96,19 @@ public class MainmenuPanel extends JPanel {
              public void  mousePressed(MouseEvent e) { 
              }
          });
-		MenuLabMon.addMouseListener(new MouseListener(){
+		MenuLabMom.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	//MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
+            	MainFrame.mainFrame.setTitle("Circle - Moments");
+            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MPane");
+            	LoginPanel.operation="moments-record-request?";
+            	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
+            	MainLayout.MomPanel.DisplayMoments();
              }
              public void  mouseExited(MouseEvent e) {
-            	 MenuLabMon.setBackground(null);
+            	 MenuLabMom.setBackground(null);
              }
              public void  mouseEntered(MouseEvent e) {
-            	 MenuLabMon.setBackground(Color.LIGHT_GRAY);
+            	 MenuLabMom.setBackground(Color.LIGHT_GRAY);
             	
              }
              public void  mouseReleased(MouseEvent e) { }
@@ -110,10 +117,17 @@ public class MainmenuPanel extends JPanel {
          });
 		MenuLabMe.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
-            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+    			MainFrame.mainFrame.setTitle("Circle - Profile");
+      		  if (LoginFunction.Iconurl==null) {
+    			  //MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
+//      			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/dio.jpg");
+      		  }
+    		  else {
+//    			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+    			System.out.println("LoginFunction.Iconurl: "+LoginFunction.Iconurl);
+    		  }
+            	
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-//            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-//            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMe.setBackground(null);

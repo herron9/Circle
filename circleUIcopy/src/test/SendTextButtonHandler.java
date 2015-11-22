@@ -29,7 +29,8 @@ public class SendTextButtonHandler implements ActionListener{
 	JPanel Inner;
 	String emoji;
 	int type;
-	String filePath;
+	String filePath=null;
+	String fileurl=null;
 	static String FriendName;
 	ImageIcon newIcon = new ImageIcon();
 	BufferedImage bi;
@@ -63,8 +64,11 @@ public class SendTextButtonHandler implements ActionListener{
 			else{
 				filePath = emoji;
 			}
-			s3.uploadFile(key,filePath);
-			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+			if(filePath!=null){
+				s3.uploadFile(key,filePath);
+				fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+			}
+			
 //			System.out.println(filePath);
 //			System.out.println(fileurl);
 //			BufferedImage bufferedImage = null;
@@ -88,7 +92,8 @@ public class SendTextButtonHandler implements ActionListener{
 				g.drawImage(img, 0, 0, 30, 30, null);
 				newIcon = new ImageIcon(bi);
 			}
-			
+			filePath=null;
+			fileurl=null;
 			
 			ArrayList<String> des = new ArrayList<>();
 		    des.add(FriendPanel.friendname);

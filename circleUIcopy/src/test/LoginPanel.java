@@ -7,10 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-
-import client.CircleClient;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -20,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 public class LoginPanel extends JPanel {
 	private JLabel title = new JLabel("Circle Login");// login reg page
@@ -82,27 +77,27 @@ public class LoginPanel extends JPanel {
 		Login_password.setEchoChar((char) (0));
 		Login_password.setText("password");
 		Login_password.setBounds(240, 240,220, 35);
+///////////////////////////////test		
+		JButton btnYhr = new JButton("yhr");
+		btnYhr.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operation="sign-in?";
+            	LoginFunction.Login(operation,"zhangziqi0839@outlook.com","123");
+			}
+		});
+		btnYhr.setBounds(28, 38, 117, 29);
+		add(btnYhr);
 		
-//		JButton btnYhr = new JButton("yhr");
-//		btnYhr.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				operation="sign-in?";
-//            	LoginFunction.Login(operation,"yanghrong@outlook.com","123");
-//			}
-//		});
-//		btnYhr.setBounds(28, 38, 117, 29);
-//		add(btnYhr);
-//		
-//		JButton btnDuras = new JButton("zzq");
-//		btnDuras.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				operation="sign-in?";
-//				LoginFunction.Login(operation,"zhangziqi0839@outlook.com","123");
-//			}
-//		});
-//		btnDuras.setBounds(28, 75, 117, 29);
-//		add(btnDuras);
-		
+		JButton btnDuras = new JButton("zzq");
+		btnDuras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operation="sign-in?";
+				LoginFunction.Login(operation,"zhangziqi0839@ufl.edu","123");
+			}
+		});
+		btnDuras.setBounds(28, 75, 117, 29);
+		add(btnDuras);
+///////////////////////////////test			
 		
 		
 		class FocusHandler extends FocusAdapter{

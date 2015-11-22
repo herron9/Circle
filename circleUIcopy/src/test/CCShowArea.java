@@ -2,8 +2,6 @@ package test;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.AbstractBorder;
@@ -11,7 +9,6 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
-import javax.swing.SwingConstants;
 
 public class CCShowArea extends JPanel {
 	

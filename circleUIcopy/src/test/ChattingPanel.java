@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
@@ -27,7 +26,6 @@ import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 
 public class ChattingPanel extends JPanel {
@@ -115,32 +113,11 @@ public class ChattingPanel extends JPanel {
 		SubBar.add(VideoBtn);
 		importEmoji();
 		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
-//		addMouseListener(new MouseListener(){
-//            public void  mouseClicked(MouseEvent e) {
-//            	MainFrame.mainFrame.setTitle("Circle - Chat");
-//            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MCPanel");
-//             } 
-//             public void  mouseExited(MouseEvent e) {
-//            	 MenuLabChat.setBackground(null);
-//             }
-//             public void  mouseEntered(MouseEvent e) {
-//            	 MenuLabChat.setBackground(Color.LIGHT_GRAY);
-//            	
-//             }
-//             public void  mouseReleased(MouseEvent e) { }
-//             public void  mousePressed(MouseEvent e) { 
-//             }
-//         });
+
 		
 	}
 
 
-//	private ActionListener SendTextButtonHandler(JPanel inner2, JTextField msgField2, CircleClient client,
-//			Object object) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-	
 	public void importEmoji() {
 		ArrayList<Emoji> emoList = new ArrayList<Emoji>();
 		Emoji emoji;
@@ -149,7 +126,7 @@ public class ChattingPanel extends JPanel {
 		for (int i = 701; i < 710; i++) {
 			emoji = new Emoji("src/"+i+".png");
 			emoji.num=i;
-			emoji.url="/Users/cher09/Documents/workspace/test/UI/circleUIcopy/"+"src/"+i+".png";
+			emoji.url="src/"+i+".png";
 			emoList.add(emoji);
 			emojiBtn = new JButton(ClientFunction.resizeIcon(emoji.image,24));
 			emojiBtn.addActionListener( new SendTextButtonHandler(Message.LINK,Inner,MsgField,ClientFunction.client,FriendPanel.friendname,emoji.url));

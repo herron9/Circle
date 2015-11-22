@@ -40,7 +40,7 @@ import java.awt.Color;
 public class ProfilePanel extends JPanel {
 	
 	Font font = new Font("Lucida Grande", Font.PLAIN, 18);
-	public static ImageIcon User;//cant scale!
+	public static ImageIcon User = new ImageIcon("src/avatar.png");//cant scale!
 	public static JLabel UserIcon=new JLabel(User);
 	static JLabel Userid = new JLabel("New label");
 	public static JRadioButton RadioBtnM;
@@ -226,19 +226,21 @@ public class ProfilePanel extends JPanel {
 		newiconurl=Iconurl;
 		newgender=gender;
 		newphone=phone;
-		BufferedImage bufferedImage = null;
-		try {
-			URL myURL = new URL(Iconurl);
-			bufferedImage = ImageIO.read(myURL);
-		} catch (IOException f) {
+		if(!Iconurl.equals("Unknown")){
+			BufferedImage bufferedImage = null;
+			try {
+				URL myURL = new URL(Iconurl);
+				bufferedImage = ImageIO.read(myURL);
+			} catch (IOException f) {
+			}
+			ImageIcon image=new ImageIcon(bufferedImage);
+			Image img = image.getImage();
+			BufferedImage bi = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+			Graphics g = bi.createGraphics();
+			g.drawImage(img, 0, 0, 100, 100, null);
+			User=new ImageIcon(bi);
+			UserIcon.setIcon(User);
 		}
-		ImageIcon image=new ImageIcon(bufferedImage);
-		Image img = image.getImage();
-		BufferedImage bi = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-		Graphics g = bi.createGraphics();
-		g.drawImage(img, 0, 0, 100, 100, null);
-		User=new ImageIcon(bi);
-		UserIcon.setIcon(User);
 		phoneField.setText(phone);
 		pwField.setText(null);
 		

@@ -34,6 +34,7 @@ public class MainFrame extends JFrame{
 		mainFrame.setSize(600, 450);
 		mainFrame.getContentPane().add(BorderLayout.CENTER,panelCont);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		mainFrame.setResizable(false); 
 		
 	}
 	
@@ -50,6 +51,7 @@ public class MainFrame extends JFrame{
 					MainFrame window = new MainFrame();
 					//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					window.mainFrame.setVisible(true);
+					
 					//window.pack();
 				} catch (Exception e) {
 					e.printStackTrace();

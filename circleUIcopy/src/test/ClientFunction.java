@@ -1,6 +1,5 @@
 package test;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -9,12 +8,9 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import com.sun.org.apache.bcel.internal.generic.InstructionConstants.Clinit;
-
 import client.CircleClient;
 import client.ReceiverHandler;
 import communication.Message;
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
