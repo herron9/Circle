@@ -1,7 +1,7 @@
 package test;
 
 import javax.swing.BorderFactory;
-
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -98,6 +98,9 @@ public class MainmenuPanel extends JPanel {
             public void  mouseClicked(MouseEvent e) {
             	MainFrame.mainFrame.setTitle("Circle - Moments");
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MPane");
+            	LoginPanel.operation="moments-record-request?";
+            	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
+            	MainLayout.MomPanel.DisplayMoments();
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMom.setBackground(null);
@@ -113,9 +116,14 @@ public class MainmenuPanel extends JPanel {
 		MenuLabMe.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
     			MainFrame.mainFrame.setTitle("Circle - Profile");
-            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-            	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-            	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+      		  if (LoginFunction.Iconurl==null) {
+    			  //MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
+      			//MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/avatar.png");
+			}
+    		  else {
+    			  MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+			}
+            	
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
              }
              public void  mouseExited(MouseEvent e) {

@@ -1,6 +1,8 @@
 package test;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -28,8 +30,10 @@ public class LoginFunction {
 	public static String Gender;
 	public static String Phonenumber;
 	public static String Nickname;
-	public static String Iconurl;
+	public static String Iconurl=null;
 	public static boolean friendrequest=false;
+	public static ArrayList<Moments> moments=new ArrayList<>();
+
 	
 	public static void History(int type,String friendname,String content,String time,String sourceID,BufferedImage bImage) {
 		boolean find=false;
@@ -135,6 +139,7 @@ public class LoginFunction {
 				CircleClient client0 = new CircleClient(LoginPanel.circleAccessToken, new MsgReceiver());
 				ProfilePanel.getUserID(LoginPanel.circleAccessToken);
 				ClientFunction.GetClient(client0);
+				ClientFunction.CPanel = new ChattingPanel(client0);
 				
       		  } catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -148,9 +153,7 @@ public class LoginFunction {
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
-    		  ProfilePanel.setInfo(Gender,Phonenumber,Iconurl);
-    		 
-    		 
+   		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
 		  else{
@@ -197,7 +200,7 @@ public class LoginFunction {
 			p2=response.indexOf(str2);
 			p3=response.indexOf(str3);
 			p4=response.indexOf(str4);
-			p5=response.indexOf(str5,p4+10);
+			p5=response.indexOf(str5);
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
@@ -414,7 +417,71 @@ public class LoginFunction {
 		System.out.println("ModifyProfile: "+response);
 	}
 	
-	//-----------------------------------------------------------------------------------
+	//---------------------------------MomentsFunction--------------------------------------
+	public static void AddMoments(String operation,String AccessToken,String textURL,String photoURL,String videoURL){
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&textURL="+textURL+"&photoURL="+photoURL+"&videoURL="+videoURL,"");
+		System.out.println("AddMoments: "+response);
+	}
 
+	public static void GetMoments(String operation,String AccessToken){
+		String s1="username";
+		String s2="timeStamp";
+		String s3="textUrl";
+		String s4="photoUrl";
+		String s5="videoUrl";
+		String s6="}";
+		String username;
+		String timeStamp;
+		String textUrl;
+		String photoUrl;
+		String videoUrl;
+		int index1,index2,index3,index4,index5,index6;
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
+		System.out.println("GetMoments: "+response);
+		index1 = response.indexOf(s1);
+		index2 = response.indexOf(s2);
+		index3 = response.indexOf(s3);
+		index4 = response.indexOf(s4);
+		index5 = response.indexOf(s5);
+		index6 = response.indexOf(s6);
+
+		while (index1 >= 0) {
+			username=response.substring(index1+11, index2-3);
+			timeStamp=response.substring(index2+12, index3-3);
+			textUrl=response.substring(index3+10, index4-3);
+			photoUrl=response.substring(index4+11, index5-3);
+			videoUrl=response.substring(index5+11, index6-1);
+		    Moments newmoments =new Moments();
+		    newmoments.name=username;
+		    newmoments.time=timeStamp;
+		    if(textUrl!=null){
+		    	newmoments.text=textUrl;
+		    }
+		    if(photoUrl!=null){
+		    	ImageIcon image=new ImageIcon(photoUrl);
+				Image img = image.getImage();
+				int height = image.getIconHeight()*300/image.getIconWidth();
+				BufferedImage bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = bi.createGraphics();
+				g.drawImage(img, 0, 0, 300, height, null);
+				newmoments.image = new ImageIcon(bi);
+		    }
+		    if(videoUrl!=null){
+		    	
+		    }
+		    moments.add(newmoments);
+			System.out.println(newmoments.name);
+			System.out.println(newmoments.time);
+			System.out.println(newmoments.text);
+
+		    index1 = response.indexOf(s1, index1 + 1);
+		    index2 = response.indexOf(s2, index2 + 1);
+		    index3 = response.indexOf(s3, index3 + 1);
+			index4 = response.indexOf(s4, index4 + 1);
+			index5 = response.indexOf(s5, index5 + 1);
+			index6 = response.indexOf(s6, index6 + 1);
+		}
+	}
+	
 }
 

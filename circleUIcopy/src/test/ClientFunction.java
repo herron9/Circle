@@ -1,6 +1,5 @@
 package test;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -9,12 +8,9 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import com.sun.org.apache.bcel.internal.generic.InstructionConstants.Clinit;
-
 import client.CircleClient;
 import client.ReceiverHandler;
 import communication.Message;
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -47,8 +43,8 @@ public class ClientFunction {
 		    for( ActionListener al : CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	CPanel.ImgBtn.removeActionListener( al );
 		    }
-		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname));
-		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname));
+		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname,null));
+		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		MsgReceiver.SrcID=friendname;
 		CPanel.Inner.removeAll();
 		MainFrame.mainFrame.setTitle("Chat with "+friendname);
@@ -62,13 +58,13 @@ public class ClientFunction {
 		for( ActionListener al : CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    CPanel.ImgBtn.removeActionListener( al );
 		}
-		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname));
+		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 //		CPanel.VideoBtn.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				VideoFrame video = new VideoFrame();
 //			}
 //		});
-		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname));
+		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		MsgReceiver.SrcID=friendname;		
 		LoginFunction.RecallHistory(friendname);
 		MainFrame.mainFrame.setTitle("Chat with "+friendname);
@@ -87,6 +83,7 @@ class MsgReceiver implements ReceiverHandler {
 	public static String SrcID = null; //="null";
 	ImageIcon newIcon = new ImageIcon();
 	BufferedImage bi;
+	int width,height;
 	
 	@Override
 	public void reaction(Message message) {
@@ -98,8 +95,8 @@ class MsgReceiver implements ReceiverHandler {
 		    for( ActionListener al : ClientFunction.CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    	ClientFunction.CPanel.ImgBtn.removeActionListener( al );
 		    }
-		    ClientFunction.CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(message.LINK,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
-		    ClientFunction.CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(message.TEXT,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID()));
+		    ClientFunction.CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(message.LINK,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID(),null));
+		    ClientFunction.CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(message.TEXT,ClientFunction.CPanel.Inner,ClientFunction.CPanel.MsgField,ClientFunction.client,message.getMessageSrcID(),null));
 		    MsgReceiver.SrcID=message.getMessageSrcID();
 		    SrcID = message.getMessageSrcID();
 		    ClientFunction.CPanel.Inner.removeAll();
@@ -129,10 +126,17 @@ class MsgReceiver implements ReceiverHandler {
 				//bufferedImage.getHeight()
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
-				int height = image.getIconHeight()*300/image.getIconWidth();
-				bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
+				if(image.getIconWidth()>300){
+					width=300;
+					height = image.getIconHeight()*300/image.getIconWidth();
+				}
+				else{
+					width=image.getIconWidth();
+					height=image.getIconHeight();
+				}
+				bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 300, height, null);
+				g.drawImage(img, 0, 0, width, height, null);
 				newIcon = new ImageIcon(bi);
 				cell.setPreferredSize(new Dimension(570, newIcon.getIconHeight()+30));
 				cell.ShowArea.remove(cell.msg);

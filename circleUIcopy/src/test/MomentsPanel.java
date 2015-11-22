@@ -2,22 +2,18 @@ package test;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
-
 import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.SwingConstants;
 
 public class MomentsPanel extends JPanel {
 	
@@ -75,6 +71,8 @@ public class MomentsPanel extends JPanel {
 		refresh.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+            	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
+            	MainLayout.MomPanel.DisplayMoments();
 			}
 			public void  mouseExited(MouseEvent e) {
 	           	 refresh.setBackground(null);
@@ -112,23 +110,32 @@ public class MomentsPanel extends JPanel {
 	}
     public void DisplayMoments() {
 		down.removeAll();
-//		for (int i = 0; i < moments.size(); i++) {
-//			if(LogList.get(i).name.equals(name)){	    
-//				LogList.get(i).TimeLabel.setText(Time);
-//				if(type==Message.TEXT){
-//					LogList.get(i).SetHistory(LastMsg);
-//				}
-//				else if(type==Message.LINK){
-//					LogList.get(i).SetHistory("[picture]");
-//				}
-//			}
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < LoginFunction.moments.size(); i++) {
 			MomentCell cell = new MomentCell();
-			cell.lblName.setText("no one"+i);
-			//cell.lblIcon.setIcon(new ImageIcon("src/Circle_LOGOss.png"));
-			cell.content.MomTextArea.setText("Two men look out through the same bars:one see the star and the other see the mud");
-			cell.content.lblPic.setIcon(new ImageIcon("src/Circle_LOGOss.png"));
-			cell.lblTimeStamp.setText("now"+i);
+			cell.lblName.setText(LoginFunction.moments.get(i).name);
+			cell.lblIcon.setIcon(new ImageIcon("src/avatar.png"));
+			cell.content.MomTextArea.setText(LoginFunction.moments.get(i).text);
+			if (LoginFunction.moments.get(i).image != null) {
+				cell.content.lblPic.setIcon(LoginFunction.moments.get(i).image);
+			}
+//			BufferedImage bufferedImage = null;
+//			try {
+//				URL myURL = new URL("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
+//				bufferedImage = ImageIO.read(myURL);
+//			} catch (IOException f) {
+//			}
+//			ImageIcon image=new ImageIcon(bufferedImage);
+//			Image img = image.getImage();
+//			BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+//			Graphics g = bi.createGraphics();
+//			g.drawImage(img, 0, 0, 50, 50, null);
+//			ImageIcon image1 = new ImageIcon(bi);
+//				cell.content.lblPic.setIcon(image1);
+			//}
+//			else {
+//				cell.content.remove(cell.content.lblPic);
+//			}
+//			cell.lblTimeStamp.setText(LoginFunction.moments.get(i).time);
 			cell.setAlignmentY(5);
 			cell.setAlignmentX(0);
 			down.add(cell);

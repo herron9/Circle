@@ -18,6 +18,8 @@ import javax.swing.UIManager;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import client.CircleClient;
+import communication.Message;
+
 import java.awt.Color;
 import java.awt.Component;
 
@@ -33,7 +35,7 @@ public class ChattingPanel extends JPanel {
 	public JScrollPane Scroller = new JScrollPane(Inner);//add chatarea to scrollarea
 	public JTextField MsgField = new JTextField(38);
 	public JButton SendMsgBtn = new JButton("Send");
-	public JButton EmoBtn = new JButton("Emotion");
+	public JButton EmoBtn = new JButton();
 	public JButton ImgBtn = new JButton("Image");
 	public JButton VideoBtn = new JButton("Video Call");
 	//public static JList list;
@@ -109,7 +111,7 @@ public class ChattingPanel extends JPanel {
 		//SubBar.add(EmoBtn);
 		SubBar.add(ImgBtn);
 		SubBar.add(VideoBtn);
-		//importEmoji();
+		importEmoji();
 		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));
 
 		
@@ -119,26 +121,28 @@ public class ChattingPanel extends JPanel {
 	public void importEmoji() {
 		ArrayList<Emoji> emoList = new ArrayList<Emoji>();
 		Emoji emoji;
-		JLabel emojiLab;
-		//String emojilist[] = null;
-		//list = new JList(emojilist);
-		for (int i = 701; i < 711; i++) {
-			emoji = new Emoji("bin/"+i+".png");
+		JButton emojiBtn;
+		
+		for (int i = 701; i < 710; i++) {
+			emoji = new Emoji("src/"+i+".png");
 			emoji.num=i;
+			emoji.url="src/"+i+".png";
 			emoList.add(emoji);
-			emojiLab = new JLabel(ClientFunction.resizeIcon(emoji,24));
-			SubBar.add(emojiLab);
-			
+			emojiBtn = new JButton(ClientFunction.resizeIcon(emoji.image,24));
+			emojiBtn.addActionListener( new SendTextButtonHandler(Message.LINK,Inner,MsgField,ClientFunction.client,FriendPanel.friendname,emoji.url));
+			SubBar.add(emojiBtn);
+
 		}
 		
 	}
 	
 	class Emoji extends ImageIcon{
-		public Emoji(String string) {
-			ImageIcon x= new ImageIcon(string);
-		}
-
 		int num;
+		String url;
+		ImageIcon image;
+		public Emoji(String string) {
+			 image = new ImageIcon(string);
+		}
 	}
 
 }

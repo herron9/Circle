@@ -1,8 +1,6 @@
 package test;
 
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 /**
  * A flow layout arranges components in a directional flow, much

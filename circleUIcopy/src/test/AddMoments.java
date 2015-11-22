@@ -1,12 +1,8 @@
 package test;
 
-import java.awt.GridLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.sun.xml.internal.ws.api.pipe.Tube;
-import com.sun.xml.internal.ws.message.MimeAttachmentSet;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -19,16 +15,20 @@ import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.UUID;
 
 
 public class AddMoments extends JFrame {
 	//JFrame MomentFrame = new JFrame("New Moment");
 	JPanel NewMoment = new JPanel();
-	JTextArea Moment = new JTextArea();
+	JTextArea Moment = new JTextArea("say something :-D");
 	JScrollPane scrollPane = new JScrollPane(Moment);
 	private final JLabel lblCancel = new JLabel("Cancel");
 	private final JLabel lblPicture = new JLabel("Picture");
 	private final JLabel lblSend = new JLabel("Send");
+	String fileurl =null;
+	String filePath=null;
+	String fileurlx = null;
 	public AddMoments() {
 		setResizable(false); 
 		
@@ -40,7 +40,6 @@ public class AddMoments extends JFrame {
 		lblPicture.setOpaque(true);
 		lblSend.setOpaque(true);
 		setTitle("New Moment");
-		//setSize(300, 300);
 		setBounds(200, 200, 300, 200);
 		getContentPane().add(NewMoment);
 		GridBagLayout gbl_bottom = new GridBagLayout();
@@ -70,6 +69,7 @@ public class AddMoments extends JFrame {
 		lblCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -78,6 +78,7 @@ public class AddMoments extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblCancel.setBackground(null);
+				 
 			}
 		});
 		NewMoment.add(lblCancel, gbc_lblCancel);
@@ -89,12 +90,21 @@ public class AddMoments extends JFrame {
 		gbc_lblPicture.gridy = 1;
 		lblPicture.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPicture.setVerticalAlignment(SwingConstants.TOP);
-		//lblPicture.setBackground(new Color(220, 220, 220));
 		NewMoment.add(lblPicture, gbc_lblPicture);
-//		lblPicture.setBackground(new Color(220, 220, 220));
 		lblPicture.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				filePath = SwingFileChooserDemo.chooseAFileFromCurrentMachine();;
+				s3Repository s3= new s3Repository();
+				String key = ""+UUID.randomUUID()+".jpg";
+				if(filePath!=null){
+					s3.uploadFile(key,filePath);
+					fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+					lblPicture.setText("Picture added");
+					fileurlx=fileurl;
+					fileurl=null;
+					filePath=null;
+				}
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -117,6 +127,10 @@ public class AddMoments extends JFrame {
 		lblSend.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				LoginPanel.operation="add-moments-owners-personal-record?";
+				LoginFunction.AddMoments(LoginPanel.operation, LoginFunction.AccessToken, Moment.getText(), fileurlx, null);
+				MainLayout.MomPanel.DisplayMoments();
+				dispose();	
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import client.CircleClient;
 import communication.Message;
+import test.ChattingPanel.Emoji;
 
 public class SendTextButtonHandler implements ActionListener{
 
@@ -26,12 +27,15 @@ public class SendTextButtonHandler implements ActionListener{
 	JTextArea ChatArea;
 	CircleClient client;
 	JPanel Inner;
+	String emoji;
 	int type;
+	String filePath=null;
+	String fileurl=null;
 	static String FriendName;
 	ImageIcon newIcon = new ImageIcon();
 	BufferedImage bi;
 
-	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendname) {
+	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendname,String emoji) {
 	//public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
 		// TODO Auto-generated constructor stub
 		this.type=type;
@@ -39,6 +43,7 @@ public class SendTextButtonHandler implements ActionListener{
 		//this.ChatArea = ChatArea;
 		this.client = client;
 		this.Inner =Inner;
+		this.emoji=emoji;
 		SendTextButtonHandler.FriendName = friendname;
 	}
 //	public static void setname(String name) {
@@ -50,19 +55,39 @@ public class SendTextButtonHandler implements ActionListener{
     {
 	    Message message = new Message();
 		if(type==Message.LINK){
+			
 	 		s3Repository s3= new s3Repository();
 			String key = ""+UUID.randomUUID()+".jpg";
-			String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-			s3.uploadFile(key,filePath);
-			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
-			System.out.println(fileurl);
+			if(emoji==null){
+				filePath = SwingFileChooserDemo.chooseAFileFromCurrentMachine();
+			}
+			else{
+				filePath = emoji;
+			}
+			if(filePath!=null){
+				s3.uploadFile(key,filePath);
+				fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+			}
+			
+//			System.out.println(filePath);
+//			System.out.println(fileurl);
 			ImageIcon image=new ImageIcon(filePath);
 			Image img = image.getImage();
 			int height = image.getIconHeight()*300/image.getIconWidth();
-			bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
-			Graphics g = bi.createGraphics();
-			g.drawImage(img, 0, 0, 300, height, null);
-			newIcon = new ImageIcon(bi);
+			if(emoji==null){
+				bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = bi.createGraphics();
+				g.drawImage(img, 0, 0, 300, height, null);
+				newIcon = new ImageIcon(bi);
+			}
+			else{
+				bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = bi.createGraphics();
+				g.drawImage(img, 0, 0, 30, 30, null);
+				newIcon = new ImageIcon(bi);
+			}
+			filePath=null;
+			fileurl=null;
 			
 			ArrayList<String> des = new ArrayList<>();
 		    des.add(FriendPanel.friendname);
@@ -70,6 +95,8 @@ public class SendTextButtonHandler implements ActionListener{
 		    message.setMessageSrcID(LoginPanel.circleAccessToken);
 		    message.setMessageDesIDList(des);
 		    message.setMessageContent(fileurl);
+			
+
 		}
 		else if(type==Message.TEXT){
 			ArrayList<String> des = new ArrayList<>();

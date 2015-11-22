@@ -2,7 +2,6 @@ package test;
 
 
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -10,8 +9,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
-
 import javax.swing.BoxLayout;
 
 
@@ -56,7 +53,6 @@ public class MainLayout extends JPanel {
         //MomPane.getVerticalScrollBar().getMaximum(); //返回滚动条的最大跨度
         //MomPane.getViewport().setViewPosition(new Point(0, MomPane.bar.getMaximum()));
 		MainUppage.add(MomPane, "MPane");
-	
 		add(MainUppage);
 		Mainmenu.setAlignmentY(0.0f);
 		add(Mainmenu);

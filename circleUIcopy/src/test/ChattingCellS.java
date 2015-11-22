@@ -1,31 +1,16 @@
 package test;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
-import javax.swing.border.AbstractBorder;
-
-
 import java.awt.Insets;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
-
-import com.sun.prism.Texture;
 
 
 public class ChattingCellS extends JPanel {

@@ -12,7 +12,7 @@ import java.awt.Color;
 public class MomentCellContent extends JPanel {
 	
 	JTextArea MomTextArea = new JTextArea(0,0);
-	JLabel lblPic = new JLabel("Pic");
+	JLabel lblPic = new JLabel();
 	
 	public MomentCellContent() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
