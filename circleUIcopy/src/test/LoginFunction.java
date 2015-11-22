@@ -158,6 +158,7 @@ public class LoginFunction {
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
     		  MainLayout.panelPro.setInfo(Gender,Phonenumber,Iconurl);
+
    		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }

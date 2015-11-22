@@ -35,7 +35,7 @@ public class ChattingCellR extends JPanel {
 	public ChattingCellR() {
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.ORANGE, null, null, null));
 		setPreferredSize(new Dimension(570, 00));
-		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
+		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));	
 		UserIcon.setVerticalAlignment(SwingConstants.TOP);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 //		gridBagLayout.rowWeights = new double[]{0.0, 1.0};

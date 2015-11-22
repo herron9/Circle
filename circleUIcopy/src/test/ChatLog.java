@@ -27,15 +27,17 @@ public class ChatLog extends JPanel {
 	static boolean flag =true;
 
 	
-	public ChatLog(final String name) {
+	public ChatLog(String name) {
+		this.name = name;
+		System.out.println("chatlog.this.name:  "+this.name);
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			ClientFunction.RecallChatting(name);
+			ClientFunction.RecallChatting(ChatLog.this.name);
 			}
 		});
 		
-		this.name = name;
+
 		setPreferredSize(new Dimension(590, 60));
 		//setSize(new Dimension(600, 40));
 		setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
@@ -49,7 +51,7 @@ public class ChatLog extends JPanel {
 	}
 	
 	public void setup() {
-		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));	
+		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));	
 		add(UserIcon);
 		GridBagLayout gbl_Right = new GridBagLayout();
 		gbl_Right.columnWidths = new int[]{200, 0};

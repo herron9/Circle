@@ -87,7 +87,7 @@ public class ChattingCellS extends JPanel {
 			add(TimeLabel, gbc_TimeLabel);
 			
 			
-			UserIcon = new JLabel(ClientFunction.resizeIcon(User,40));
+			UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));
 			UserIcon.setVerticalAlignment(SwingConstants.TOP);
 			//UserIcon.setSize(new Dimension(40, 40));
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
