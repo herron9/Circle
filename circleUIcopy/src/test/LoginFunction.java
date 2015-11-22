@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.regex.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,6 +34,7 @@ public class LoginFunction {
 	public static String Iconurl=null;
 	public static boolean friendrequest=false;
 	public static ArrayList<Moments> moments=new ArrayList<>();
+	public static ArrayList<Userid> userfriend=new ArrayList<>();
 
 	
 	public static void History(int type,String friendname,String content,String time,String sourceID,BufferedImage bImage) {
@@ -153,6 +155,7 @@ public class LoginFunction {
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
+    		  MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
    		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }
@@ -178,12 +181,55 @@ public class LoginFunction {
 	}
 	
 	public static void GetFriendList(String operation,String AccessToken) {
+		int p1,p2,p3,p4;
+		String str1="username";
+		String str2="nickname";
+		String str3="iconurl";
+		String str4="}";
+		String username;
+		String nickname;
+		String iconurl;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetFriendList: "+response);
 		LoginPanel.names=parseFriendList(response);
 		MainLayout.FriendList.removeAll();
 		MainLayout.FriendList=new FriendPanel(LoginPanel.names);
 		MainLayout.MainUppage.add(MainLayout.FriendList,"FriendList");    
+		p1 = response.indexOf(str1);
+		p2 = response.indexOf(str2);
+		p3 = response.indexOf(str3);
+		p4 = response.indexOf(str4);
+		
+
+		while (p1 >= 0) {
+			username=response.substring(p1+11, p2-3);
+			nickname=response.substring(p2+11, p3-3);
+			iconurl=response.substring(p3+10, p4-1);
+			Userid user = new Userid();
+			
+			BufferedImage bufferedImage = null;
+			try {
+				URL myURL = new URL(iconurl);
+				bufferedImage = ImageIO.read(myURL);
+			} catch (IOException f) {
+			}
+			ImageIcon image=new ImageIcon(bufferedImage);
+			Image img = image.getImage();
+			BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+			Graphics g = bi.createGraphics();
+			g.drawImage(img, 0, 0, 30, 30, null);
+			user.image = new ImageIcon(bi);
+			user.username=username;
+			user.nickname=nickname;
+			
+			userfriend.add(user);
+		
+			p1 = response.indexOf(str1,p1+1);
+			p2 = response.indexOf(str2,p2+1);
+			p3 = response.indexOf(str3,p3+1);
+			p4 = response.indexOf(str4,p4+1);
+		}
+		
 	}
 	
 	public static void GetProfile(String operation,String AccessToken) {
@@ -205,7 +251,6 @@ public class LoginFunction {
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
 			Iconurl=response.substring(p4+10,p5-1);
-			System.out.println("Gender is: "+Gender+" Phonenumber is: "+Phonenumber+" nickname is: "+Nickname+" iconurl is : "+Iconurl);
 		}
 	}
 	
@@ -435,6 +480,7 @@ public class LoginFunction {
 		String textUrl;
 		String photoUrl;
 		String videoUrl;
+		int width,height;
 		int index1,index2,index3,index4,index5,index6;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetMoments: "+response);
@@ -460,10 +506,17 @@ public class LoginFunction {
 		    if(photoUrl!=null){
 		    	ImageIcon image=new ImageIcon(photoUrl);
 				Image img = image.getImage();
-				int height = image.getIconHeight()*300/image.getIconWidth();
-				BufferedImage bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
+				if(image.getIconWidth()>300){
+					width=300;
+					height = image.getIconHeight()*300/image.getIconWidth();
+				}
+				else{
+					width=image.getIconWidth();
+					height=image.getIconHeight();
+				}
+				BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 300, height, null);
+				g.drawImage(img, 0, 0, width, height, null);
 				newmoments.image = new ImageIcon(bi);
 		    }
 		    if(videoUrl!=null){

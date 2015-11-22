@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 
 import sun.rmi.server.ActivatableRef;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +26,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.UUID;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -32,7 +36,7 @@ import javax.swing.SwingConstants;
 public class ProfilePanel extends JPanel {
 	
 	Font font = new Font("Lucida Grande", Font.PLAIN, 18);
-	public static ImageIcon User= new ImageIcon("src/avatar.png");
+	public static ImageIcon User;//= new ImageIcon("src/avatar.png");
 	public JLabel UserIcon =new JLabel(User);
 	static JLabel Userid = new JLabel("New label");
 	public static JRadioButton RadioBtnM;
@@ -62,12 +66,28 @@ public class ProfilePanel extends JPanel {
 //		MainLayout.panelPro.removeAll();
 //		MainLayout.panelPro=new ProfilePanel();
 		NickNameField.setText(nickname);
-		ImageIcon image=new ImageIcon(Iconurl);
+		newiconurl=Iconurl;
+		newgender=gender;
+		newphone=phone;
+		BufferedImage bufferedImage = null;
+		try {
+			URL myURL = new URL(Iconurl);
+			bufferedImage = ImageIO.read(myURL);
+		} catch (IOException f) {
+		}
+		ImageIcon image=new ImageIcon(bufferedImage);
 		Image img = image.getImage();
 		BufferedImage bi = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bi.createGraphics();
 		g.drawImage(img, 0, 0, 100, 100, null);
-		UserIcon=new JLabel(new ImageIcon(bi));
+		User=new ImageIcon(bi);
+		UserIcon.setIcon(User);
+//		ImageIcon image=new ImageIcon(Iconurl);
+//		Image img = image.getImage();
+//		BufferedImage bi = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+//		Graphics g = bi.createGraphics();
+//		g.drawImage(img, 0, 0, 100, 100, null);
+//		UserIcon=new JLabel(new ImageIcon(bi));
 		
 		if (gender.equals("Male")) {
 			RadioBtnM.setSelected(true);
@@ -221,24 +241,35 @@ public class ProfilePanel extends JPanel {
 				
 			}
 		});
+
+		GridBagConstraints gbc_UserIcon = new GridBagConstraints();
+		gbc_UserIcon.anchor = GridBagConstraints.WEST;
+		gbc_UserIcon.insets = new Insets(5, 5, 5, 5);
+		gbc_UserIcon.gridheight = 2;
+		gbc_UserIcon.gridx = 1;
+		gbc_UserIcon.gridy = 1;
+		add(UserIcon, gbc_UserIcon);
+		
         UserIcon.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
+            	s3Repository s3= new s3Repository();
+    			String key = ""+UUID.randomUUID()+".jpg";
     			String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-    			newiconurl=filePath;
-    			System.out.println(newiconurl);
-    			if (filePath==null) {	
-				}
-    			else{
-    			//setUserIcon(newiconurl);
-//				LoginPanel.operation="modify-user-profile?";
-//				LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone,newnickname,newiconurl);
-//				LoginPanel.operation="get-user-profile?";
-//				LoginFunction.GetProfile(LoginPanel.operation, LoginFunction.AccessToken);
-	    		//setInfo(LoginFunction.Nickname,LoginFunction.Gender,LoginFunction.Phonenumber,LoginFunction.Iconurl);
-            	//MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-//            	setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-            	//MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
+    			s3.uploadFile(key,filePath);
+    			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+    			newiconurl=fileurl;
+    			if(filePath==null){	
     			}
+    			else{
+    				LoginPanel.operation="modify-user-profile?";
+    				LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone,newnickname,newiconurl);
+    				LoginPanel.operation="get-user-profile?";
+    				LoginFunction.GetProfile(LoginPanel.operation, LoginFunction.AccessToken);
+    	    		setInfo(LoginFunction.Nickname,LoginFunction.Gender,LoginFunction.Phonenumber,LoginFunction.Iconurl);
+                	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
+//                	ProfilePanel.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+//                	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
+    			}		
             }
             public void  mouseExited(MouseEvent e) {
          		
@@ -251,6 +282,7 @@ public class ProfilePanel extends JPanel {
             }
             public void  mousePressed(MouseEvent e) { 
             }
+            
         });
 		
         
@@ -260,14 +292,6 @@ public class ProfilePanel extends JPanel {
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
-			
-		GridBagConstraints gbc_UserIcon = new GridBagConstraints();
-		gbc_UserIcon.anchor = GridBagConstraints.WEST;
-		gbc_UserIcon.insets = new Insets(5, 5, 5, 5);
-		gbc_UserIcon.gridheight = 2;
-		gbc_UserIcon.gridx = 1;
-		gbc_UserIcon.gridy = 1;
-		add(UserIcon, gbc_UserIcon);
 		
 		JLabel UserID = new JLabel("UserID");
 		GridBagConstraints gbc_UserID = new GridBagConstraints();

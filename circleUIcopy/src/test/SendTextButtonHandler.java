@@ -71,6 +71,12 @@ public class SendTextButtonHandler implements ActionListener{
 			
 //			System.out.println(filePath);
 //			System.out.println(fileurl);
+//			BufferedImage bufferedImage = null;
+//			try {
+//				URL myURL = new URL(fileurl);
+//				bufferedImage = ImageIO.read(myURL);
+//			} catch (IOException f) {
+//			}
 			ImageIcon image=new ImageIcon(filePath);
 			Image img = image.getImage();
 			int height = image.getIconHeight()*300/image.getIconWidth();

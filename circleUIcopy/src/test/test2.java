@@ -57,16 +57,19 @@ public class test2 {
 		
 		s3Repository s3= new s3Repository();
 		String key = ""+UUID.randomUUID()+".jpg";
-		String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-		s3.uploadFile(key,filePath);
+		String filePath=null;
+		filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
+		if(filePath!=null){
+			s3.uploadFile(key,filePath);
+		}
 		String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
 		System.out.println(filePath);
-		BufferedImage bufferedImage = null;
-		try {
-			URL myURL = new URL(filePath);
-			bufferedImage = ImageIO.read(myURL);
-		} catch (IOException e) {
-		}
+//		BufferedImage bufferedImage = null;
+//		try {
+//			URL myURL = new URL(filePath);
+//			bufferedImage = ImageIO.read(myURL);
+//		} catch (IOException e) {
+//		}
 		
 		ImageIcon image=new ImageIcon(filePath);
 		Image img = image.getImage();

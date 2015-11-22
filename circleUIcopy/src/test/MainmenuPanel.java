@@ -118,11 +118,12 @@ public class MainmenuPanel extends JPanel {
     			MainFrame.mainFrame.setTitle("Circle - Profile");
       		  if (LoginFunction.Iconurl==null) {
     			  //MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
-      			//MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/avatar.png");
-			}
+//      			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/dio.jpg");
+      		  }
     		  else {
-    			  MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-			}
+//    			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+    			System.out.println("LoginFunction.Iconurl: "+LoginFunction.Iconurl);
+    		  }
             	
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
              }
