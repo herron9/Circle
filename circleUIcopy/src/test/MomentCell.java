@@ -35,7 +35,7 @@ public class MomentCell extends JPanel {
 		setLayout(gridBagLayout);
 		
 		//JLabel lblIcon = new JLabel("icon");
-		lblIcon = new JLabel(ClientFunction.resizeIcon(User,60));
+		lblIcon = new JLabel(ClientFunction.resizeIcon(User,60,60));
 		lblIcon.setOpaque(false);
 		lblIcon.setBackground(new Color(220, 220, 220));
 		lblIcon.setPreferredSize(new Dimension(60, 60));

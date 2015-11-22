@@ -22,7 +22,7 @@ public class MomentsPanel extends JPanel {
 	JLabel newmoment = new JLabel("Add New Moment");
 	// refresh;
 	ImageIcon refreshIcon = new ImageIcon("src/refresh.png");
-	JLabel refresh = new JLabel(ClientFunction.resizeIcon(refreshIcon,24));
+	JLabel refresh = new JLabel(ClientFunction.resizeIcon(refreshIcon,24,24));
 	VerticalFlowLayout vfl = new VerticalFlowLayout();
 	JPanel Subpanel = new JPanel();
 	public MomentsPanel() {

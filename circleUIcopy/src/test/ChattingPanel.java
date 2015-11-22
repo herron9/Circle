@@ -73,7 +73,7 @@ public class ChattingPanel extends JPanel {
 		MsgField.setHorizontalAlignment(SwingConstants.LEFT);
 		MsgField.setBackground(UIManager.getColor("Button.highlight"));
 		
-		Plus = new JLabel(ClientFunction.resizeIcon(PlusIcon,24));
+		Plus = new JLabel(ClientFunction.resizeIcon(PlusIcon,24,24));
 		Plus.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -128,7 +128,7 @@ public class ChattingPanel extends JPanel {
 			emoji.num=i;
 			emoji.url="src/"+i+".png";
 			emoList.add(emoji);
-			emojiBtn = new JButton(ClientFunction.resizeIcon(emoji.image,24));
+			emojiBtn = new JButton(ClientFunction.resizeIcon(emoji.image,24,24));
 			emojiBtn.addActionListener( new SendTextButtonHandler(Message.LINK,Inner,MsgField,ClientFunction.client,FriendPanel.friendname,emoji.url));
 			SubBar.add(emojiBtn);
 

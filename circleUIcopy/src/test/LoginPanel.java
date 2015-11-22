@@ -82,21 +82,31 @@ public class LoginPanel extends JPanel {
 		btnYhr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operation="sign-in?";
-            	LoginFunction.Login(operation,"yanghrong@outlook.com","123");
+            	LoginFunction.Login(operation,"yanghrong@outlook.com","123456");
 			}
 		});
 		btnYhr.setBounds(28, 38, 117, 29);
 		add(btnYhr);
 		
-		JButton btnDuras = new JButton("zzq");
+		JButton btnDuras = new JButton("duras");
 		btnDuras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operation="sign-in?";
+				LoginFunction.Login(operation,"duras.yhr@gmail.com","654321");
+			}
+		});
+		btnDuras.setBounds(28, 75, 117, 29);
+		add(btnDuras);
+		
+		JButton btnzzq = new JButton("zzq");
+		btnzzq.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operation="sign-in?";
 				LoginFunction.Login(operation,"zhangziqi0839@outlook.com","123");
 			}
 		});
-		btnDuras.setBounds(28, 75, 117, 29);
-		add(btnDuras);
+		btnzzq.setBounds(28, 111, 117, 29);
+		add(btnzzq);
 ///////////////////////////////test			
 		
 		

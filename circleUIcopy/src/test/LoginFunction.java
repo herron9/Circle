@@ -155,7 +155,7 @@ public class LoginFunction {
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
-    		  MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
+//    		  MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
    		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
 		  }

@@ -65,14 +65,15 @@ public class ClientFunction {
 //			}
 //		});
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
-		MsgReceiver.SrcID=friendname;		
+		MsgReceiver.SrcID=friendname;	
+		System.out.println("clientfunction/MsgReceiver.SrcID:  "+MsgReceiver.SrcID);
 		LoginFunction.RecallHistory(friendname);
 		MainFrame.mainFrame.setTitle("Chat with "+friendname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
-	public static ImageIcon resizeIcon(ImageIcon old,int x) {
+	public static ImageIcon resizeIcon(ImageIcon old,int x,int y) {
 		Image img = old.getImage();
-		Image newimg = img.getScaledInstance(x, x, java.awt.Image.SCALE_SMOOTH);
+		Image newimg = img.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon = new ImageIcon(newimg);
 		return newIcon;
 	}

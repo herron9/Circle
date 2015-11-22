@@ -113,7 +113,6 @@ public class SendTextButtonHandler implements ActionListener{
 		    message.setMessageContent(MsgField.getText());
 		}
 		
-		
 	    try {
 			client.sendTextMessage(message);
 			ChattingCellS cell = new ChattingCellS();
