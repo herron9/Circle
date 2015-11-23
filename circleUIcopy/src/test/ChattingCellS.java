@@ -31,7 +31,6 @@ public class ChattingCellS extends JPanel {
 	String name = "null";
 	
 	public ChattingCellS() {
-		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.RED, Color.ORANGE, null, null));	
 		setPreferredSize(new Dimension(520,55));
 		
 			
@@ -61,16 +60,11 @@ public class ChattingCellS extends JPanel {
 			//msg.setSize(new Dimension(100, 15));
 	        msg.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 	        ShowArea.add(msg);
-
 			ShowArea.setBackground(new Color(240, 255, 255));
-			
-			
 			
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			NameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			GridBagConstraints gbc_NameLabel = new GridBagConstraints();
-			//gbc_NameLabel.ipady = 15;
-			//gbc_NameLabel.ipadx = 100;
 			gbc_NameLabel.anchor = GridBagConstraints.SOUTHWEST;
 			gbc_NameLabel.gridwidth = 2;
 			gbc_NameLabel.gridx = 0;
@@ -89,32 +83,21 @@ public class ChattingCellS extends JPanel {
 			
 			UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));
 			UserIcon.setVerticalAlignment(SwingConstants.TOP);
-			//UserIcon.setSize(new Dimension(40, 40));
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
 			gbc_UserIcon.anchor = GridBagConstraints.NORTHWEST;
-			//gbc_UserIcon.ipady = 40;
-			//gbc_UserIcon.ipadx = 40;
 			gbc_UserIcon.gridy = 1;
 			gbc_UserIcon.gridx = 0;
 			add(UserIcon, gbc_UserIcon);
-			//ShowArea.add(PicLab);
-			//loadpic();
 
 	}
 	
 	public void loadpic(ImageIcon picMsg) {
-		//URL img = new URL("http://www.baidu.com/img/bdlogo.png");
-		//ImageIcon image = new ImageIcon(img);
-		//BufferedImage myPicture = ImageIO.read(new File("www.baidu.com/img/bdlogo.png"));
-		//ImageIcon pic = new ImageIcon("http://www.baidu.com/img/bdlogo.png");		
 		JLabel picLabel = new JLabel(picMsg);
 		ShowArea.add(picLabel);
 	}
 
 	
-	public void PicMsg(ImageIcon picMsg) {
-
-//		JLabel PicLab= new JLabel(ClientFunction.resizeIcon(picMsg,40));  //resize to 40X40 
+	public void PicMsg(ImageIcon picMsg) { 
 		PicLab= new JLabel(picMsg);
 		ShowArea.add(PicLab);
 		ShowArea.setVisible(true);

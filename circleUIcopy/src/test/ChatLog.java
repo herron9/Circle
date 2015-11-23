@@ -29,10 +29,25 @@ public class ChatLog extends JPanel {
 	
 	public ChatLog(String name) {
 		this.name = name;
-		System.out.println("chatlog.this.name:  "+this.name);
+//		System.out.println("chatlog.this.name:  "+this.name);
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				boolean find=false;
+        		for(int i=0;i<LoginFunction.receiver.size();i++){
+        			
+            		if(ChatLog.this.name.equals(LoginFunction.receiver.get(i).friendname)){
+            			find=true;
+            		}
+        		}
+            		if(find==true){
+                		ClientFunction.RecallChatting(ChatLog.this.name);
+                	}
+                	else{
+                    	ClientFunction.CreateChatting(ChatLog.this.name);
+                    	//ChatList.CreateEntry(friendname);
+                	}
+            	
 			ClientFunction.RecallChatting(ChatLog.this.name);
 			}
 		});

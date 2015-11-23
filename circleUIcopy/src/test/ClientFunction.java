@@ -58,13 +58,14 @@ public class ClientFunction {
 		for( ActionListener al : CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    CPanel.ImgBtn.removeActionListener( al );
 		}
+		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 //		CPanel.VideoBtn.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				VideoFrame video = new VideoFrame();
 //			}
 //		});
-		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
+		
 		MsgReceiver.SrcID=friendname;	
 		System.out.println("clientfunction/MsgReceiver.SrcID:  "+MsgReceiver.SrcID);
 		LoginFunction.RecallHistory(friendname);
@@ -109,7 +110,6 @@ class MsgReceiver implements ReceiverHandler {
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 			if (message.getMessageType() == Message.TEXT) {
 				cell.setPreferredSize(new Dimension(570,55));
-				//cell.msg.setPreferredSize(new Dimension());
 				cell.msg.setText(message.getMessageContent());
 				if (cell.msg.getText().length()>50) {		
 					cell.msg.setPreferredSize(new Dimension(400,100));
@@ -124,7 +124,6 @@ class MsgReceiver implements ReceiverHandler {
 					bufferedImage = ImageIO.read(myURL);
 				} catch (IOException f) {
 				}
-				//bufferedImage.getHeight()
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
 				if(image.getIconWidth()>300){

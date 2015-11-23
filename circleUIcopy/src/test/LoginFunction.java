@@ -85,13 +85,14 @@ public class LoginFunction {
 			if(friendname.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
 					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
-						ChattingCellS cell = new ChattingCellS();
+						ChattingCellR cell = new ChattingCellR();
 						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
 						if(receiver.get(i).history.get(j).type==Message.TEXT){
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
 						else if(receiver.get(i).history.get(j).type==Message.LINK){
+							System.out.println("LoginFunction/receiver.get(i).history.get(j).sourceID): "+receiver.get(i).history.get(j).sourceID);
 							cell.setPreferredSize(new Dimension(520,receiver.get(i).history.get(j).image.getIconHeight()+20));
 							cell.ShowArea.remove(cell.msg);
 							cell.PicMsg(receiver.get(i).history.get(j).image);
@@ -113,7 +114,8 @@ public class LoginFunction {
 							cell.ShowArea.remove(cell.msg);
 							cell.PicMsg(receiver.get(i).history.get(j).image);
 							cell.ShowArea.setPreferredSize(new Dimension(receiver.get(i).history.get(j).image.getIconWidth(),receiver.get(i).history.get(j).image.getIconHeight()));
-						}						ClientFunction.CPanel.Inner.add(cell);
+						}						
+						ClientFunction.CPanel.Inner.add(cell);
 						ClientFunction.CPanel.Inner.revalidate();
 						ClientFunction.CPanel.Inner.repaint();
 					}

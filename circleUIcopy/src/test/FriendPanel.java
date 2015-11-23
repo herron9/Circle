@@ -118,6 +118,7 @@ public class FriendPanel extends JPanel {
 		            		if(friendname.equals(LoginFunction.receiver.get(i).friendname)){
 		            			find=true;
 		            		}
+	            		}
 		            		if(find==true){
 		                		ClientFunction.RecallChatting(friendname);
 		                	}
@@ -125,7 +126,7 @@ public class FriendPanel extends JPanel {
 		                    	ClientFunction.CreateChatting(friendname);
 		                    	ChatList.CreateEntry(friendname);
 		                	}
-		            	}
+		            	
 	            	}
 	            	
             	
