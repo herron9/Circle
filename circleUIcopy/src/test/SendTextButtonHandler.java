@@ -29,8 +29,7 @@ public class SendTextButtonHandler implements ActionListener{
 	JPanel Inner;
 	String emoji;
 	int type;
-	String filePath=null;
-	String fileurl=null;
+	
 	static String FriendName;
 	ImageIcon newIcon = new ImageIcon();
 	BufferedImage bi;
@@ -54,6 +53,10 @@ public class SendTextButtonHandler implements ActionListener{
 	public void actionPerformed(ActionEvent ae)
     {
 	    Message message = new Message();
+	    String filePath=null;
+		String fileurl=null;
+	    boolean send=false;
+
 		if(type==Message.LINK){
 			
 	 		s3Repository s3= new s3Repository();
@@ -64,9 +67,26 @@ public class SendTextButtonHandler implements ActionListener{
 			else{
 				filePath = emoji;
 			}
+			
 			if(filePath!=null){
+				send=true;
 				s3.uploadFile(key,filePath);
 				fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+				ImageIcon image=new ImageIcon(filePath);
+				Image img = image.getImage();
+				int height = image.getIconHeight()*300/image.getIconWidth();
+				if(emoji==null){
+					bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
+					Graphics g = bi.createGraphics();
+					g.drawImage(img, 0, 0, 300, height, null);
+					newIcon = new ImageIcon(bi);
+				}
+				else{
+					bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+					Graphics g = bi.createGraphics();
+					g.drawImage(img, 0, 0, 30, 30, null);
+					newIcon = new ImageIcon(bi);
+				}
 			}
 			
 //			System.out.println(filePath);
@@ -77,23 +97,9 @@ public class SendTextButtonHandler implements ActionListener{
 //				bufferedImage = ImageIO.read(myURL);
 //			} catch (IOException f) {
 //			}
-			ImageIcon image=new ImageIcon(filePath);
-			Image img = image.getImage();
-			int height = image.getIconHeight()*300/image.getIconWidth();
-			if(emoji==null){
-				bi = new BufferedImage(300, height, BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 300, height, null);
-				newIcon = new ImageIcon(bi);
-			}
-			else{
-				bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 30, 30, null);
-				newIcon = new ImageIcon(bi);
-			}
-			filePath=null;
-			fileurl=null;
+		
+		
+			
 			
 			ArrayList<String> des = new ArrayList<>();
 		    des.add(FriendPanel.friendname);
@@ -105,6 +111,7 @@ public class SendTextButtonHandler implements ActionListener{
 
 		}
 		else if(type==Message.TEXT){
+			send=true;
 			ArrayList<String> des = new ArrayList<>();
 		    des.add(FriendPanel.friendname);
 		    message.setMessageType(Message.TEXT);
@@ -113,49 +120,51 @@ public class SendTextButtonHandler implements ActionListener{
 		    message.setMessageContent(MsgField.getText());
 		}
 		
-	    try {
-			client.sendTextMessage(message);
-			ChattingCellS cell = new ChattingCellS();
-			cell.NameLabel.setText(message.getMessageSrcID());
-			cell.TimeLabel.setText(message.getMessageTimeStamp());
+	    if(send==true){
+	    	try {
+				client.sendTextMessage(message);
+				ChattingCellS cell = new ChattingCellS();
+				cell.NameLabel.setText(message.getMessageSrcID());
+				cell.TimeLabel.setText(message.getMessageTimeStamp());
 
-			if(type==Message.TEXT){
-				if (message.getMessageContent()=="") {
-					
+				if(type==Message.TEXT){
+					if (message.getMessageContent()=="") {
+						
+					}
+					else{
+					cell.setPreferredSize(new Dimension(520,55));
+					//cell.msg.setPreferredSize(new Dimension());
+					cell.msg.setText(message.getMessageContent());
+					if (cell.msg.getText().length()>30) {
+						
+						cell.msg.setPreferredSize(new Dimension(400,50));
+				        cell.msg.setLineWrap(true);
+				        cell.msg.setWrapStyleWord(true);
+					}
+					}
 				}
-				else{
-				cell.setPreferredSize(new Dimension(520,55));
-				//cell.msg.setPreferredSize(new Dimension());
-				cell.msg.setText(message.getMessageContent());
-				if (cell.msg.getText().length()>30) {
-					
-					cell.msg.setPreferredSize(new Dimension(400,50));
-			        cell.msg.setLineWrap(true);
-			        cell.msg.setWrapStyleWord(true);
-				}
-				}
-			}
-			else if(type==Message.LINK){
+				else if(type==Message.LINK){
 
-				cell.setPreferredSize(new Dimension(520, newIcon.getIconHeight()+20));
-				cell.ShowArea.remove(cell.msg);
-				cell.PicMsg(newIcon);
-				cell.ShowArea.setPreferredSize(new Dimension(newIcon.getIconWidth(),newIcon.getIconHeight()));
-				//cell.ShowArea.setPreferredSize(new Dimension(300,300));
-				//cell.ShowArea.add(cell.Image);
+					cell.setPreferredSize(new Dimension(520, newIcon.getIconHeight()+20));
+					cell.ShowArea.remove(cell.msg);
+					cell.PicMsg(newIcon);
+					cell.ShowArea.setPreferredSize(new Dimension(newIcon.getIconWidth(),newIcon.getIconHeight()));
+					//cell.ShowArea.setPreferredSize(new Dimension(300,300));
+					//cell.ShowArea.add(cell.Image);
+				}
+				MsgField.setText(null);
+				ClientFunction.CPanel.vertical.setValue(ClientFunction.CPanel.vertical.getMaximum());
+				Inner.add(cell);
+				//cell.setAlignmentX(0);
+				Inner.revalidate();
+				Inner.repaint();
+				LoginFunction.History(type,FriendName, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
+				ChatList.DisplayLog(type,FriendName,message.getMessageTimeStamp(),message.getMessageContent());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-			MsgField.setText(null);
-			ClientFunction.CPanel.vertical.setValue(ClientFunction.CPanel.vertical.getMaximum());
-			Inner.add(cell);
-			//cell.setAlignmentX(0);
-			Inner.revalidate();
-			Inner.repaint();
-			LoginFunction.History(type,FriendName, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
-			ChatList.DisplayLog(type,FriendName,message.getMessageTimeStamp(),message.getMessageContent());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	    }
 
 
     }

@@ -79,7 +79,9 @@ public class MainmenuPanel extends JPanel {
             	LoginPanel.operation="friendRequestList-request?";
        		  	LoginFunction.CheckFriendRequest(LoginPanel.operation, LoginFunction.AccessToken);
        		  	LoginPanel.operation="friendList-request?";
-            	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+       		  	LoginFunction.GetFriendList(LoginPanel.operation, LoginFunction.AccessToken);
+       		  	LoginPanel.operation="get-friend-result-list?";
+            	LoginFunction.GetFriendResultList(LoginPanel.operation, LoginFunction.AccessToken);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
             	MainFrame.mainFrame.setTitle("Circle - FriendList");
              }
@@ -118,11 +120,10 @@ public class MainmenuPanel extends JPanel {
     			MainFrame.mainFrame.setTitle("Circle - Profile");
       		  if (LoginFunction.Iconurl==null) {
     			  //MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
-      			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/dio.jpg");
+      			MainLayout.panelPro.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,"src/dio.jpg");
       		  }
     		  else {
-    			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-    			System.out.println("LoginFunction.Iconurl: "+LoginFunction.Iconurl);
+    			MainLayout.panelPro.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
     		  }
             	
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
