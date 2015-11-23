@@ -82,7 +82,7 @@ public class LoginPanel extends JPanel {
 		btnYhr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operation="sign-in?";
-            	LoginFunction.Login(operation,"yanghrong@outlook.com","123456");
+            	LoginFunction.Login(operation,"cher09@sina.com","123");
 			}
 		});
 		btnYhr.setBounds(28, 38, 117, 29);
@@ -92,7 +92,7 @@ public class LoginPanel extends JPanel {
 		btnDuras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operation="sign-in?";
-				LoginFunction.Login(operation,"duras.yhr@gmail.com","654321");
+				LoginFunction.Login(operation,"zhangziqi0839@ufl.edu","123");
 			}
 		});
 		btnDuras.setBounds(28, 75, 117, 29);

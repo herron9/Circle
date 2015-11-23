@@ -482,17 +482,21 @@ public class LoginFunction {
 	public static void GetMoments(String operation,String AccessToken){
 		String s1="username";
 		String s2="timeStamp";
-		String s3="textUrl";
-		String s4="photoUrl";
-		String s5="videoUrl";
-		String s6="}";
+		String s3="nickName";
+		String s4="textUrl";
+		String s5="photoUrl";
+		String s6="iconUrl";
+		String s7="videoUrl";
+		String s8="}";
 		String username;
 		String timeStamp;
+		String nickName;
 		String textUrl;
 		String photoUrl;
 		String videoUrl;
+		String iconurl;
 		int width,height;
-		int index1,index2,index3,index4,index5,index6;
+		int index1,index2,index3,index4,index5,index6,index7,index8;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetMoments: "+response);
 		index1 = response.indexOf(s1);
@@ -501,20 +505,26 @@ public class LoginFunction {
 		index4 = response.indexOf(s4);
 		index5 = response.indexOf(s5);
 		index6 = response.indexOf(s6);
+		index7 = response.indexOf(s7);
+		index8 = response.indexOf(s8);
 
 		while (index1 >= 0) {
 			username=response.substring(index1+11, index2-3);
 			timeStamp=response.substring(index2+12, index3-3);
-			textUrl=response.substring(index3+10, index4-3);
-			photoUrl=response.substring(index4+11, index5-3);
-			videoUrl=response.substring(index5+11, index6-1);
+			nickName=response.substring(index3+11, index4-3);
+			textUrl=response.substring(index4+10, index5-3);
+			photoUrl=response.substring(index5+11, index6-3);
+			iconurl=response.substring(index6+10, index7-3);
+			videoUrl=response.substring(index7+11, index8-1);
+
 		    Moments newmoments =new Moments();
 		    newmoments.name=username;
 		    newmoments.time=timeStamp;
-		    if(textUrl!=null){
+		    newmoments.nickname=nickName;
+		    if(textUrl.equals(null)){
 		    	newmoments.text=textUrl;
 		    }
-		    if(photoUrl!=null){
+		    if(photoUrl.equals(null)){
 		    	ImageIcon image=new ImageIcon(photoUrl);
 				Image img = image.getImage();
 				if(image.getIconWidth()>300){
@@ -530,13 +540,34 @@ public class LoginFunction {
 				g.drawImage(img, 0, 0, width, height, null);
 				newmoments.image = new ImageIcon(bi);
 		    }
-		    if(videoUrl!=null){
+		    if(iconurl.equals(null)){
+		    	ImageIcon image=new ImageIcon(iconurl);
+				Image img = image.getImage();
+//				if(image.getIconWidth()>300){
+//					width=300;
+//					height = image.getIconHeight()*300/image.getIconWidth();
+//				}
+//				else{
+//					width=image.getIconWidth();
+//					height=image.getIconHeight();
+//				}
+				BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+				Graphics g = bi.createGraphics();
+				g.drawImage(img, 0, 0, 50, 50, null);
+				newmoments.icon = new ImageIcon(bi);
+		    }
+		    if(videoUrl.equals(null)){
 		    	
 		    }
 		    moments.add(newmoments);
-			System.out.println(newmoments.name);
-			System.out.println(newmoments.time);
-			System.out.println(newmoments.text);
+//			System.out.println(newmoments.name);
+//			System.out.println(newmoments.time);
+//			System.out.println(newmoments.nickname);
+//			System.out.println(newmoments.text);
+//			System.out.println(textUrl);
+//			System.out.println(photoUrl);
+//			System.out.println(iconurl);
+//			System.out.println(videoUrl);
 
 		    index1 = response.indexOf(s1, index1 + 1);
 		    index2 = response.indexOf(s2, index2 + 1);
@@ -544,6 +575,8 @@ public class LoginFunction {
 			index4 = response.indexOf(s4, index4 + 1);
 			index5 = response.indexOf(s5, index5 + 1);
 			index6 = response.indexOf(s6, index6 + 1);
+			index7 = response.indexOf(s7, index7 + 1);
+			index8 = response.indexOf(s8, index8 + 1);
 		}
 	}
 	
