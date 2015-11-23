@@ -87,20 +87,7 @@ public class SendTextButtonHandler implements ActionListener{
 					g.drawImage(img, 0, 0, 30, 30, null);
 					newIcon = new ImageIcon(bi);
 				}
-			}
-			
-//			System.out.println(filePath);
-//			System.out.println(fileurl);
-//			BufferedImage bufferedImage = null;
-//			try {
-//				URL myURL = new URL(fileurl);
-//				bufferedImage = ImageIO.read(myURL);
-//			} catch (IOException f) {
-//			}
-		
-		
-			
-			
+			}		
 			ArrayList<String> des = new ArrayList<>();
 		    des.add(FriendPanel.friendname);
 		    message.setMessageType(Message.LINK);
@@ -126,6 +113,7 @@ public class SendTextButtonHandler implements ActionListener{
 				ChattingCellS cell = new ChattingCellS();
 				cell.NameLabel.setText(message.getMessageSrcID());
 				cell.TimeLabel.setText(message.getMessageTimeStamp());
+				cell.UserIcon.setIcon(LoginFunction.userIcon);
 
 				if(type==Message.TEXT){
 					if (message.getMessageContent()=="") {
@@ -133,7 +121,6 @@ public class SendTextButtonHandler implements ActionListener{
 					}
 					else{
 					cell.setPreferredSize(new Dimension(520,55));
-					//cell.msg.setPreferredSize(new Dimension());
 					cell.msg.setText(message.getMessageContent());
 					if (cell.msg.getText().length()>30) {
 						

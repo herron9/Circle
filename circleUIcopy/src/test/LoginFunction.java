@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageConsumer;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,9 +31,13 @@ public class LoginFunction {
 	public static ArrayList<ChatHistory> receiver=new ArrayList<>();
 	public static String Gender;
 	public static String Phonenumber;
-	public static String Nickname;
+	public static String Nickname=null;
 	public static String Iconurl=null;
+	public static ImageIcon userIcon;
 	public static boolean friendrequest=false;
+	public static String friendNickname;
+	public static ImageIcon friendicon;
+	
 	public static ArrayList<Moments> moments=new ArrayList<>();
 	public static ArrayList<Userid> userfriend=new ArrayList<>();
 
@@ -81,13 +86,20 @@ public class LoginFunction {
 		
 	public static void RecallHistory(String friendname) {
 		ClientFunction.CPanel.Inner.removeAll();
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (friendname.equals(LoginFunction.userfriend.get(i).username)) {
+				friendNickname = LoginFunction.userfriend.get(i).nickname;
+				friendicon= LoginFunction.userfriend.get(i).image;
+			}
+		}
 		for(int i=0;i<receiver.size();i++){
 			if(friendname.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
 					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
-						ChattingCellR cell = new ChattingCellR();
-						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						ChattingCellR cell = new ChattingCellR();		
+						cell.NameLabel.setText(friendNickname);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.UserIcon.setIcon(friendicon);
 						if(receiver.get(i).history.get(j).type==Message.TEXT){
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
@@ -104,8 +116,9 @@ public class LoginFunction {
 					}
 					else if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
 						ChattingCellS cell = new ChattingCellS();
-						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.NameLabel.setText(Nickname);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.UserIcon.setIcon(userIcon);
 						if(receiver.get(i).history.get(j).type==Message.TEXT){
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
@@ -159,7 +172,7 @@ public class LoginFunction {
 //    		  CreateProfile(operation, AccessToken);
     		  operation="get-user-profile?";
     		  GetProfile(operation, AccessToken);
-    		  MainLayout.panelPro.setInfo(Gender,Phonenumber,Iconurl);
+    		  MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
 
    		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
@@ -226,14 +239,21 @@ public class LoginFunction {
 				}
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
-				BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+				BufferedImage bi = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 30, 30, null);
+				g.drawImage(img, 0, 0, 40, 40, null);
 				user.image = new ImageIcon(bi);
 			}
 			user.username=username;
-			user.nickname=nickname;
-			
+			if(nickname.equals("Unknown")){
+				user.nickname=username;
+			}
+			else{
+				user.nickname=nickname;
+			}
+//			System.out.println(user.username);
+//			System.out.println(user.nickname);
+
 			userfriend.add(user);
 		
 			p1 = response.indexOf(str1,p1+1);
@@ -262,8 +282,23 @@ public class LoginFunction {
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
+			if (Nickname.equals("Unknown")) {
+				Nickname = LoginPanel.circleAccessToken;
+			}
 			Iconurl=response.substring(p4+10,p5-3);
 		}
+		BufferedImage bufferedImage = null;
+		try {
+			URL myURL = new URL(Iconurl);
+			bufferedImage = ImageIO.read(myURL);
+		} catch (IOException f) {
+		}
+		ImageIcon image=new ImageIcon(bufferedImage);
+		Image img = image.getImage();
+		BufferedImage bi = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = bi.createGraphics();
+		g.drawImage(img, 0, 0, 40, 40, null);
+		userIcon = new ImageIcon(bi);
 	}
 	
 	public static void AddAFriend(String operation,String AccessToken,String friendname) {

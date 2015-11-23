@@ -19,6 +19,8 @@ public class ClientFunction {
 
 	public static CircleClient client;
 	public int type;
+	public static String friendNickname;
+	public static ImageIcon usericon;
 	
 	public static ChattingPanel CPanel = new ChattingPanel(client);
 	public static boolean Init = true;
@@ -28,6 +30,14 @@ public class ClientFunction {
 	}
 	public ClientFunction(){
 		
+	}
+	public static void setFriendInfo(String friendname) {
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (friendname.equals(LoginFunction.userfriend.get(i).username)) {
+				friendNickname = LoginFunction.userfriend.get(i).nickname;
+				usericon= LoginFunction.userfriend.get(i).image;
+			}
+		}
 	}
 	
 	public static void CreateChatting(String friendname){
@@ -47,7 +57,8 @@ public class ClientFunction {
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		MsgReceiver.SrcID=friendname;
 		CPanel.Inner.removeAll();
-		MainFrame.mainFrame.setTitle("Chat with "+friendname);
+		setFriendInfo(friendname);
+		MainFrame.mainFrame.setTitle("Chat with "+friendNickname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
 	
@@ -60,16 +71,11 @@ public class ClientFunction {
 		}
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname,null));
-//		CPanel.VideoBtn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				VideoFrame video = new VideoFrame();
-//			}
-//		});
-		
 		MsgReceiver.SrcID=friendname;	
 		System.out.println("clientfunction/MsgReceiver.SrcID:  "+MsgReceiver.SrcID);
 		LoginFunction.RecallHistory(friendname);
-		MainFrame.mainFrame.setTitle("Chat with "+friendname);
+		setFriendInfo(friendname);
+		MainFrame.mainFrame.setTitle("Chat with "+friendNickname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
 	public static ImageIcon resizeIcon(ImageIcon old,int x,int y) {
@@ -108,6 +114,7 @@ class MsgReceiver implements ReceiverHandler {
 			ChattingCellR cell = new ChattingCellR();
 			cell.NameLabel.setText(message.getMessageSrcID());
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
+			cell.UserIcon.setIcon(ClientFunction.usericon);
 			if (message.getMessageType() == Message.TEXT) {
 				cell.setPreferredSize(new Dimension(570,55));
 				cell.msg.setText(message.getMessageContent());
