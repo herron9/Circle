@@ -124,7 +124,6 @@ public class MainmenuPanel extends JPanel {
       		  }
     		  else {
     			MainLayout.panelPro.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
-    			System.out.println("LoginFunction.Iconurl: "+LoginFunction.Iconurl);
     		  }
             	
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");

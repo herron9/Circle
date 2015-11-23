@@ -267,16 +267,18 @@ public class ProfilePanel extends JPanel {
 		add(UserIcon, gbc_UserIcon);
 		UserIcon.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
+            	String filePath=null;
+        		String fileurl=null;
             	s3Repository s3= new s3Repository();
     			String key = ""+UUID.randomUUID()+".jpg";
-    			String filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
-    			s3.uploadFile(key,filePath);
-    			String fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
-    			newiconurl=fileurl;
+    			filePath =SwingFileChooserDemo.chooseAFileFromCurrentMachine();
     			if(filePath==null){
     				
     			}
     			else{
+    				s3.uploadFile(key,filePath);
+        			fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
+        			newiconurl=fileurl;
     				LoginPanel.operation="modify-user-profile?";
     				LoginFunction.ModifyProfile(LoginPanel.operation, LoginFunction.AccessToken, newgender, newphone,newnickname,newiconurl);
     				LoginPanel.operation="get-user-profile?";

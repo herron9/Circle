@@ -261,7 +261,6 @@ public class LoginFunction {
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
 			Iconurl=response.substring(p4+10,p5-3);
-			System.out.println(Iconurl);
 		}
 	}
 	
