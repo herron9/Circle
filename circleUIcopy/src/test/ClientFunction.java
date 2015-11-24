@@ -63,6 +63,11 @@ public class ClientFunction {
 	}
 	
 	public static void RecallChatting(String friendname){
+		if (Init == true) {//the first time a client start a chat window
+			MainLayout.MainUppage.add(CPanel,"CPanel");
+			
+			Init= false;
+		}
 		for( ActionListener al : CPanel.SendMsgBtn.getActionListeners() ) {
 		    CPanel.SendMsgBtn.removeActionListener( al );
 		}
@@ -83,6 +88,12 @@ public class ClientFunction {
 		Image newimg = img.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon = new ImageIcon(newimg);
 		return newIcon;
+	}
+	
+	public String  ID2Nick(String nickname) {
+		
+		return null;
+		
 	}
 }
 

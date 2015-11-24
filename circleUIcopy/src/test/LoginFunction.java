@@ -531,7 +531,7 @@ public class LoginFunction {
 		String photoUrl;
 		String videoUrl;
 		String iconurl;
-		int width,height;
+		int width=0,height=0;
 		int index1,index2,index3,index4,index5,index6,index7,index8;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetMoments: "+response);
@@ -557,10 +557,10 @@ public class LoginFunction {
 		    newmoments.name=username;
 		    newmoments.time=timeStamp;
 		    newmoments.nickname=nickName;
-		    if(textUrl.equals(null)){
+		    if(textUrl!=null){
 		    	newmoments.text=textUrl;
 		    }
-		    if(photoUrl.equals(null)){
+		    if(photoUrl!=null){
 		    	ImageIcon image=new ImageIcon(photoUrl);
 				Image img = image.getImage();
 				if(image.getIconWidth()>300){
@@ -576,17 +576,9 @@ public class LoginFunction {
 				g.drawImage(img, 0, 0, width, height, null);
 				newmoments.image = new ImageIcon(bi);
 		    }
-		    if(iconurl.equals(null)){
+		    if(iconurl!=null){
 		    	ImageIcon image=new ImageIcon(iconurl);
 				Image img = image.getImage();
-//				if(image.getIconWidth()>300){
-//					width=300;
-//					height = image.getIconHeight()*300/image.getIconWidth();
-//				}
-//				else{
-//					width=image.getIconWidth();
-//					height=image.getIconHeight();
-//				}
 				BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
 				g.drawImage(img, 0, 0, 50, 50, null);

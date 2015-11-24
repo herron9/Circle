@@ -20,7 +20,6 @@ public class MomentsPanel extends JPanel {
 	JPanel up = new JPanel();
 	JPanel down = new JPanel();
 	JLabel newmoment = new JLabel("Add New Moment");
-	// refresh;
 	ImageIcon refreshIcon = new ImageIcon("src/refresh.png");
 	JLabel refresh = new JLabel(ClientFunction.resizeIcon(refreshIcon,24,24));
 	VerticalFlowLayout vfl = new VerticalFlowLayout();
@@ -112,30 +111,22 @@ public class MomentsPanel extends JPanel {
 		down.removeAll();
 		for (int i = 0; i < LoginFunction.moments.size(); i++) {
 			MomentCell cell = new MomentCell();
-			cell.lblName.setText(LoginFunction.moments.get(i).name);
-			cell.lblIcon.setIcon(new ImageIcon("src/avatar.png"));
-			cell.content.MomTextArea.setText(LoginFunction.moments.get(i).text);
+			cell.lblName.setText(LoginFunction.moments.get(i).nickname);
+			cell.lblIcon.setIcon(ClientFunction.resizeIcon(LoginFunction.moments.get(i).icon,60,60));
+			cell.lblTimeStamp.setText(LoginFunction.moments.get(i).time);
+			if (LoginFunction.moments.get(i).text != null) {
+				cell.content.MomTextArea.setText(LoginFunction.moments.get(i).text);
+			}
+			else{
+				cell.content.remove(cell.content.MomTextArea);
+			}
+			
 			if (LoginFunction.moments.get(i).image != null) {
 				cell.content.lblPic.setIcon(LoginFunction.moments.get(i).image);
 			}
-//			BufferedImage bufferedImage = null;
-//			try {
-//				URL myURL = new URL("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
-//				bufferedImage = ImageIO.read(myURL);
-//			} catch (IOException f) {
-//			}
-//			ImageIcon image=new ImageIcon(bufferedImage);
-//			Image img = image.getImage();
-//			BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
-//			Graphics g = bi.createGraphics();
-//			g.drawImage(img, 0, 0, 50, 50, null);
-//			ImageIcon image1 = new ImageIcon(bi);
-//				cell.content.lblPic.setIcon(image1);
-			//}
-//			else {
-//				cell.content.remove(cell.content.lblPic);
-//			}
-//			cell.lblTimeStamp.setText(LoginFunction.moments.get(i).time);
+			else{
+				cell.content.remove(cell.content.lblPic);
+			}
 			cell.setAlignmentY(5);
 			cell.setAlignmentX(0);
 			down.add(cell);

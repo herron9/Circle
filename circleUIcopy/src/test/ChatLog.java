@@ -48,7 +48,7 @@ public class ChatLog extends JPanel {
                     	//ChatList.CreateEntry(friendname);
                 	}
             	
-			ClientFunction.RecallChatting(ChatLog.this.name);
+//			ClientFunction.RecallChatting(ChatLog.this.name);
 			}
 		});
 		
