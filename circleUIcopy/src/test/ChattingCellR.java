@@ -65,6 +65,7 @@ public class ChattingCellR extends JPanel {
 			add(TimeLabel, gbc_TimeLabel);
 			
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
+			gbc_UserIcon.fill = GridBagConstraints.HORIZONTAL;
 			gbc_UserIcon.anchor = GridBagConstraints.NORTH;
 			gbc_UserIcon.gridx = 3;
 			gbc_UserIcon.gridy = 1;

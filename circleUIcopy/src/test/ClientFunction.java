@@ -63,11 +63,11 @@ public class ClientFunction {
 	}
 	
 	public static void RecallChatting(String friendname){
-		if (Init == true) {//the first time a client start a chat window
-			MainLayout.MainUppage.add(CPanel,"CPanel");
-			
-			Init= false;
-		}
+//		if (Init == true) {//the first time a client start a chat window
+//			MainLayout.MainUppage.add(CPanel,"CPanel");
+//			
+//			Init= false;
+//		}
 		for( ActionListener al : CPanel.SendMsgBtn.getActionListeners() ) {
 		    CPanel.SendMsgBtn.removeActionListener( al );
 		}
@@ -90,10 +90,34 @@ public class ClientFunction {
 		return newIcon;
 	}
 	
-	public String  ID2Nick(String nickname) {
-		
-		return null;
-		
+	public static String ID2Nick(String ID) {
+		String nick = null;
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (ID.equals(LoginFunction.userfriend.get(i).username)) {
+				nick = LoginFunction.userfriend.get(i).nickname;
+			}
+		}
+		return nick;
+	}
+	
+	public static String Nick2ID(String Nick) {
+		String ID = null;
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (Nick.equals(LoginFunction.userfriend.get(i).nickname)) {
+				ID = LoginFunction.userfriend.get(i).username;
+			}
+		}
+		return ID;
+	}
+	
+	public static ImageIcon ID2icon(String ID) {
+		ImageIcon icon = null;
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (ID.equals(LoginFunction.userfriend.get(i).nickname)) {
+				icon = LoginFunction.userfriend.get(i).image;
+			}
+		}
+		return icon;
 	}
 }
 
@@ -123,7 +147,7 @@ class MsgReceiver implements ReceiverHandler {
 		}
 		if (message.getMessageSrcID().equals(SrcID)) {
 			ChattingCellR cell = new ChattingCellR();
-			cell.NameLabel.setText(message.getMessageSrcID());
+			cell.NameLabel.setText(ClientFunction.ID2Nick(message.getMessageSrcID()));
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 			cell.UserIcon.setIcon(ClientFunction.usericon);
 			if (message.getMessageType() == Message.TEXT) {

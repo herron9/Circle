@@ -45,28 +45,27 @@ public class ChatLog extends JPanel {
                 	}
                 	else{
                     	ClientFunction.CreateChatting(ChatLog.this.name);
-                    	//ChatList.CreateEntry(friendname);
                 	}
             	
 //			ClientFunction.RecallChatting(ChatLog.this.name);
 			}
 		});
-		
 
 		setPreferredSize(new Dimension(590, 60));
 		//setSize(new Dimension(600, 40));
 		setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setup();
-
-		NameLabel.setText(name);
+		UserIcon.setIcon(ClientFunction.resizeIcon(ClientFunction.ID2icon(name),60,60));
+//		UserIcon.setIcon(ClientFunction.ID2icon(name));
+		NameLabel.setText(ClientFunction.ID2Nick(name));
 		HistoryLabel.setPreferredSize(new Dimension(600, 60));
 
 
 	}
 	
 	public void setup() {
-		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));	
+		UserIcon = new JLabel();	
 		add(UserIcon);
 		GridBagLayout gbl_Right = new GridBagLayout();
 		gbl_Right.columnWidths = new int[]{200, 0};
@@ -99,18 +98,12 @@ public class ChatLog extends JPanel {
 	
 	}
 	
-	public void Renew(String Time,String LastMsg) {
-		System.out.println(Time);
-		System.out.println(LastMsg);
-		TimeLabel.setText(Time);
-		SetHistory(LastMsg);
-		//TimeLabel.validate();
-		//HistoryLabel.repaint();
-		System.out.println(TimeLabel.getText());
-		System.out.println(HistoryLabel.getText());
-		
-		
-	}
+//	public void Renew(String Time,String LastMsg) {
+//		TimeLabel.setText(Time);
+//		SetHistory(LastMsg);
+//		
+//		
+//	}
 
 	public void SetHistory(String LastMsg){
 		if (LastMsg.length() > 70) {

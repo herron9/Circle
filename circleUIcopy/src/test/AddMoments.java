@@ -129,7 +129,11 @@ public class AddMoments extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				LoginPanel.operation="add-moments-owners-personal-record?";
 				LoginFunction.AddMoments(LoginPanel.operation, LoginFunction.AccessToken, Moment.getText(), fileurlx, null);
+				MainLayout.MomPanel.down.removeAll();
+				MainLayout.MomPanel.down.revalidate();
+            	MainLayout.MomPanel.down.repaint();
 				MainLayout.MomPanel.DisplayMoments();
+				
 				dispose();	
 			}
 			@Override

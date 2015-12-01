@@ -84,18 +84,18 @@ public class LoginFunction {
 		}
 	}
 		
-	public static void RecallHistory(String friendname) {
+	public static void RecallHistory(String friendID) {
 		ClientFunction.CPanel.Inner.removeAll();
 		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
-			if (friendname.equals(LoginFunction.userfriend.get(i).username)) {
+			if (friendID.equals(LoginFunction.userfriend.get(i).username)) {
 				friendNickname = LoginFunction.userfriend.get(i).nickname;
 				friendicon= LoginFunction.userfriend.get(i).image;
 			}
 		}
 		for(int i=0;i<receiver.size();i++){
-			if(friendname.equals(receiver.get(i).friendname)){
+			if(friendID.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
-					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
+					if (friendID.equals(receiver.get(i).history.get(j).sourceID)) {
 						ChattingCellR cell = new ChattingCellR();		
 						cell.NameLabel.setText(friendNickname);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
@@ -104,7 +104,7 @@ public class LoginFunction {
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
 						else if(receiver.get(i).history.get(j).type==Message.LINK){
-							System.out.println("LoginFunction/receiver.get(i).history.get(j).sourceID): "+receiver.get(i).history.get(j).sourceID);
+//							System.out.println("LoginFunction/receiver.get(i).history.get(j).sourceID): "+receiver.get(i).history.get(j).sourceID);
 							cell.setPreferredSize(new Dimension(520,receiver.get(i).history.get(j).image.getIconHeight()+20));
 							cell.ShowArea.remove(cell.msg);
 							cell.PicMsg(receiver.get(i).history.get(j).image);
@@ -118,7 +118,7 @@ public class LoginFunction {
 						ChattingCellS cell = new ChattingCellS();
 						cell.NameLabel.setText(Nickname);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
-						cell.UserIcon.setIcon(userIcon);
+						cell.UserIcon.setIcon(ClientFunction.resizeIcon(ProfilePanel.User, 40, 40));
 						if(receiver.get(i).history.get(j).type==Message.TEXT){
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
@@ -251,8 +251,6 @@ public class LoginFunction {
 			else{
 				user.nickname=nickname;
 			}
-//			System.out.println(user.username);
-//			System.out.println(user.nickname);
 
 			userfriend.add(user);
 		
@@ -282,11 +280,12 @@ public class LoginFunction {
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
-			if (Nickname.equals("Unknown")) {
-				Nickname = LoginPanel.circleAccessToken;
-			}
+//			if (Nickname.equals("Unknown")) {
+//				Nickname = LoginPanel.circleAccessToken;
+//			}
 			Iconurl=response.substring(p4+10,p5-3);
 		}
+		if (Nickname.equals("Unknown")) {///////????????????????????
 		BufferedImage bufferedImage = null;
 		try {
 			URL myURL = new URL(Iconurl);
@@ -299,11 +298,13 @@ public class LoginFunction {
 		Graphics g = bi.createGraphics();
 		g.drawImage(img, 0, 0, 40, 40, null);
 		userIcon = new ImageIcon(bi);
+		System.out.println(userIcon);
+		}
 	}
 	
 	public static void AddAFriend(String operation,String AccessToken,String friendname) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&friend="+friendname,"");
-		System.out.println("AddAFriend: "+response);
+//		System.out.println("AddAFriend: "+response);
 		if(response.indexOf("true")!=-1){
 		}
 		else if (response.indexOf("Your friend has not registered yet.")!=-1) {
@@ -319,7 +320,7 @@ public class LoginFunction {
 	
 	public static void CheckFriendRequest(String operation,String AccessToken){
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println("CheckFriendRequest: "+response);
+//		System.out.println("CheckFriendRequest: "+response);
 		if(response.indexOf("requester")!=-1){
 			friendrequest=true;
 		}
@@ -338,7 +339,7 @@ public class LoginFunction {
 		String denyUrl;
 		int index1,index2,index3,index4;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println("GetFriendRequest: "+response);
+//		System.out.println("GetFriendRequest: "+response);
 		index1 = response.indexOf(s1);
 		index2 = response.indexOf(s2);
 		index3 = response.indexOf(s3);
@@ -380,7 +381,7 @@ public class LoginFunction {
 	
 	public static void Register(String operation,String username,String password) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
-		System.out.println("Register: "+response);
+//		System.out.println("Register: "+response);
 		  if(response.indexOf("true")!=-1){
       		  JOptionPane.showMessageDialog(null,"registration successful");
           	  MainFrame.cl.show(MainFrame.panelCont, "Log");
@@ -560,7 +561,7 @@ public class LoginFunction {
 		    if(textUrl!=null){
 		    	newmoments.text=textUrl;
 		    }
-		    if(photoUrl!=null){
+		    if(!photoUrl.equals("null")){
 		    	ImageIcon image=new ImageIcon(photoUrl);
 				Image img = image.getImage();
 				if(image.getIconWidth()>300){
@@ -571,12 +572,14 @@ public class LoginFunction {
 					width=image.getIconWidth();
 					height=image.getIconHeight();
 				}
+				width=300;
+				height=300;
 				BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
 				g.drawImage(img, 0, 0, width, height, null);
 				newmoments.image = new ImageIcon(bi);
 		    }
-		    if(iconurl!=null){
+		    if(!iconurl.equals("null")){
 		    	ImageIcon image=new ImageIcon(iconurl);
 				Image img = image.getImage();
 				BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
@@ -584,7 +587,7 @@ public class LoginFunction {
 				g.drawImage(img, 0, 0, 50, 50, null);
 				newmoments.icon = new ImageIcon(bi);
 		    }
-		    if(videoUrl.equals(null)){
+		    if(!videoUrl.equals("null")){
 		    	
 		    }
 		    moments.add(newmoments);

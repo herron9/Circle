@@ -30,11 +30,11 @@ public class SendTextButtonHandler implements ActionListener{
 	String emoji;
 	int type;
 	
-	static String FriendName;
+	static String FriendID;
 	ImageIcon newIcon = new ImageIcon();
 	BufferedImage bi;
 
-	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendname,String emoji) {
+	public SendTextButtonHandler(int type, JPanel Inner,JTextField MsgField, CircleClient client, String friendID,String emoji) {
 	//public SendTextButtonHandler(JTextArea ChatArea,JTextField MsgField, CircleClient client) {
 		// TODO Auto-generated constructor stub
 		this.type=type;
@@ -43,11 +43,8 @@ public class SendTextButtonHandler implements ActionListener{
 		this.client = client;
 		this.Inner =Inner;
 		this.emoji=emoji;
-		SendTextButtonHandler.FriendName = friendname;
+		SendTextButtonHandler.FriendID = friendID;
 	}
-//	public static void setname(String name) {
-//		FriendName = name;
-//	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ae)
@@ -111,9 +108,10 @@ public class SendTextButtonHandler implements ActionListener{
 	    	try {
 				client.sendTextMessage(message);
 				ChattingCellS cell = new ChattingCellS();
-				cell.NameLabel.setText(message.getMessageSrcID());
+				cell.NameLabel.setText(ClientFunction.ID2Nick(message.getMessageSrcID()));
 				cell.TimeLabel.setText(message.getMessageTimeStamp());
-				cell.UserIcon.setIcon(LoginFunction.userIcon);
+//				cell.UserIcon.setIcon(LoginFunction.userIcon);
+				cell.UserIcon.setIcon(ClientFunction.resizeIcon(ProfilePanel.User, 40,40));
 
 				if(type==Message.TEXT){
 					if (message.getMessageContent()=="") {
@@ -145,8 +143,8 @@ public class SendTextButtonHandler implements ActionListener{
 				//cell.setAlignmentX(0);
 				Inner.revalidate();
 				Inner.repaint();
-				LoginFunction.History(type,FriendName, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
-				ChatList.DisplayLog(type,FriendName,message.getMessageTimeStamp(),message.getMessageContent());
+				LoginFunction.History(type,FriendID, message.getMessageContent(), message.getMessageTimeStamp(), message.getMessageSrcID(),bi);
+				ChatList.DisplayLog(type,FriendID,message.getMessageTimeStamp(),message.getMessageContent());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -158,7 +156,7 @@ public class SendTextButtonHandler implements ActionListener{
 	
 	public class Setname{  
 		public void setname(String name) {
-			FriendName = name;
+			FriendID = name;
 		}
 	}
 }

@@ -35,11 +35,6 @@ public class LoginPanel extends JPanel {
 	public static String[] names={""};
 		
 	public LoginPanel() {
-//		try {
-//	    UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-//	} catch (Exception e) {
-//	    e.printStackTrace();
-//	}
 		
 		setBackground(SystemColor.window);
 		setLayout(null);
@@ -82,7 +77,7 @@ public class LoginPanel extends JPanel {
 		btnYhr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operation="sign-in?";
-            	LoginFunction.Login(operation,"cher09@sina.com","123");
+            	LoginFunction.Login(operation,"yanghrong@outlook.com","123456");
 			}
 		});
 		btnYhr.setBounds(28, 38, 117, 29);

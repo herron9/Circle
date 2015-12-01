@@ -47,7 +47,7 @@ public class MomentsPanel extends JPanel {
 		newmoment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("click");
+//				System.out.println("click");
 				AddMoments NewM =new AddMoments();
 				NewM.setVisible(true);
 			}
@@ -71,7 +71,10 @@ public class MomentsPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
             	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
-            	MainLayout.MomPanel.DisplayMoments();
+				MainLayout.MomPanel.down.removeAll();
+				MainLayout.MomPanel.down.revalidate();
+            	MainLayout.MomPanel.down.repaint();
+				MainLayout.MomPanel.DisplayMoments();
 			}
 			public void  mouseExited(MouseEvent e) {
 	           	 refresh.setBackground(null);
@@ -105,14 +108,18 @@ public class MomentsPanel extends JPanel {
 	public void setdown() {
 		//down.setPreferredSize(new Dimension(600, 370));//why use that can fix the bar bug?
 		down.setLayout(vfl);
-		DisplayMoments();
+//		DisplayMoments();
 	}
     public void DisplayMoments() {
-		down.removeAll();
+//		down.removeAll();
 		for (int i = 0; i < LoginFunction.moments.size(); i++) {
 			MomentCell cell = new MomentCell();
-			cell.lblName.setText(LoginFunction.moments.get(i).nickname);
-			cell.lblIcon.setIcon(ClientFunction.resizeIcon(LoginFunction.moments.get(i).icon,60,60));
+			if (LoginFunction.moments.get(i).nickname.equals("Unknown")) {
+				cell.lblName.setText(LoginFunction.moments.get(i).name);
+			}else {
+				cell.lblName.setText(LoginFunction.moments.get(i).nickname);
+			}
+			cell.lblIcon.setIcon(ClientFunction.resizeIcon((ClientFunction.ID2icon(LoginFunction.moments.get(i).name)),60,60));
 			cell.lblTimeStamp.setText(LoginFunction.moments.get(i).time);
 			if (LoginFunction.moments.get(i).text != null) {
 				cell.content.MomTextArea.setText(LoginFunction.moments.get(i).text);
@@ -133,9 +140,6 @@ public class MomentsPanel extends JPanel {
 		}
     }
     
-    public void setSubpanel() {
-    	
-		
-	}
+
 }
 
