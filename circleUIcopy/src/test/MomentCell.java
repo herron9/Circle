@@ -14,6 +14,7 @@ import scala.collection.parallel.ParIterableLike.Max;
 
 import java.awt.Insets;
 import java.awt.Color;
+import java.awt.Font;
 
 public class MomentCell extends JPanel {
 	public ImageIcon User = new ImageIcon("src/avatar.png");
@@ -48,6 +49,7 @@ public class MomentCell extends JPanel {
 		gbc_lblIcon.gridx = 0;
 		gbc_lblIcon.gridy = 0;
 		add(lblIcon, gbc_lblIcon);
+		lblName.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		lblName.setBackground(new Color(220, 220, 220));
 
 		lblName.setOpaque(false);
@@ -67,6 +69,7 @@ public class MomentCell extends JPanel {
 		gbc_panel.gridy = 1;
 		content.setBackground(new Color(220, 220, 220));
 		add(content, gbc_panel);
+		lblTimeStamp.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		lblTimeStamp.setBackground(new Color(220, 220, 220));
 		lblTimeStamp.setOpaque(false);
 		lblTimeStamp.setHorizontalAlignment(SwingConstants.LEFT);

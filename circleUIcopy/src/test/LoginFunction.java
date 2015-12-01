@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageConsumer;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,9 +31,15 @@ public class LoginFunction {
 	public static ArrayList<ChatHistory> receiver=new ArrayList<>();
 	public static String Gender;
 	public static String Phonenumber;
-	public static String Nickname;
+	public static String Nickname=null;
 	public static String Iconurl=null;
+	public static ImageIcon userIcon;
 	public static boolean friendrequest=false;
+	public static String friendNickname;
+	public static String UserNickname;
+	public static ImageIcon friendicon;
+	public static ImageIcon Usericon;
+	
 	public static ArrayList<Moments> moments=new ArrayList<>();
 	public static ArrayList<Userid> userfriend=new ArrayList<>();
 
@@ -79,19 +86,44 @@ public class LoginFunction {
 		}
 	}
 		
-	public static void RecallHistory(String friendname) {
+	public static void RecallHistory(String friendID) {
 		ClientFunction.CPanel.Inner.removeAll();
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (friendID.equals(LoginFunction.userfriend.get(i).username)) {
+//				if (LoginFunction.userfriend.get(i).nickname.equals("Unknown")) {
+//					friendNickname = LoginFunction.userfriend.get(i).username;
+//				}else{
+					friendNickname = LoginFunction.userfriend.get(i).nickname;
+					friendicon= LoginFunction.userfriend.get(i).image;
+//				}	
+			}
+			
+		}
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (LoginPanel.circleAccessToken.equals(LoginFunction.userfriend.get(i).username)) {
+//				if (LoginFunction.userfriend.get(i).nickname.equals("Unknown")) {
+//					friendNickname = LoginFunction.userfriend.get(i).username;
+//				}else{
+//					friendNickname = LoginFunction.userfriend.get(i).nickname;
+//				}	
+				UserNickname = LoginFunction.userfriend.get(i).nickname;
+				Usericon= LoginFunction.userfriend.get(i).image;
+			}
+			
+		}
 		for(int i=0;i<receiver.size();i++){
-			if(friendname.equals(receiver.get(i).friendname)){
+			if(friendID.equals(receiver.get(i).friendname)){
 				for(int j=0;j<receiver.get(i).history.size();j++){
-					if (friendname.equals(receiver.get(i).history.get(j).sourceID)) {
-						ChattingCellS cell = new ChattingCellS();
-						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+					if (friendID.equals(receiver.get(i).history.get(j).sourceID)) {
+						ChattingCellR cell = new ChattingCellR();		
+						cell.NameLabel.setText(friendNickname);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.UserIcon.setIcon(ClientFunction.resizeIcon(friendicon, 40, 40));
 						if(receiver.get(i).history.get(j).type==Message.TEXT){
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
 						else if(receiver.get(i).history.get(j).type==Message.LINK){
+//							System.out.println("LoginFunction/receiver.get(i).history.get(j).sourceID): "+receiver.get(i).history.get(j).sourceID);
 							cell.setPreferredSize(new Dimension(520,receiver.get(i).history.get(j).image.getIconHeight()+20));
 							cell.ShowArea.remove(cell.msg);
 							cell.PicMsg(receiver.get(i).history.get(j).image);
@@ -103,8 +135,9 @@ public class LoginFunction {
 					}
 					else if (LoginPanel.circleAccessToken.equals(receiver.get(i).history.get(j).sourceID)) {
 						ChattingCellS cell = new ChattingCellS();
-						cell.NameLabel.setText(receiver.get(i).history.get(j).sourceID);
+						cell.NameLabel.setText(UserNickname);
 						cell.TimeLabel.setText(receiver.get(i).history.get(j).time);
+						cell.UserIcon.setIcon(ClientFunction.resizeIcon(Usericon, 40, 40));
 						if(receiver.get(i).history.get(j).type==Message.TEXT){
 							cell.msg.setText(receiver.get(i).history.get(j).message);
 						}
@@ -113,7 +146,8 @@ public class LoginFunction {
 							cell.ShowArea.remove(cell.msg);
 							cell.PicMsg(receiver.get(i).history.get(j).image);
 							cell.ShowArea.setPreferredSize(new Dimension(receiver.get(i).history.get(j).image.getIconWidth(),receiver.get(i).history.get(j).image.getIconHeight()));
-						}						ClientFunction.CPanel.Inner.add(cell);
+						}						
+						ClientFunction.CPanel.Inner.add(cell);
 						ClientFunction.CPanel.Inner.revalidate();
 						ClientFunction.CPanel.Inner.repaint();
 					}
@@ -147,17 +181,17 @@ public class LoginFunction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
       		  }
-      		  operation="friendRequestList-request?";
-      		  CheckFriendRequest(operation,AccessToken);
-      		  operation="friendList-request?";
-      		  GetFriendList(operation, AccessToken);
-      		  operation="get-friend-result-list?";
-    		  GetFriendResultList(operation, AccessToken);
+//      		  operation="friendRequestList-request?";
+//      		  CheckFriendRequest(operation,AccessToken);
+//      		  operation="friendList-request?";
+//      		  GetFriendList(operation, AccessToken);
+//      		  operation="get-friend-result-list?";
+//    		  GetFriendResultList(operation, AccessToken);
 //    		  operation="create-user-profile?";
 //    		  CreateProfile(operation, AccessToken);
-    		  operation="get-user-profile?";
-    		  GetProfile(operation, AccessToken);
-    		  MainLayout.panelPro.setInfo(Gender,Phonenumber,Iconurl);
+//    		  operation="get-user-profile?";
+//    		  GetProfile(operation, AccessToken);
+//    		  MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
 
    		 
           	  MainFrame.cl.show(MainFrame.panelCont, "Main");
@@ -202,7 +236,7 @@ public class LoginFunction {
 		String nickname;
 		String iconurl;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println("GetFriendList: "+response);
+		System.out.println("GetFriendResultList: "+response);
 		p1 = response.indexOf(str1);
 		p2 = response.indexOf(str2);
 		p3 = response.indexOf(str3);
@@ -214,7 +248,7 @@ public class LoginFunction {
 			nickname=response.substring(p2+11, p3-3);
 			iconurl=response.substring(p3+10, p4-1);
 			Userid user = new Userid();
-			System.out.println(iconurl);
+//			System.out.println(iconurl);
 
 			if(!iconurl.equals("Unknown")){
 				BufferedImage bufferedImage = null;
@@ -225,14 +259,20 @@ public class LoginFunction {
 				}
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
-				BufferedImage bi = new BufferedImage(30, 30, BufferedImage.TYPE_INT_ARGB);
+				BufferedImage bi = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
 				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 30, 30, null);
+				g.drawImage(img, 0, 0, 40, 40, null);
 				user.image = new ImageIcon(bi);
 			}
+//			System.out.println(user.image);
 			user.username=username;
-			user.nickname=nickname;
-			
+			if(nickname.equals("Unknown")){
+				user.nickname=username;
+			}
+			else{
+				user.nickname=nickname;
+			}
+
 			userfriend.add(user);
 		
 			p1 = response.indexOf(str1,p1+1);
@@ -261,13 +301,31 @@ public class LoginFunction {
 			Gender=response.substring(p1+9, p2-3);
 			Phonenumber=response.substring(p2+14,p3-3);
 			Nickname=response.substring(p3+11,p4-3);
+//			if (Nickname.equals("Unknown")) {
+//				Nickname = LoginPanel.circleAccessToken;
+//			}
 			Iconurl=response.substring(p4+10,p5-3);
+		}
+		if (!Iconurl.equals("Unknown")) {///////????????????????????
+		BufferedImage bufferedImage = null;
+		try {
+			URL myURL = new URL(Iconurl);
+			bufferedImage = ImageIO.read(myURL);
+		} catch (IOException f) {
+		}
+		ImageIcon image=new ImageIcon(bufferedImage);
+		Image img = image.getImage();
+		BufferedImage bi = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = bi.createGraphics();
+		g.drawImage(img, 0, 0, 40, 40, null);
+		userIcon = new ImageIcon(bi);
+		System.out.println(userIcon);
 		}
 	}
 	
 	public static void AddAFriend(String operation,String AccessToken,String friendname) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&friend="+friendname,"");
-		System.out.println("AddAFriend: "+response);
+//		System.out.println("AddAFriend: "+response);
 		if(response.indexOf("true")!=-1){
 		}
 		else if (response.indexOf("Your friend has not registered yet.")!=-1) {
@@ -302,7 +360,7 @@ public class LoginFunction {
 		String denyUrl;
 		int index1,index2,index3,index4;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
-		System.out.println("GetFriendRequest: "+response);
+//		System.out.println("GetFriendRequest: "+response);
 		index1 = response.indexOf(s1);
 		index2 = response.indexOf(s2);
 		index3 = response.indexOf(s3);
@@ -344,7 +402,7 @@ public class LoginFunction {
 	
 	public static void Register(String operation,String username,String password) {
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"username="+username+"&password="+password,"");
-		System.out.println("Register: "+response);
+//		System.out.println("Register: "+response);
 		  if(response.indexOf("true")!=-1){
       		  JOptionPane.showMessageDialog(null,"registration successful");
           	  MainFrame.cl.show(MainFrame.panelCont, "Log");
@@ -475,7 +533,8 @@ public class LoginFunction {
 	
 	//---------------------------------MomentsFunction--------------------------------------
 	public static void AddMoments(String operation,String AccessToken,String textURL,String photoURL,String videoURL){
-		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&textURL="+textURL+"&photoURL="+photoURL+"&videoURL="+videoURL,"");
+		String newtextURL = textURL.replaceAll(" ", "%20");
+		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken+"&textURL="+newtextURL+"&photoURL="+photoURL+"&videoURL="+videoURL,"");
 		System.out.println("AddMoments: "+response);
 	}
 
@@ -495,7 +554,7 @@ public class LoginFunction {
 		String photoUrl;
 		String videoUrl;
 		String iconurl;
-		int width,height;
+		int width=0,height=0;
 		int index1,index2,index3,index4,index5,index6,index7,index8;
 		String response = excutePost("http://ec2-54-86-38-175.compute-1.amazonaws.com:8080/CircleAuthenticationService/"+operation+"accessToken="+AccessToken,"");
 		System.out.println("GetMoments: "+response);
@@ -507,6 +566,7 @@ public class LoginFunction {
 		index6 = response.indexOf(s6);
 		index7 = response.indexOf(s7);
 		index8 = response.indexOf(s8);
+		moments=new ArrayList<>();
 
 		while (index1 >= 0) {
 			username=response.substring(index1+11, index2-3);
@@ -516,41 +576,25 @@ public class LoginFunction {
 			photoUrl=response.substring(index5+11, index6-3);
 			iconurl=response.substring(index6+10, index7-3);
 			videoUrl=response.substring(index7+11, index8-1);
-			boolean find=false;
-			for(int i=0;i<moments.size();i++){
-				if(timeStamp.equals(moments.get(i).time)){
-					find=true;
-//					System.out.println("find");
-				}
-			}
-			
-			if(find==false){
-				Moments newmoments =new Moments();
-			    newmoments.name=username;
-			    newmoments.time=timeStamp;
-			    newmoments.nickname=nickName;
-			    if(!textUrl.equals("null")){
-			    	newmoments.text=textUrl;
-			    }
-			    if(!photoUrl.equals("null")){
-			    	ImageIcon image=new ImageIcon(photoUrl);
-					Image img = image.getImage();
-					if(image.getIconWidth()>300){
-						width=300;
-						height = image.getIconHeight()*300/image.getIconWidth();
-					}
-					else{
-						width=image.getIconWidth();
-						height=image.getIconHeight();
-					}
-					BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-					Graphics g = bi.createGraphics();
-					g.drawImage(img, 0, 0, width, height, null);
-					newmoments.image = new ImageIcon(bi);
-			    }
-			    if(!iconurl.equals("null")){
-			    	ImageIcon image=new ImageIcon(iconurl);
-					Image img = image.getImage();
+//			boolean find=false;
+//			for(int i=0;i<moments.size();i++){
+//				if(timeStamp.equals(moments.get(i).time)){
+//					find=true;
+////					System.out.println("find");
+//				}
+//			}
+//			
+//			if(find==false){
+//				Moments newmoments =new Moments();
+//			    newmoments.name=username;
+//			    newmoments.time=timeStamp;
+//			    newmoments.nickname=nickName;
+//			    if(!textUrl.equals("null")){
+//			    	newmoments.text=textUrl;
+//			    }
+//			    if(!photoUrl.equals("null")){
+//			    	ImageIcon image=new ImageIcon(photoUrl);
+//					Image img = image.getImage();
 //					if(image.getIconWidth()>300){
 //						width=300;
 //						height = image.getIconHeight()*300/image.getIconWidth();
@@ -559,25 +603,89 @@ public class LoginFunction {
 //						width=image.getIconWidth();
 //						height=image.getIconHeight();
 //					}
-					BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+//					BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+//					Graphics g = bi.createGraphics();
+//					g.drawImage(img, 0, 0, width, height, null);
+//					newmoments.image = new ImageIcon(bi);
+//			    }
+//			    if(!iconurl.equals("null")){
+//			    	BufferedImage bufferedImage = null;
+//					try {
+//						URL myURL = new URL(iconurl);
+//						bufferedImage = ImageIO.read(myURL);
+//					} catch (IOException f) {
+//					}
+//					ImageIcon image=new ImageIcon(bufferedImage);
+//					Image img = image.getImage();
+//					BufferedImage bi = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
+//					Graphics g = bi.createGraphics();
+//					g.drawImage(img, 0, 0, 60, 60, null);
+//					newmoments.icon = new ImageIcon(bi);
+//			    }
+//			    if(!videoUrl.equals("null")){
+//			    	
+//			    }
+//			    moments.add(newmoments);
+				Moments newmoments =new Moments();
+			    newmoments.name=username;
+			    newmoments.time=timeStamp;
+			    newmoments.nickname=nickName;
+			    if(!textUrl.equals("null")){
+			    	newmoments.text=textUrl;
+			    }
+			    if(!photoUrl.equals("null")){
+			    	BufferedImage bufferedImage = null;
+					try {
+						URL myURL = new URL(photoUrl);
+						bufferedImage = ImageIO.read(myURL);
+					} catch (IOException f) {
+					}
+					ImageIcon image=new ImageIcon(bufferedImage);					Image img = image.getImage();
+					if(image.getIconWidth()>300){
+						width=300;
+						height = image.getIconHeight()*300/image.getIconWidth();
+					}
+					else{
+						width=image.getIconWidth();
+						height=image.getIconHeight();
+					}
+//					width=300;
+//					height=300;
+					BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 					Graphics g = bi.createGraphics();
-					g.drawImage(img, 0, 0, 50, 50, null);
+					g.drawImage(img, 0, 0, width, height, null);
+					newmoments.image = new ImageIcon(bi);
+			    }
+			    if(!iconurl.equals("null")){
+			    	BufferedImage bufferedImage = null;
+					try {
+						URL myURL = new URL(iconurl);
+						bufferedImage = ImageIO.read(myURL);
+					} catch (IOException f) {
+					}
+					ImageIcon image=new ImageIcon(bufferedImage);
+					Image img = image.getImage();
+					BufferedImage bi = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
+					Graphics g = bi.createGraphics();
+					g.drawImage(img, 0, 0, 60, 60, null);
 					newmoments.icon = new ImageIcon(bi);
 			    }
 			    if(!videoUrl.equals("null")){
 			    	
 			    }
 			    moments.add(newmoments);
+			
 //				System.out.println(newmoments.name);
 //				System.out.println(timeStamp+"="+newmoments.time);
 //				System.out.println(newmoments.nickname);
 //				System.out.println(newmoments.text);
 //				System.out.println(textUrl);
 //				System.out.println(photoUrl);
-				System.out.println(iconurl);
+//				System.out.println(iconurl);
 //				System.out.println(videoUrl);
 
-			}
+
+			
 		    index1 = response.indexOf(s1, index1 + 1);
 		    index2 = response.indexOf(s2, index2 + 1);
 		    index3 = response.indexOf(s3, index3 + 1);

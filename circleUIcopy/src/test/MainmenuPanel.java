@@ -83,7 +83,7 @@ public class MainmenuPanel extends JPanel {
        		  	LoginPanel.operation="get-friend-result-list?";
             	LoginFunction.GetFriendResultList(LoginPanel.operation, LoginFunction.AccessToken);
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "FriendList");
-            	MainFrame.mainFrame.setTitle("Circle - FriendList");
+//            	MainFrame.mainFrame.setTitle("Circle - FriendList");
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabFriend.setBackground(null);
@@ -102,7 +102,12 @@ public class MainmenuPanel extends JPanel {
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "MPane");
             	LoginPanel.operation="moments-record-request?";
             	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
+            	MainLayout.MomPanel.down.removeAll();
             	MainLayout.MomPanel.DisplayMoments();
+//            	MainLayout.MomPanel.down.revalidate();
+//            	MainLayout.MomPanel.down.repaint();
+            	
+
              }
              public void  mouseExited(MouseEvent e) {
             	 MenuLabMom.setBackground(null);
@@ -118,12 +123,15 @@ public class MainmenuPanel extends JPanel {
 		MenuLabMe.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
     			MainFrame.mainFrame.setTitle("Circle - Profile");
+    			LoginPanel.operation="get-user-profile?";
+      		    LoginFunction.GetProfile(LoginPanel.operation, LoginFunction.AccessToken);
+      		    MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
       		  if (LoginFunction.Iconurl==null) {
     			  //MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
-      			MainLayout.panelPro.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,"src/dio.jpg");
+      			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/avatar.jpg");
       		  }
     		  else {
-    			MainLayout.panelPro.setInfo(LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
+    			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
     		  }
             	
             	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");

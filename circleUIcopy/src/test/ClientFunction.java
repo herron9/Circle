@@ -19,6 +19,8 @@ public class ClientFunction {
 
 	public static CircleClient client;
 	public int type;
+	public static String friendNickname;
+	public static ImageIcon usericon;
 	
 	public static ChattingPanel CPanel = new ChattingPanel(client);
 	public static boolean Init = true;
@@ -28,6 +30,20 @@ public class ClientFunction {
 	}
 	public ClientFunction(){
 		
+	}
+	public static void setFriendInfo(String friendname) {
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (friendname.equals(LoginFunction.userfriend.get(i).username)) {
+//				System.out.println("ClientFunction/nickname:   "+LoginFunction.userfriend.get(i).username);
+//				System.out.println("ClientFunction/nickname:   "+LoginFunction.userfriend.get(i).nickname);
+				if (LoginFunction.userfriend.get(i).nickname.equals("Unknown")) {
+					friendNickname = LoginFunction.userfriend.get(i).username;
+				}else{
+					friendNickname = LoginFunction.userfriend.get(i).nickname;
+				}	
+				usericon= LoginFunction.userfriend.get(i).image;
+			}
+		}
 	}
 	
 	public static void CreateChatting(String friendname){
@@ -47,28 +63,30 @@ public class ClientFunction {
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		MsgReceiver.SrcID=friendname;
 		CPanel.Inner.removeAll();
-		MainFrame.mainFrame.setTitle("Chat with "+friendname);
+		setFriendInfo(friendname);
+		MainFrame.mainFrame.setTitle("Chat with "+friendNickname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
 	
 	public static void RecallChatting(String friendname){
+//		if (Init == true) {//the first time a client start a chat window
+//			MainLayout.MainUppage.add(CPanel,"CPanel");
+//			
+//			Init= false;
+//		}
 		for( ActionListener al : CPanel.SendMsgBtn.getActionListeners() ) {
 		    CPanel.SendMsgBtn.removeActionListener( al );
 		}
 		for( ActionListener al : CPanel.ImgBtn.getActionListeners() ) {//renew the actionlisetener
 		    CPanel.ImgBtn.removeActionListener( al );
 		}
-		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname,null));
-//		CPanel.VideoBtn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				VideoFrame video = new VideoFrame();
-//			}
-//		});
 		CPanel.SendMsgBtn.addActionListener(new SendTextButtonHandler(Message.TEXT,CPanel.Inner,CPanel.MsgField,client,friendname,null));
+		CPanel.ImgBtn.addActionListener(new SendTextButtonHandler(Message.LINK,CPanel.Inner,CPanel.MsgField,client,friendname,null));
 		MsgReceiver.SrcID=friendname;	
 		System.out.println("clientfunction/MsgReceiver.SrcID:  "+MsgReceiver.SrcID);
 		LoginFunction.RecallHistory(friendname);
-		MainFrame.mainFrame.setTitle("Chat with "+friendname);
+		setFriendInfo(friendname);
+		MainFrame.mainFrame.setTitle("Chat with "+friendNickname);
 		MainLayout.MainpageCl.show(MainLayout.MainUppage, "CPanel");
 	}
 	public static ImageIcon resizeIcon(ImageIcon old,int x,int y) {
@@ -76,6 +94,44 @@ public class ClientFunction {
 		Image newimg = img.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon = new ImageIcon(newimg);
 		return newIcon;
+	}
+	
+	public static String ID2Nick(String ID) {
+		String nick = null;
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (ID.equals(LoginFunction.userfriend.get(i).username)) {
+				nick = LoginFunction.userfriend.get(i).nickname;
+			}
+		}
+		return nick;
+	}
+	
+	public static String Nick2ID(String Nick) {
+		String ID = null;
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+			if (Nick.equals(LoginFunction.userfriend.get(i).nickname)) {
+				ID = LoginFunction.userfriend.get(i).username;
+			}
+		}
+		return ID;
+	}
+	
+	public static ImageIcon ID2icon(String ID) {
+		ImageIcon icon = null;
+		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
+
+			if (ID.equals(LoginFunction.userfriend.get(i).username)) {
+				
+				if (LoginFunction.userfriend.get(i).image!=null) {
+					icon = LoginFunction.userfriend.get(i).image;
+				}
+				else{
+					icon = new ImageIcon("src/avatar.png");
+				}
+			}
+		}
+//		System.out.println(icon);
+		return icon;
 	}
 }
 
@@ -105,17 +161,17 @@ class MsgReceiver implements ReceiverHandler {
 		}
 		if (message.getMessageSrcID().equals(SrcID)) {
 			ChattingCellR cell = new ChattingCellR();
-			cell.NameLabel.setText(message.getMessageSrcID());
+			cell.NameLabel.setText(ClientFunction.ID2Nick(message.getMessageSrcID()));
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
+			cell.UserIcon.setIcon(ClientFunction.usericon);
 			if (message.getMessageType() == Message.TEXT) {
-				cell.setPreferredSize(new Dimension(570,55));
-				//cell.msg.setPreferredSize(new Dimension());
+//				cell.setPreferredSize(new Dimension(570,55));
 				cell.msg.setText(message.getMessageContent());
-				if (cell.msg.getText().length()>50) {		
-					cell.msg.setPreferredSize(new Dimension(400,100));
-			        cell.msg.setLineWrap(true);
-			        cell.msg.setWrapStyleWord(true);
-				}
+//				if (cell.msg.getText().length()>50) {		
+//					cell.msg.setPreferredSize(new Dimension(400,100));
+//			        cell.msg.setLineWrap(true);
+//			        cell.msg.setWrapStyleWord(true);
+//				}
 			}
 			else if(message.getMessageType() == Message.LINK){
 				BufferedImage bufferedImage = null;
@@ -124,7 +180,6 @@ class MsgReceiver implements ReceiverHandler {
 					bufferedImage = ImageIO.read(myURL);
 				} catch (IOException f) {
 				}
-				//bufferedImage.getHeight()
 				ImageIcon image=new ImageIcon(bufferedImage);
 				Image img = image.getImage();
 				if(image.getIconWidth()>300){
