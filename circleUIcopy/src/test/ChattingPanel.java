@@ -37,7 +37,9 @@ public class ChattingPanel extends JPanel {
 	public JButton SendMsgBtn = new JButton("Send");
 	public JButton EmoBtn = new JButton();
 	public JButton ImgBtn = new JButton("Image");
+	public JButton VoiceBtn = new JButton("Voice Call");
 	public JButton VideoBtn = new JButton("Video Call");
+
 	//public static JList list;
 
 	public JLabel Plus=new JLabel("Plus");
@@ -52,6 +54,7 @@ public class ChattingPanel extends JPanel {
 	
 	public ChattingPanel( CircleClient client) {
 		//add(VideoBtn);
+		
 		setBackground(new Color(238, 238, 238));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -106,10 +109,13 @@ public class ChattingPanel extends JPanel {
 		SendMsgBtn.setPreferredSize(new Dimension(100, 32));
 
 		add(South);
+		add(SubBar);
+		SubBar.setPreferredSize(new Dimension(600, 100));
 		SubBar.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		//ImgBtn.setPreferredSize(new Dimension(50, 32));
 		//SubBar.add(EmoBtn);
 		SubBar.add(ImgBtn);
+		SubBar.add(VoiceBtn);
 		SubBar.add(VideoBtn);
 		importEmoji();
 		South.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{MsgField, SendMsgBtn}));

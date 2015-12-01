@@ -104,8 +104,6 @@ public class MainmenuPanel extends JPanel {
             	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
             	MainLayout.MomPanel.down.removeAll();
             	MainLayout.MomPanel.DisplayMoments();
-//            	MainLayout.MomPanel.down.revalidate();
-//            	MainLayout.MomPanel.down.repaint();
             	
 
              }

@@ -108,10 +108,10 @@ public class MomentsPanel extends JPanel {
 	public void setdown() {
 		//down.setPreferredSize(new Dimension(600, 370));//why use that can fix the bar bug?
 		down.setLayout(vfl);
-//		DisplayMoments();
+		DisplayMoments();
 	}
     public void DisplayMoments() {
-//		down.removeAll();
+		down.removeAll();
 		for (int i = 0; i < LoginFunction.moments.size(); i++) {
 			MomentCell cell = new MomentCell();
 			if (LoginFunction.moments.get(i).nickname.equals("Unknown")) {
@@ -120,6 +120,7 @@ public class MomentsPanel extends JPanel {
 				cell.lblName.setText(LoginFunction.moments.get(i).nickname);
 			}
 			cell.lblIcon.setIcon(ClientFunction.resizeIcon((ClientFunction.ID2icon(LoginFunction.moments.get(i).name)),60,60));
+//			cell.lblIcon.setIcon(LoginFunction.moments.get(i).icon);
 			cell.lblTimeStamp.setText(LoginFunction.moments.get(i).time);
 			if (LoginFunction.moments.get(i).text != null) {
 				cell.content.MomTextArea.setText(LoginFunction.moments.get(i).text);
@@ -140,6 +141,9 @@ public class MomentsPanel extends JPanel {
 		}
     }
     
-
+    public void setSubpanel() {
+    	
+		
+	}
 }
 
