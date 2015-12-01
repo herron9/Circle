@@ -52,7 +52,7 @@ public class ProfilePanel extends JPanel {
 	public JButton EditPWBtn;
 	public JButton LogoutBtn;
 	public static String newgender;
-	public static String newphone;
+	public static String newphone=null;
 	public static String newnickname=null;
 	public static String newiconurl=null;
 	public static String newpw;
@@ -174,12 +174,14 @@ public class ProfilePanel extends JPanel {
 				}
 				if (EditPWBtn.getText().equals("Confirm")) {
 					EditBtn.setEnabled(true); 
-					String x = phoneField.getText();
 					String y = pwField.getText();
-					boolean isDigit = isNumeric(x);//x.matches("\\d{1}");
-					boolean isChar =isLetterDigit(y);// y.matches("[a-zA-z]{1}");
-					
-					if (isDigit&&isChar&&!y.isEmpty()) {    
+					newpw=pwField.getText();
+					System.out.println(newpw);
+					if (y.isEmpty()) {
+						valid2.setText("Cannot Leave this Empty");
+						
+					}
+					else{
 						pwField.setEditable(false);
 						EditPWBtn.setText("Edit Password");
 						valid1.setText(" ");
@@ -188,21 +190,8 @@ public class ProfilePanel extends JPanel {
 						LoginFunction.ModifyPassword(LoginPanel.operation, LoginFunction.AccessToken, newpw);
 			    		setInfo(LoginFunction.Gender,LoginFunction.Phonenumber,LoginFunction.Iconurl);
 			        	MainLayout.MainpageCl.show(MainLayout.MainUppage, "ProPanel");
-						return;
 					}
-					else {
-//						if (isDigit == false) {
-//							valid1.setText("Must Contain Digits Only");
-//						}
-//						if (isChar == false) {
-//							valid2.setText("Must Contain Letters And Digits Only");
-//						}
-						if (y.isEmpty()) {
-							valid2.setText("Cannot Leave this Empty");
-							
-						}
-						return;				
-					}
+						
 					
 				}
 				

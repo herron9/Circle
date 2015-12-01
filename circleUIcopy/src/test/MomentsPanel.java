@@ -115,9 +115,9 @@ public class MomentsPanel extends JPanel {
 			cell.lblName.setText(LoginFunction.moments.get(i).name);
 			cell.lblIcon.setIcon(new ImageIcon("src/avatar.png"));
 			cell.content.MomTextArea.setText(LoginFunction.moments.get(i).text);
-			if (LoginFunction.moments.get(i).image != null) {
+//			if (LoginFunction.moments.get(i).image != null) {
 				cell.content.lblPic.setIcon(LoginFunction.moments.get(i).image);
-			}
+//			}
 //			BufferedImage bufferedImage = null;
 //			try {
 //				URL myURL = new URL("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");

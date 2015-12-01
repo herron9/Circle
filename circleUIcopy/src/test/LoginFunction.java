@@ -214,7 +214,8 @@ public class LoginFunction {
 			nickname=response.substring(p2+11, p3-3);
 			iconurl=response.substring(p3+10, p4-1);
 			Userid user = new Userid();
-			
+			System.out.println(iconurl);
+
 			if(!iconurl.equals("Unknown")){
 				BufferedImage bufferedImage = null;
 				try {
@@ -515,59 +516,68 @@ public class LoginFunction {
 			photoUrl=response.substring(index5+11, index6-3);
 			iconurl=response.substring(index6+10, index7-3);
 			videoUrl=response.substring(index7+11, index8-1);
-
-		    Moments newmoments =new Moments();
-		    newmoments.name=username;
-		    newmoments.time=timeStamp;
-		    newmoments.nickname=nickName;
-		    if(textUrl.equals(null)){
-		    	newmoments.text=textUrl;
-		    }
-		    if(photoUrl.equals(null)){
-		    	ImageIcon image=new ImageIcon(photoUrl);
-				Image img = image.getImage();
-				if(image.getIconWidth()>300){
-					width=300;
-					height = image.getIconHeight()*300/image.getIconWidth();
+			boolean find=false;
+			for(int i=0;i<moments.size();i++){
+				if(timeStamp.equals(moments.get(i).time)){
+					find=true;
+//					System.out.println("find");
 				}
-				else{
-					width=image.getIconWidth();
-					height=image.getIconHeight();
-				}
-				BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, width, height, null);
-				newmoments.image = new ImageIcon(bi);
-		    }
-		    if(iconurl.equals(null)){
-		    	ImageIcon image=new ImageIcon(iconurl);
-				Image img = image.getImage();
-//				if(image.getIconWidth()>300){
-//					width=300;
-//					height = image.getIconHeight()*300/image.getIconWidth();
-//				}
-//				else{
-//					width=image.getIconWidth();
-//					height=image.getIconHeight();
-//				}
-				BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				g.drawImage(img, 0, 0, 50, 50, null);
-				newmoments.icon = new ImageIcon(bi);
-		    }
-		    if(videoUrl.equals(null)){
-		    	
-		    }
-		    moments.add(newmoments);
-//			System.out.println(newmoments.name);
-//			System.out.println(newmoments.time);
-//			System.out.println(newmoments.nickname);
-//			System.out.println(newmoments.text);
-//			System.out.println(textUrl);
-//			System.out.println(photoUrl);
-//			System.out.println(iconurl);
-//			System.out.println(videoUrl);
+			}
+			
+			if(find==false){
+				Moments newmoments =new Moments();
+			    newmoments.name=username;
+			    newmoments.time=timeStamp;
+			    newmoments.nickname=nickName;
+			    if(!textUrl.equals("null")){
+			    	newmoments.text=textUrl;
+			    }
+			    if(!photoUrl.equals("null")){
+			    	ImageIcon image=new ImageIcon(photoUrl);
+					Image img = image.getImage();
+					if(image.getIconWidth()>300){
+						width=300;
+						height = image.getIconHeight()*300/image.getIconWidth();
+					}
+					else{
+						width=image.getIconWidth();
+						height=image.getIconHeight();
+					}
+					BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+					Graphics g = bi.createGraphics();
+					g.drawImage(img, 0, 0, width, height, null);
+					newmoments.image = new ImageIcon(bi);
+			    }
+			    if(!iconurl.equals("null")){
+			    	ImageIcon image=new ImageIcon(iconurl);
+					Image img = image.getImage();
+//					if(image.getIconWidth()>300){
+//						width=300;
+//						height = image.getIconHeight()*300/image.getIconWidth();
+//					}
+//					else{
+//						width=image.getIconWidth();
+//						height=image.getIconHeight();
+//					}
+					BufferedImage bi = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+					Graphics g = bi.createGraphics();
+					g.drawImage(img, 0, 0, 50, 50, null);
+					newmoments.icon = new ImageIcon(bi);
+			    }
+			    if(!videoUrl.equals("null")){
+			    	
+			    }
+			    moments.add(newmoments);
+//				System.out.println(newmoments.name);
+//				System.out.println(timeStamp+"="+newmoments.time);
+//				System.out.println(newmoments.nickname);
+//				System.out.println(newmoments.text);
+//				System.out.println(textUrl);
+//				System.out.println(photoUrl);
+				System.out.println(iconurl);
+//				System.out.println(videoUrl);
 
+			}
 		    index1 = response.indexOf(s1, index1 + 1);
 		    index2 = response.indexOf(s2, index2 + 1);
 		    index3 = response.indexOf(s3, index3 + 1);

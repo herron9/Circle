@@ -26,8 +26,7 @@ public class AddMoments extends JFrame {
 	private final JLabel lblCancel = new JLabel("Cancel");
 	private final JLabel lblPicture = new JLabel("Picture");
 	private final JLabel lblSend = new JLabel("Send");
-	String fileurl =null;
-	String filePath=null;
+	
 	String fileurlx = null;
 	public AddMoments() {
 		setResizable(false); 
@@ -94,10 +93,13 @@ public class AddMoments extends JFrame {
 		lblPicture.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				String fileurl =null;
+				String filePath=null;
 				filePath = SwingFileChooserDemo.chooseAFileFromCurrentMachine();;
-				s3Repository s3= new s3Repository();
-				String key = ""+UUID.randomUUID()+".jpg";
+				
 				if(filePath!=null){
+					s3Repository s3= new s3Repository();
+					String key = ""+UUID.randomUUID()+".jpg";
 					s3.uploadFile(key,filePath);
 					fileurl="https://s3.amazonaws.com/circleuserfiles/"+key;
 					lblPicture.setText("Picture added");
