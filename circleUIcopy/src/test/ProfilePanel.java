@@ -67,7 +67,7 @@ public class ProfilePanel extends JPanel {
 		RadioBtnM.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	    RadioBtnF = new JRadioButton("Female");
 	    RadioBtnF.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	    RadioBtnU = new JRadioButton("Keep Secret");
+	    RadioBtnU = new JRadioButton("Unknown");
 	    RadioBtnU.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	    phoneField = new JTextField();
 	    phoneField.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -113,7 +113,7 @@ public class ProfilePanel extends JPanel {
 						newgender = "Female";
 					}
 					if (RadioBtnU.isSelected()) {   //get gender
-						newgender = "keep secret";
+						newgender = "Unknown";
 					}
 					
 					String x = phoneField.getText();
@@ -162,6 +162,7 @@ public class ProfilePanel extends JPanel {
 					EditPWBtn.setText("Confirm");	
 					return;
 				}
+
 				if (EditPWBtn.getText().equals("Confirm")) {				
 					String y = pwField.getText();
 					boolean YisDigit = isNumeric(y);//y.matches("\\d{1}");
@@ -185,6 +186,7 @@ public class ProfilePanel extends JPanel {
 						}
 						return;				
 					}
+						
 					
 				}
 				

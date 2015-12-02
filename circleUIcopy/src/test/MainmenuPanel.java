@@ -121,9 +121,12 @@ public class MainmenuPanel extends JPanel {
 		MenuLabMe.addMouseListener(new MouseListener(){
             public void  mouseClicked(MouseEvent e) {
     			MainFrame.mainFrame.setTitle("Circle - Profile");
+    			LoginPanel.operation="get-user-profile?";
+      		    LoginFunction.GetProfile(LoginPanel.operation, LoginFunction.AccessToken);
+      		    MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);
       		  if (LoginFunction.Iconurl==null) {
     			  //MainLayout.panelPro.setInfo(Nickname,Gender,Phonenumber,Iconurl);
-      			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/dio.jpg");
+      			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,"src/avatar.jpg");
       		  }
     		  else {
     			MainLayout.panelPro.setInfo(LoginFunction.Nickname,LoginFunction.Gender, LoginFunction.Phonenumber,LoginFunction.Iconurl);

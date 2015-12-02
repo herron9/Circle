@@ -56,7 +56,8 @@ public class ChatLog extends JPanel {
 		setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setup();
-		UserIcon.setIcon(ClientFunction.resizeIcon(ClientFunction.ID2icon(name),60,60));
+		UserIcon.setIcon(ClientFunction.resizeIcon(ClientFunction.ID2icon(name), 60, 60));
+		System.out.println(name);
 //		UserIcon.setIcon(ClientFunction.ID2icon(name));
 		NameLabel.setText(ClientFunction.ID2Nick(name));
 		HistoryLabel.setPreferredSize(new Dimension(600, 60));

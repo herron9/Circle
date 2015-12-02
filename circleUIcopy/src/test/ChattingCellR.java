@@ -17,6 +17,8 @@ import javax.swing.border.AbstractBorder;
 import java.awt.Insets;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 
 public class ChattingCellR extends JPanel {
@@ -33,14 +35,15 @@ public class ChattingCellR extends JPanel {
 	String name = "null";
 	
 	public ChattingCellR() {
+		setBackground(UIManager.getColor("CheckBox.background"));
 		//setBorder(new BevelBorder(BevelBorder.LOWERED, Color.ORANGE, null, null, null));
-		setPreferredSize(new Dimension(550, 55));
-		UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));	
+		setPreferredSize(new Dimension(570, 60));
+		UserIcon = new JLabel(ClientFunction.resizeIcon(User,60,60));	
 		UserIcon.setVerticalAlignment(SwingConstants.TOP);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 //		gridBagLayout.rowWeights = new double[]{0.0, 1.0};
 //		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
-		gridBagLayout.columnWidths = new int[]{40, 340, 150, 40};
+		gridBagLayout.columnWidths = new int[]{40, 320, 120, 40};
 		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
@@ -65,8 +68,7 @@ public class ChattingCellR extends JPanel {
 			add(TimeLabel, gbc_TimeLabel);
 			
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
-			gbc_UserIcon.fill = GridBagConstraints.HORIZONTAL;
-			gbc_UserIcon.anchor = GridBagConstraints.NORTH;
+			gbc_UserIcon.anchor = GridBagConstraints.NORTHEAST;
 			gbc_UserIcon.gridx = 3;
 			gbc_UserIcon.gridy = 1;
 			add(UserIcon, gbc_UserIcon);

@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
 import java.awt.Color;
+import javax.swing.UIManager;
 
 
 public class ChattingCellS extends JPanel {
@@ -31,12 +32,13 @@ public class ChattingCellS extends JPanel {
 	String name = "null";
 	
 	public ChattingCellS() {
-		setPreferredSize(new Dimension(520,55));
+		setBackground(UIManager.getColor("CheckBox.background"));
+		setPreferredSize(new Dimension(570,60));
 		
 			
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
-		gridBagLayout.columnWidths = new int[]{40, 120,300,40};
+		gridBagLayout.columnWidths = new int[]{40, 20,320,40, 60, 60, 0, 0, 0};//{40, 320, 120, 60}
 		gridBagLayout.rowHeights = new int[]{20, 50};
 		setLayout(gridBagLayout);
 
@@ -44,7 +46,7 @@ public class ChattingCellS extends JPanel {
 			ShowArea = new CCShowArea(CCShowArea.Left);
 			//ShowArea.setMaximumSize(new Dimension(400, 0));
 			GridBagConstraints gbc_ShowArea = new GridBagConstraints();
-			gbc_ShowArea.insets = new Insets(0, 5, 0, 0);
+			gbc_ShowArea.insets = new Insets(0, 5, 0, 5);
 			gbc_ShowArea.gridwidth = 2;
 			gbc_ShowArea.anchor = GridBagConstraints.NORTHWEST;
 			gbc_ShowArea.gridx = 1;
@@ -52,7 +54,6 @@ public class ChattingCellS extends JPanel {
 			add(ShowArea, gbc_ShowArea);
 	        msg.setRows(1);
 	        msg.setWrapStyleWord(true);
-	        msg.setLineWrap(true);
 	        msg.setEditable(false);
 	        msg.setOpaque(false);
 	        //msg.setHorizontalAlignment(SwingConstants.LEFT);
@@ -65,7 +66,9 @@ public class ChattingCellS extends JPanel {
 			NameLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			NameLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			GridBagConstraints gbc_NameLabel = new GridBagConstraints();
-			gbc_NameLabel.anchor = GridBagConstraints.SOUTHWEST;
+			gbc_NameLabel.fill = GridBagConstraints.HORIZONTAL;
+			gbc_NameLabel.insets = new Insets(0, 0, 5, 5);
+			gbc_NameLabel.anchor = GridBagConstraints.SOUTH;
 			gbc_NameLabel.gridwidth = 2;
 			gbc_NameLabel.gridx = 0;
 			gbc_NameLabel.gridy = 0;
@@ -74,6 +77,7 @@ public class ChattingCellS extends JPanel {
 			
 			TimeLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			GridBagConstraints gbc_TimeLabel = new GridBagConstraints();
+			gbc_TimeLabel.insets = new Insets(0, 0, 5, 5);
 			//gbc_TimeLabel.ipady = 15;
 			gbc_TimeLabel.anchor = GridBagConstraints.SOUTHWEST;
 			gbc_TimeLabel.gridx = 2;
@@ -84,7 +88,9 @@ public class ChattingCellS extends JPanel {
 			UserIcon = new JLabel(ClientFunction.resizeIcon(User,40,40));
 			UserIcon.setVerticalAlignment(SwingConstants.TOP);
 			GridBagConstraints gbc_UserIcon = new GridBagConstraints();
-			gbc_UserIcon.anchor = GridBagConstraints.NORTHWEST;
+			gbc_UserIcon.fill = GridBagConstraints.HORIZONTAL;
+			gbc_UserIcon.insets = new Insets(0, 0, 0, 5);
+			gbc_UserIcon.anchor = GridBagConstraints.NORTH;
 			gbc_UserIcon.gridy = 1;
 			gbc_UserIcon.gridx = 0;
 			add(UserIcon, gbc_UserIcon);

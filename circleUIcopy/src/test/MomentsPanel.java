@@ -70,6 +70,7 @@ public class MomentsPanel extends JPanel {
 		refresh.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+            	LoginPanel.operation="moments-record-request?";
             	LoginFunction.GetMoments(LoginPanel.operation, LoginFunction.AccessToken);
 				MainLayout.MomPanel.down.removeAll();
 				MainLayout.MomPanel.down.revalidate();

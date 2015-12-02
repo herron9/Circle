@@ -34,7 +34,13 @@ public class ClientFunction {
 	public static void setFriendInfo(String friendname) {
 		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
 			if (friendname.equals(LoginFunction.userfriend.get(i).username)) {
-				friendNickname = LoginFunction.userfriend.get(i).nickname;
+//				System.out.println("ClientFunction/nickname:   "+LoginFunction.userfriend.get(i).username);
+//				System.out.println("ClientFunction/nickname:   "+LoginFunction.userfriend.get(i).nickname);
+				if (LoginFunction.userfriend.get(i).nickname.equals("Unknown")) {
+					friendNickname = LoginFunction.userfriend.get(i).username;
+				}else{
+					friendNickname = LoginFunction.userfriend.get(i).nickname;
+				}	
 				usericon= LoginFunction.userfriend.get(i).image;
 			}
 		}
@@ -113,10 +119,18 @@ public class ClientFunction {
 	public static ImageIcon ID2icon(String ID) {
 		ImageIcon icon = null;
 		for (int i = 0; i < LoginFunction.userfriend.size(); i++) {
-			if (ID.equals(LoginFunction.userfriend.get(i).nickname)) {
-				icon = LoginFunction.userfriend.get(i).image;
+
+			if (ID.equals(LoginFunction.userfriend.get(i).username)) {
+				
+				if (LoginFunction.userfriend.get(i).image!=null) {
+					icon = LoginFunction.userfriend.get(i).image;
+				}
+				else{
+					icon = new ImageIcon("src/avatar.png");
+				}
 			}
 		}
+//		System.out.println(icon);
 		return icon;
 	}
 }
@@ -151,13 +165,13 @@ class MsgReceiver implements ReceiverHandler {
 			cell.TimeLabel.setText(message.getMessageTimeStamp());
 			cell.UserIcon.setIcon(ClientFunction.usericon);
 			if (message.getMessageType() == Message.TEXT) {
-				cell.setPreferredSize(new Dimension(570,55));
+//				cell.setPreferredSize(new Dimension(570,55));
 				cell.msg.setText(message.getMessageContent());
-				if (cell.msg.getText().length()>50) {		
-					cell.msg.setPreferredSize(new Dimension(400,100));
-			        cell.msg.setLineWrap(true);
-			        cell.msg.setWrapStyleWord(true);
-				}
+//				if (cell.msg.getText().length()>50) {		
+//					cell.msg.setPreferredSize(new Dimension(400,100));
+//			        cell.msg.setLineWrap(true);
+//			        cell.msg.setWrapStyleWord(true);
+//				}
 			}
 			else if(message.getMessageType() == Message.LINK){
 				BufferedImage bufferedImage = null;

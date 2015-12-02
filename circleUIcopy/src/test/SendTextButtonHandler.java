@@ -111,21 +111,21 @@ public class SendTextButtonHandler implements ActionListener{
 				cell.NameLabel.setText(ClientFunction.ID2Nick(message.getMessageSrcID()));
 				cell.TimeLabel.setText(message.getMessageTimeStamp());
 //				cell.UserIcon.setIcon(LoginFunction.userIcon);
-				cell.UserIcon.setIcon(ClientFunction.resizeIcon(ProfilePanel.User, 40,40));
+				cell.UserIcon.setIcon(ClientFunction.resizeIcon(ClientFunction.ID2icon(message.getMessageSrcID()), 40,40));
 
 				if(type==Message.TEXT){
 					if (message.getMessageContent()=="") {
 						
 					}
 					else{
-					cell.setPreferredSize(new Dimension(520,55));
+//					cell.setPreferredSize(new Dimension(520,55));
 					cell.msg.setText(message.getMessageContent());
-					if (cell.msg.getText().length()>30) {
-						
-						cell.msg.setPreferredSize(new Dimension(400,50));
-				        cell.msg.setLineWrap(true);
-				        cell.msg.setWrapStyleWord(true);
-					}
+//					if (cell.msg.getText().length()>50) {
+//						
+//						cell.msg.setPreferredSize(new Dimension(400,100));
+//				        cell.msg.setLineWrap(true);
+//				        cell.msg.setWrapStyleWord(true);
+//					}
 					}
 				}
 				else if(type==Message.LINK){
